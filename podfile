@@ -1,0 +1,4 @@
+target 'SocialTwist' do
+   pod 'AKASegmentedControl'
+   pod 'LGSideMenuController'
+end

@@ -1,0 +1,15 @@
+PODS:
+  - AKASegmentedControl (1.0.5)
+  - LGSideMenuController (2.0.5)
+
+DEPENDENCIES:
+  - AKASegmentedControl
+  - LGSideMenuController
+
+SPEC CHECKSUMS:
+  AKASegmentedControl: b98249ce1d319cc1971f9f78172173fd90c5f4d5
+  LGSideMenuController: 3cc82025a53b672926d3ffb3f428f4f3e15e3349
+
+PODFILE CHECKSUM: b8edbcfcdfb5394c1b4b8a877cf58976832f8430
+
+COCOAPODS: 1.2.0
