@@ -1,19 +1,15 @@
 //
-//  TableViewCell.m
-//  MapModule
+//  MenuCell.m
+//  SocialTwist
 //
 
-#import "TableViewCell.h"
+#import "MenuCell.h"
 
-
-
-@implementation TableViewCell
-
-//@synthesize imageView = _imageView;
+@implementation MenuCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
+    // Initialization code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -21,6 +17,5 @@
 
     // Configure the view for the selected state
 }
-
 
 @end

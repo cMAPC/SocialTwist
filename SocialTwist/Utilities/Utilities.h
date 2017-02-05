@@ -12,6 +12,7 @@
 @interface Utilities : NSObject
 
 + (void)setGradientForImage:(UIImageView *)imageView;
++ (UIView *)setGradientForView:(UIView *)view;
 + (UIView *)getMainUserPin;
 
 @end

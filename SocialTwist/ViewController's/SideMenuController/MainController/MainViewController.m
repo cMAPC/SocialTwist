@@ -22,7 +22,7 @@
 
     self.rootViewController = navigationController;
     
-    self.leftViewWidth = 315.f;
+    self.leftViewWidth = [UIScreen mainScreen].bounds.size.width - 60;
     self.leftViewPresentationStyle = LGSideMenuPresentationStyleSlideBelow;
     self.leftViewBackgroundImage = [UIImage imageNamed:@"name"];
     
