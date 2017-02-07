@@ -10,5 +10,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UILabel *itemTextLabel;
 
+@property (weak, nonatomic) IBOutlet UIView *countView;
 
 @end

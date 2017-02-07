@@ -47,11 +47,11 @@
     cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
     cell.label.text = @"Sunset in Rome is Wonderful";
     
-    cell.profileName.text = @"Radu Spataru";
-    [cell.eventPlace setFont:[UIFont systemFontOfSize:6]];
-    cell.eventPlace.text = @"Piazza del Popolo";
-   
     [self adjustImageHeightForCell:cell];
+    
+    [self adjustStringFormat:cell];
+    
+//    cell.userNameAndPlaceTextView.attributedText = mutableAttributedString;
     
     return cell;
 }
@@ -60,7 +60,7 @@
 
 
 
-#pragma mark - ImageConstrains
+#pragma mark - Adjustments
 
 -(void)adjustImageHeightForCell:(TimelineCellController *) cell {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -70,6 +70,45 @@
 //        [cell.cellImage removeConstraint: cell.cellImage.constraints.lastObject];
         [cell.cellImage addConstraint:[NSLayoutConstraint constraintWithItem:cell.cellImage attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant: correctedHeight]];
     }
+}
+
+-(void)adjustStringFormat:(TimelineCellController *) cell {
+    NSString* name = @"Spinu Marcel";
+    NSString* at = @"at";
+    NSString* place = @"Chisinau, str.Alba-Iulia";
+    
+    //    [cell.userNameAndPlaceTextView setContentInset:UIEdgeInsetsMake(8, -4, -8, 0)];
+    
+    
+    
+    NSMutableAttributedString* mutableAttributedString = [[NSMutableAttributedString alloc] initWithString:
+                                                          [NSString stringWithFormat:@"%@ %@    %@", name, at, place]];
+    [mutableAttributedString beginEditing];
+    
+    [mutableAttributedString addAttribute:NSFontAttributeName
+                                    value:[UIFont boldSystemFontOfSize:13]
+                                    range:NSMakeRange(0, name.length)];
+    
+    [mutableAttributedString addAttribute:NSFontAttributeName
+                                    value:[UIFont systemFontOfSize:13]
+                                    range:NSMakeRange(name.length + 1, 2)];
+    
+    [mutableAttributedString addAttribute:NSFontAttributeName
+                                    value:[UIFont boldSystemFontOfSize:13]
+                                    range:NSMakeRange(name.length + 7, place.length)];
+    
+    [mutableAttributedString endEditing];
+    
+    NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
+    [attachment setImage:[UIImage imageNamed:@"pin"]];
+    
+    CGFloat scaleFactor = attachment.image.size.height / 9;
+    attachment.image = [UIImage imageWithCGImage:attachment.image.CGImage scale:scaleFactor orientation:UIImageOrientationUp];
+    
+    NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:attachment];
+    [mutableAttributedString replaceCharactersInRange:NSMakeRange(name.length + 5, 1) withAttributedString:attributedString];
+    
+    cell.userNameAndPlaceTextView.attributedText = mutableAttributedString;
 }
 
 

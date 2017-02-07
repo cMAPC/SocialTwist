@@ -59,6 +59,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0 || indexPath.row == 2) {
         UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        [cell setBackgroundColor:[UIColor clearColor]];
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Menu";
             if ([UIScreen mainScreen].bounds.size.width > 370) {
@@ -121,8 +122,12 @@
      */
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    [cell setBackgroundColor:[UIColor clearColor]];
+
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0 || indexPath.row == 2) {
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
 }
 
 @end

@@ -57,6 +57,7 @@
 		1F2C548D1E477813006B7F82 /* social-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C54701E477813006B7F82 /* social-icon@2x.png */; };
 		1F2C548E1E477813006B7F82 /* star-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C54711E477813006B7F82 /* star-icon.png */; };
 		1F2C548F1E477813006B7F82 /* star-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C54721E477813006B7F82 /* star-icon@2x.png */; };
+		1F2C54911E47F36C006B7F82 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C54901E47F36C006B7F82 /* menu.png */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +127,7 @@
 		1F2C54701E477813006B7F82 /* social-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "social-icon@2x.png"; sourceTree = "<group>"; };
 		1F2C54711E477813006B7F82 /* star-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-icon.png"; sourceTree = "<group>"; };
 		1F2C54721E477813006B7F82 /* star-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-icon@2x.png"; sourceTree = "<group>"; };
+		1F2C54901E47F36C006B7F82 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 		1F2C54551E477813006B7F82 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1F2C54901E47F36C006B7F82 /* menu.png */,
 				1F2C54561E477813006B7F82 /* 50x50.gif */,
 				1F2C54571E477813006B7F82 /* back_to_login_arrow.png */,
 				1F2C54581E477813006B7F82 /* friends.png */,
@@ -442,6 +445,7 @@
 				1F2054E11E465541005AAEA9 /* LaunchScreen.storyboard in Resources */,
 				1F2055541E4662CD005AAEA9 /* TimelineViewCell.xib in Resources */,
 				1F2C54871E477813006B7F82 /* settings-icon.png in Resources */,
+				1F2C54911E47F36C006B7F82 /* menu.png in Resources */,
 				1F2C54851E477813006B7F82 /* placeholder.png in Resources */,
 				1F2C54741E477813006B7F82 /* back_to_login_arrow.png in Resources */,
 				1F2C54891E477813006B7F82 /* settings.png in Resources */,

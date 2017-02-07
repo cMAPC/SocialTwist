@@ -34,13 +34,13 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JUi-no-GMe">
                                 <rect key="frame" x="2" y="2" width="19" height="19"/>
-                                <color key="backgroundColor" red="0.47207016121064593" green="1" blue="0.37425617266944378" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.66927085659999996" green="1" blue="0.31001904470000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.67843137254901964" green="0.72156862745098038" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="23" id="AQg-sw-8mH"/>
                             <constraint firstItem="JUi-no-GMe" firstAttribute="leading" secondItem="V0T-MU-Xzj" secondAttribute="leading" constant="2" id="EjR-kl-MfK"/>
@@ -63,7 +63,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.79797314565122079" blue="0.012135002368413139" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="V0x-IJ-gUE" secondAttribute="bottom" constant="12" id="3Q9-la-aRz"/>
                     <constraint firstAttribute="trailingMargin" secondItem="V0T-MU-Xzj" secondAttribute="trailing" constant="27" id="DEd-Yd-8Kj"/>
@@ -75,7 +75,9 @@
                     <constraint firstItem="0oE-Ur-Wdo" firstAttribute="leading" secondItem="V0x-IJ-gUE" secondAttribute="trailing" constant="10" id="qLT-54-Jpp"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="countView" destination="V0T-MU-Xzj" id="cyf-oL-lig"/>
                 <outlet property="itemImageView" destination="V0x-IJ-gUE" id="ru2-cS-OfU"/>
                 <outlet property="itemTextLabel" destination="0oE-Ur-Wdo" id="nui-QV-Xoy"/>
             </connections>

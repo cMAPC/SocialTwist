@@ -57,62 +57,18 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radu Spataru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4I-Wj-9hf" userLabel="Name">
-                                        <rect key="frame" x="60" y="18" width="85" height="15"/>
-                                        <color key="backgroundColor" red="0.31236045861553929" green="1" blue="0.7571694259312699" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="85" id="98G-Pg-e5y"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="237" placeholderIntrinsicHeight="20" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbf-Qn-GDT">
+                                        <rect key="frame" x="58" y="15" width="237" height="20"/>
+                                        <color key="backgroundColor" red="0.28201411847322433" green="0.49463141477075778" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 hours ago  |  Rome Italy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l70-9V-dpB">
-                                        <rect key="frame" x="60" y="35" width="135" height="12"/>
-                                        <color key="backgroundColor" red="0.9914410601048993" green="0.73514092613798787" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="135" id="asb-OC-XFt"/>
-                                        </constraints>
+                                        <rect key="frame" x="64" y="41" width="123" height="12"/>
+                                        <color key="backgroundColor" red="1" green="0.3814565773065568" blue="0.20175768883839906" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Piazza del Popolo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksw-5a-pEh">
-                                        <rect key="frame" x="175" y="18" width="127" height="15"/>
-                                        <color key="backgroundColor" red="0.25273963614121975" green="0.945431600215621" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="127" id="gM8-HD-fDA"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin.png" translatesAutoresizingMaskIntoConstraints="NO" id="jaV-cw-fD1">
-                                        <rect key="frame" x="164" y="21" width="9" height="10"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="8P8-ZD-MQW"/>
-                                            <constraint firstAttribute="width" constant="9" id="XEZ-Ur-1IU"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="11" placeholderIntrinsicHeight="15" text="at" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mm1-dK-ADh">
-                                        <rect key="frame" x="149" y="18" width="11" height="15"/>
-                                        <color key="backgroundColor" red="1" green="0.99511811462587108" blue="0.1339210009597549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="11" id="nnJ-4T-AMH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                        <size key="shadowOffset" width="0.0" height="0.0"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
                                         </userDefinedRuntimeAttributes>
@@ -121,28 +77,18 @@
                                 <color key="backgroundColor" red="0.99216284274836397" green="0.56464725785671677" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="set-Sj-OLm" firstAttribute="leading" secondItem="zO1-zW-dvo" secondAttribute="leading" constant="15" id="0Lz-kN-J5l"/>
-                                    <constraint firstItem="e4I-Wj-9hf" firstAttribute="baseline" secondItem="mm1-dK-ADh" secondAttribute="baseline" id="1Ig-YW-yFt"/>
-                                    <constraint firstItem="e4I-Wj-9hf" firstAttribute="leading" secondItem="l70-9V-dpB" secondAttribute="leading" id="3m7-w7-DRc"/>
-                                    <constraint firstItem="jaV-cw-fD1" firstAttribute="leading" secondItem="mm1-dK-ADh" secondAttribute="trailing" constant="4" id="8zf-qX-xW0"/>
-                                    <constraint firstItem="Ksw-5a-pEh" firstAttribute="leading" secondItem="jaV-cw-fD1" secondAttribute="trailing" constant="2" id="9YF-vu-vAA"/>
-                                    <constraint firstItem="e4I-Wj-9hf" firstAttribute="top" secondItem="zO1-zW-dvo" secondAttribute="top" constant="18" id="Ad0-TD-xRW"/>
-                                    <constraint firstItem="Ksw-5a-pEh" firstAttribute="top" secondItem="e4I-Wj-9hf" secondAttribute="top" id="LaR-6p-sw5"/>
-                                    <constraint firstItem="jaV-cw-fD1" firstAttribute="top" secondItem="zO1-zW-dvo" secondAttribute="top" constant="21" id="MHY-TI-qq9"/>
-                                    <constraint firstItem="e4I-Wj-9hf" firstAttribute="leading" secondItem="set-Sj-OLm" secondAttribute="trailing" constant="10" id="PpA-2Q-887"/>
+                                    <constraint firstItem="l70-9V-dpB" firstAttribute="leading" secondItem="set-Sj-OLm" secondAttribute="trailing" constant="14" id="IaA-dV-ri7"/>
+                                    <constraint firstItem="bbf-Qn-GDT" firstAttribute="top" secondItem="zO1-zW-dvo" secondAttribute="top" constant="7" id="QtS-RA-TAi"/>
+                                    <constraint firstItem="l70-9V-dpB" firstAttribute="top" secondItem="bbf-Qn-GDT" secondAttribute="bottom" constant="-6" id="T7a-uS-TL4"/>
+                                    <constraint firstItem="bbf-Qn-GDT" firstAttribute="leading" secondItem="set-Sj-OLm" secondAttribute="trailing" constant="8" id="UO9-zr-VKR"/>
                                     <constraint firstItem="set-Sj-OLm" firstAttribute="centerY" secondItem="zO1-zW-dvo" secondAttribute="centerY" id="UWc-9o-f6y"/>
-                                    <constraint firstItem="l70-9V-dpB" firstAttribute="leading" secondItem="set-Sj-OLm" secondAttribute="trailing" constant="10" id="Yiz-9y-WnZ"/>
-                                    <constraint firstItem="mm1-dK-ADh" firstAttribute="leading" secondItem="e4I-Wj-9hf" secondAttribute="trailing" constant="4" id="iBe-QS-S19"/>
-                                    <constraint firstItem="l70-9V-dpB" firstAttribute="top" secondItem="jaV-cw-fD1" secondAttribute="bottom" constant="4" id="j0M-M9-Ygn"/>
-                                    <constraint firstItem="Ksw-5a-pEh" firstAttribute="leading" secondItem="jaV-cw-fD1" secondAttribute="trailing" constant="2" id="kDy-od-vBa"/>
-                                    <constraint firstAttribute="bottom" secondItem="l70-9V-dpB" secondAttribute="bottom" constant="18" id="rHr-3Q-caa"/>
-                                    <constraint firstItem="e4I-Wj-9hf" firstAttribute="trailing" secondItem="l70-9V-dpB" secondAttribute="trailing" constant="-50" id="rkK-db-YnT"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ksw-5a-pEh" secondAttribute="trailing" constant="33" id="vO5-S3-3R0"/>
-                                    <constraint firstItem="l70-9V-dpB" firstAttribute="top" secondItem="e4I-Wj-9hf" secondAttribute="bottom" constant="2" id="vcZ-00-iZf"/>
+                                    <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="l70-9V-dpB" secondAttribute="bottom" constant="12" id="dek-JS-WSW"/>
+                                    <constraint firstAttribute="trailing" secondItem="bbf-Qn-GDT" secondAttribute="trailing" constant="40" id="qdN-9g-hnr"/>
                                     <constraint firstItem="set-Sj-OLm" firstAttribute="top" secondItem="zO1-zW-dvo" secondAttribute="top" constant="15" id="znZ-7t-P9Z"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="124" translatesAutoresizingMaskIntoConstraints="NO" id="Jmq-Cu-INe">
-                                <rect key="frame" x="0.0" y="105" width="335" height="108.5"/>
+                                <rect key="frame" x="0.0" y="105" width="335" height="108"/>
                                 <color key="backgroundColor" red="1" green="0.43821865351098821" blue="0.32424464609202897" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="335" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-kJ-8Is">
@@ -190,12 +136,9 @@
                 <outlet property="containerView" destination="gSz-at-5JG" id="Nse-Ru-eEG"/>
                 <outlet property="label" destination="3zf-UD-33J" id="9XA-97-ZqI"/>
                 <outlet property="profileImageView" destination="set-Sj-OLm" id="u0s-1A-iYe"/>
-                <outlet property="profileName" destination="e4I-Wj-9hf" id="C5e-Ob-dix"/>
+                <outlet property="userNameAndPlaceTextView" destination="bbf-Qn-GDT" id="Eeo-Nz-SXy"/>
             </connections>
             <point key="canvasLocation" x="56.5" y="90"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="pin.png" width="13" height="18"/>
-    </resources>
 </document>

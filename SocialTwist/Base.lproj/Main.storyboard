@@ -601,7 +601,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="News" id="6KR-Ob-MR1">
-                        <barButtonItem key="leftBarButtonItem" title="Item" id="hhG-eX-fKU">
+                        <barButtonItem key="leftBarButtonItem" image="menu.png" id="hhG-eX-fKU">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="showLeftViewAnimated:" destination="1Fy-aK-cpG" id="Mf9-kY-UPH"/>
                             </connections>
@@ -625,16 +626,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="507"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="250" id="AIW-Kk-fry">
-                                <rect key="frame" x="0.0" y="28" width="375" height="250"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AIW-Kk-fry" id="h1Y-AO-5PP">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="249"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="BcN-hl-iKj" id="IuA-Af-9YX"/>
                             <outlet property="delegate" destination="BcN-hl-iKj" id="vIu-b7-GR2"/>
@@ -718,9 +709,10 @@
             <objects>
                 <navigationController storyboardIdentifier="ContainerNavigationControllerID" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pFD-y6-hdn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hah-kY-MWm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hah-kY-MWm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.60784313725490191" green="0.72941176470588232" blue="0.80392156862745101" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -736,6 +728,7 @@
         <image name="back_to_login_arrow.png" width="12" height="19"/>
         <image name="logo.png" width="105" height="111"/>
         <image name="logo_text.png" width="223" height="158"/>
+        <image name="menu.png" width="20" height="14"/>
         <image name="singIn_image.png" width="750" height="597"/>
         <image name="singUp_image.png" width="750" height="401"/>
     </resources>
