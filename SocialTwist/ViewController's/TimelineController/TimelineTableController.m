@@ -48,10 +48,7 @@
     cell.label.text = @"Sunset in Rome is Wonderful";
     
     [self adjustImageHeightForCell:cell];
-    
     [self adjustStringFormat:cell];
-    
-//    cell.userNameAndPlaceTextView.attributedText = mutableAttributedString;
     
     return cell;
 }
@@ -73,42 +70,57 @@
 }
 
 -(void)adjustStringFormat:(TimelineCellController *) cell {
-    NSString* name = @"Spinu Marcel";
-    NSString* at = @"at";
-    NSString* place = @"Chisinau, str.Alba-Iulia";
+        
+        NSString* name = @"Spinu Marcel";
+        NSString* at = @"at";
+        NSString* place = @"Chisinau";
     
-    //    [cell.userNameAndPlaceTextView setContentInset:UIEdgeInsetsMake(8, -4, -8, 0)];
+        NSMutableAttributedString *mutableAttributedString = [[NSMutableAttributedString alloc]
+                                                       initWithString:[NSString stringWithFormat:@"%@ %@    %@",name,at,place]];
+        
+        NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
+        [textAttachment setImage:[UIImage imageNamed:@"pin"]];
+        
+        CGFloat scaleFactor = textAttachment.image.size.height / 9;
+        textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage
+                                                   scale:scaleFactor orientation:UIImageOrientationUp];
+
+        
+        [mutableAttributedString beginEditing];
+        
+        [mutableAttributedString addAttribute:NSFontAttributeName
+                                        value:[UIFont boldSystemFontOfSize:13]
+                                        range:NSMakeRange(0,name.length)];
+        
+        
+        NSDictionary *atAtributeDictionary = @{ NSFontAttributeName:[UIFont systemFontOfSize:13],
+                                                NSForegroundColorAttributeName:[UIColor colorWithRed:(169/255.0)
+                                                                                               green:(169/255.0)
+                                                                                                blue:(169/255.0)
+                                                                                               alpha:1]
+                                               };
+        [mutableAttributedString addAttributes:atAtributeDictionary
+                                  range:NSMakeRange(name.length+1,at.length)];
+        
+        
+        NSDictionary *placeAtributeDictionary = @{ NSFontAttributeName:[UIFont boldSystemFontOfSize:13],
+                                                   NSForegroundColorAttributeName:[UIColor colorWithRed:(155/255.0)
+                                                                                                  green:(186/255.0)
+                                                                                                   blue:(205/255.0)
+                                                                                                  alpha:1]
+                                                  };
+        
+        [mutableAttributedString addAttributes:placeAtributeDictionary
+                                         range:NSMakeRange(name.length + 7, place.length)];
+        
+        [mutableAttributedString endEditing];
+        
+        
+        NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+        [mutableAttributedString replaceCharactersInRange:NSMakeRange(name.length + 5, 1)
+                                     withAttributedString:attributedString];
     
-    
-    
-    NSMutableAttributedString* mutableAttributedString = [[NSMutableAttributedString alloc] initWithString:
-                                                          [NSString stringWithFormat:@"%@ %@    %@", name, at, place]];
-    [mutableAttributedString beginEditing];
-    
-    [mutableAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont boldSystemFontOfSize:13]
-                                    range:NSMakeRange(0, name.length)];
-    
-    [mutableAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont systemFontOfSize:13]
-                                    range:NSMakeRange(name.length + 1, 2)];
-    
-    [mutableAttributedString addAttribute:NSFontAttributeName
-                                    value:[UIFont boldSystemFontOfSize:13]
-                                    range:NSMakeRange(name.length + 7, place.length)];
-    
-    [mutableAttributedString endEditing];
-    
-    NSTextAttachment* attachment = [[NSTextAttachment alloc] init];
-    [attachment setImage:[UIImage imageNamed:@"pin"]];
-    
-    CGFloat scaleFactor = attachment.image.size.height / 9;
-    attachment.image = [UIImage imageWithCGImage:attachment.image.CGImage scale:scaleFactor orientation:UIImageOrientationUp];
-    
-    NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:attachment];
-    [mutableAttributedString replaceCharactersInRange:NSMakeRange(name.length + 5, 1) withAttributedString:attributedString];
-    
-    cell.userNameAndPlaceTextView.attributedText = mutableAttributedString;
+        cell.statusLabel.attributedText = mutableAttributedString;
 }
 
 

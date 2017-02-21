@@ -55,4 +55,16 @@
     [annotationDescriptionView removeFromSuperview];
 }
 
+#pragma mark - BottomBarButton's Action
+- (IBAction)cameraButtonAction:(UIButton *)sender {
+    NSLog(@"Camera button pressed");
+}
+
+- (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender {
+    [self mapView:self.mapView didUpdateUserLocation:(MKUserLocation *)locationManager.location];
+}
+
+- (IBAction)editButtonAction:(UIButton *)sender {
+    NSLog(@"Edit button pressed");
+}
 @end

@@ -36,8 +36,8 @@
 //    self.tableView.contentInset = UIEdgeInsetsMake(20.f, 0.f, 0.f, 0.f);
 
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:nil] forCellReuseIdentifier:@"ProfileCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"MenuCell" bundle:nil] forCellReuseIdentifier:@"MenuCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:nil] forCellReuseIdentifier:@"profileCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"MenuCell" bundle:nil] forCellReuseIdentifier:@"menuCell"];
     
     
     [self.tableView setBackgroundView:[Utilities setGradientForView:self.tableView]];
@@ -58,7 +58,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0 || indexPath.row == 2) {
-        UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+        UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
         [cell setBackgroundColor:[UIColor clearColor]];
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Menu";
@@ -71,14 +71,14 @@
     }
     
     if(indexPath.row == 1) {
-        TableViewCell* profileCustomCell = [tableView dequeueReusableCellWithIdentifier:@"ProfileCell"];
+        TableViewCell* profileCustomCell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
         profileCustomCell.imageView.translatesAutoresizingMaskIntoConstraints = YES;
         profileCustomCell.cellImage.image = [UIImage imageNamed:@"imageRoot"];
         return profileCustomCell;
     }
     
     else {
-        MenuCell* menuCell = [tableView dequeueReusableCellWithIdentifier:@"MenuCell"];
+        MenuCell* menuCell = [tableView dequeueReusableCellWithIdentifier:@"menuCell"];
         menuCell.itemImageView.image = [UIImage imageNamed:self.itemsImageArray[indexPath.row - 3]];
         menuCell.itemTextLabel.text = self.itemsTextArray[indexPath.row - 3];
         return menuCell;
@@ -89,37 +89,30 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%ld", (long)indexPath.row);
     
-    /*
-    if(indexPath.row == 1) {
+    TableViewController* leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftViewControllerID"];
+    MainViewController* mainViewController = [[MainViewController alloc] init];
     
-    TableViewController* leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftViewController"];
-    MainViewController *mainViewController = [[MainViewController alloc] init];
-
-    UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController1"];
+    UINavigationController* containerNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"ContainerNavigationControllerID"];
     
-    mainViewController.rootViewController = navigationController;
-    mainViewController.leftViewController = leftViewController;
-    
-    [self presentViewController:mainViewController animated:YES completion:nil];
-    
-    [mainViewController hideLeftViewAnimated:YES completionHandler:nil];
-    
-    } else {
-    
-        TableViewController* leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftViewController"];
-        MainViewController *mainViewController = [[MainViewController alloc] init];
-        
-        UINavigationController *navigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationController2"];
-        
-        mainViewController.rootViewController = navigationController;
-        mainViewController.leftViewController = leftViewController;
-        
-        [self presentViewController:mainViewController animated:YES completion:nil];
-        
-        [mainViewController hideLeftViewAnimated:YES completionHandler:nil];
-    
+    switch (indexPath.row) {
+        case 1:
+            break;
+        case 3:
+            break;
+        case 4:
+            [mainViewController setRootViewController:containerNavigationController];
+            [mainViewController setLeftViewController:leftViewController];
+            [self presentViewController:mainViewController animated:YES completion:nil];
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        case 7:
+            break;
+        default:
+            break;
     }
-     */
 }
 
 

@@ -17,7 +17,7 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    TableViewController* leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftViewController"];
+    TableViewController* leftViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LeftViewControllerID"];
     UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"ContainerNavigationControllerID"];
 
     self.rootViewController = navigationController;
