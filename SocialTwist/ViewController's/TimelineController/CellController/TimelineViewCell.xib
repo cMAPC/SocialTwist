@@ -15,11 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="280"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="279.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="279"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSz-at-5JG" userLabel="Container">
-                        <rect key="frame" x="20" y="0.0" width="335" height="264"/>
+                        <rect key="frame" x="20" y="0.0" width="335" height="259"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5lD-f2-k1y" userLabel="Delimiter">
                                 <rect key="frame" x="15" y="66" width="305" height="1"/>
@@ -89,17 +89,60 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="124" translatesAutoresizingMaskIntoConstraints="NO" id="Jmq-Cu-INe">
-                                <rect key="frame" x="0.0" y="105" width="335" height="108"/>
+                                <rect key="frame" x="0.0" y="105" width="335" height="109.5"/>
                                 <color key="backgroundColor" red="1" green="0.43821865351098821" blue="0.32424464609202897" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </imageView>
                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="335" placeholderIntrinsicHeight="50" translatesAutoresizingMaskIntoConstraints="NO" id="1rU-kJ-8Is">
-                                <rect key="frame" x="0.0" y="214" width="335" height="50"/>
+                                <rect key="frame" x="0.0" y="214" width="335" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sc-uU-KEo">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <inset key="titleEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="10 Likes" image="like-icon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="135" placeholderIntrinsicHeight="45" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vdm-PG-HNG">
+                                        <rect key="frame" x="100" y="0.0" width="135" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="12 Comments" image="comment-icon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bd0-3O-KZN">
+                                        <rect key="frame" x="235" y="0.0" width="100" height="45"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="-10" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="12 Dislikes" image="dislike-icon"/>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.41504715755447597" green="1" blue="0.49895160644277659" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="vdm-PG-HNG" firstAttribute="height" secondItem="bd0-3O-KZN" secondAttribute="height" id="0hu-Hp-83n"/>
+                                    <constraint firstAttribute="bottom" secondItem="bd0-3O-KZN" secondAttribute="bottom" id="2fQ-5j-vX4"/>
+                                    <constraint firstAttribute="bottom" secondItem="vdm-PG-HNG" secondAttribute="bottom" id="4jL-pq-PMi"/>
+                                    <constraint firstItem="vdm-PG-HNG" firstAttribute="top" secondItem="1rU-kJ-8Is" secondAttribute="top" id="Bje-o4-fNH"/>
+                                    <constraint firstItem="2sc-uU-KEo" firstAttribute="leading" secondItem="1rU-kJ-8Is" secondAttribute="leading" id="EnP-xV-kI9"/>
+                                    <constraint firstAttribute="trailing" secondItem="bd0-3O-KZN" secondAttribute="trailing" id="JEM-l1-8Lm"/>
+                                    <constraint firstItem="2sc-uU-KEo" firstAttribute="height" secondItem="bd0-3O-KZN" secondAttribute="height" id="Oin-05-kL6"/>
+                                    <constraint firstAttribute="bottom" secondItem="2sc-uU-KEo" secondAttribute="bottom" id="QDW-CO-ArE"/>
+                                    <constraint firstItem="vdm-PG-HNG" firstAttribute="leading" secondItem="2sc-uU-KEo" secondAttribute="trailing" id="TRG-OS-xsD"/>
+                                    <constraint firstItem="2sc-uU-KEo" firstAttribute="top" secondItem="1rU-kJ-8Is" secondAttribute="top" id="Vh5-fS-ssF"/>
+                                    <constraint firstItem="bd0-3O-KZN" firstAttribute="leading" secondItem="vdm-PG-HNG" secondAttribute="trailing" id="YFI-cr-H7M"/>
+                                    <constraint firstItem="bd0-3O-KZN" firstAttribute="top" secondItem="1rU-kJ-8Is" secondAttribute="top" id="c5f-NO-EkG"/>
+                                    <constraint firstItem="2sc-uU-KEo" firstAttribute="width" secondItem="bd0-3O-KZN" secondAttribute="width" id="eDR-9r-XJL"/>
+                                    <constraint firstItem="vdm-PG-HNG" firstAttribute="leading" secondItem="2sc-uU-KEo" secondAttribute="trailing" id="icZ-ab-UqC"/>
+                                    <constraint firstItem="bd0-3O-KZN" firstAttribute="leading" secondItem="vdm-PG-HNG" secondAttribute="trailing" id="kPQ-0v-zrs"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.61994513608072577" blue="0.13807443092001737" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="1rU-kJ-8Is" firstAttribute="top" secondItem="Jmq-Cu-INe" secondAttribute="bottom" constant="1" id="9f7-Pt-e7M"/>
+                            <constraint firstItem="1rU-kJ-8Is" firstAttribute="top" secondItem="Jmq-Cu-INe" secondAttribute="bottom" id="9f7-Pt-e7M"/>
                             <constraint firstAttribute="bottom" secondItem="1rU-kJ-8Is" secondAttribute="bottom" id="Bz1-Zt-fhK"/>
                             <constraint firstItem="zO1-zW-dvo" firstAttribute="leading" secondItem="gSz-at-5JG" secondAttribute="leading" id="E0D-UB-3So"/>
                             <constraint firstItem="5lD-f2-k1y" firstAttribute="top" secondItem="zO1-zW-dvo" secondAttribute="bottom" constant="1" id="H6t-fG-ySd"/>
@@ -114,7 +157,7 @@
                             <constraint firstItem="1rU-kJ-8Is" firstAttribute="leading" secondItem="gSz-at-5JG" secondAttribute="leading" id="mxc-eG-t3c"/>
                             <constraint firstItem="3zf-UD-33J" firstAttribute="top" secondItem="5lD-f2-k1y" secondAttribute="bottom" constant="11" id="nHk-W4-gQN"/>
                             <constraint firstAttribute="trailing" secondItem="5lD-f2-k1y" secondAttribute="trailing" constant="15" id="sSA-dj-h6A"/>
-                            <constraint firstAttribute="bottom" secondItem="Jmq-Cu-INe" secondAttribute="bottom" constant="51" id="tIr-Rn-nxc"/>
+                            <constraint firstAttribute="bottom" secondItem="Jmq-Cu-INe" secondAttribute="bottom" constant="44.5" id="tIr-Rn-nxc"/>
                             <constraint firstAttribute="trailing" secondItem="3zf-UD-33J" secondAttribute="trailing" constant="15" id="xFB-NT-Aih"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -129,17 +172,25 @@
                     <constraint firstItem="gSz-at-5JG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="4s5-DR-NMT"/>
                     <constraint firstItem="gSz-at-5JG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7sO-wJ-YNe"/>
                     <constraint firstAttribute="trailing" secondItem="gSz-at-5JG" secondAttribute="trailing" constant="20" id="GXc-zH-omO"/>
-                    <constraint firstAttribute="bottom" secondItem="gSz-at-5JG" secondAttribute="bottom" constant="15" id="HY6-rX-QQS"/>
+                    <constraint firstAttribute="bottom" secondItem="gSz-at-5JG" secondAttribute="bottom" constant="20" id="HY6-rX-QQS"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="cellImage" destination="Jmq-Cu-INe" id="QPs-Tu-7t2"/>
+                <outlet property="commentButton" destination="vdm-PG-HNG" id="Hfm-JC-4JY"/>
                 <outlet property="containerView" destination="gSz-at-5JG" id="Nse-Ru-eEG"/>
+                <outlet property="dislikeButton" destination="bd0-3O-KZN" id="yvZ-ib-4q6"/>
                 <outlet property="label" destination="3zf-UD-33J" id="9XA-97-ZqI"/>
+                <outlet property="likeButton" destination="2sc-uU-KEo" id="eLe-4I-oFD"/>
                 <outlet property="profileImageView" destination="set-Sj-OLm" id="u0s-1A-iYe"/>
                 <outlet property="statusLabel" destination="bsH-FD-hmV" id="bLT-e3-KxU"/>
             </connections>
             <point key="canvasLocation" x="56.5" y="90"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="comment-icon" width="12" height="12"/>
+        <image name="dislike-icon" width="10" height="12"/>
+        <image name="like-icon" width="10" height="12"/>
+    </resources>
 </document>

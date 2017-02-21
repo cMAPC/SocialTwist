@@ -69,6 +69,11 @@
 		1F2E3CE11E5C31A7007B698A /* timeline-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E3CBA1E5C31A7007B698A /* timeline-icon@2x.png */; };
 		1F7500391E5AEE8B0066E71E /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7500381E5AEE8B0066E71E /* SearchResultController.m */; };
 		1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F75003C1E5B13D80066E71E /* UserProfileViewController.m */; };
+		1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */; };
+		1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */; };
+		1F7B0A261E5C478A004D08C8 /* like-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A231E5C478A004D08C8 /* like-icon@2x.png */; };
+		1F7B0A281E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A271E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png */; };
+		1F7B0A2A1E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A291E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +157,11 @@
 		1F7500381E5AEE8B0066E71E /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1F75003B1E5B13D80066E71E /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
 		1F75003C1E5B13D80066E71E /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
+		1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-icon@2x.png"; sourceTree = "<group>"; };
+		1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike-icon@2x.png"; sourceTree = "<group>"; };
+		1F7B0A231E5C478A004D08C8 /* like-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like-icon@2x.png"; sourceTree = "<group>"; };
+		1F7B0A271E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like-icon-higtlighted@2x.png"; sourceTree = "<group>"; };
+		1F7B0A291E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike-icon-hightlighted@2x.png"; sourceTree = "<group>"; };
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
@@ -355,6 +365,11 @@
 		1F2E3C931E5C31A7007B698A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1F7B0A291E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png */,
+				1F7B0A271E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png */,
+				1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */,
+				1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */,
+				1F7B0A231E5C478A004D08C8 /* like-icon@2x.png */,
 				1F2E3C941E5C31A7007B698A /* 50x50.gif */,
 				1F2E3C951E5C31A7007B698A /* back_to_login_arrow.png */,
 				1F2E3C961E5C31A7007B698A /* camera-icon@2x.png */,
@@ -516,19 +531,24 @@
 				1F2E3CE01E5C31A7007B698A /* timeline-icon-hightlighted@2x.png in Resources */,
 				1F2E3CC81E5C31A7007B698A /* imageRoot.png in Resources */,
 				1F2E3CDE1E5C31A7007B698A /* star-icon.png in Resources */,
+				1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */,
 				1F2E3CE11E5C31A7007B698A /* timeline-icon@2x.png in Resources */,
 				1F2E3CDA1E5C31A7007B698A /* singIn_image.png in Resources */,
 				1F2E3CC71E5C31A7007B698A /* imageRight.png in Resources */,
 				1F2054E11E465541005AAEA9 /* LaunchScreen.storyboard in Resources */,
+				1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */,
 				1F2E3CBD1E5C31A7007B698A /* camera-icon@2x.png in Resources */,
 				1F2E3CD71E5C31A7007B698A /* settings-icon.png in Resources */,
 				1F2E3CD21E5C31A7007B698A /* notifications.png in Resources */,
 				1F2E3CC91E5C31A7007B698A /* localization-icon@2x.png in Resources */,
 				1F2055541E4662CD005AAEA9 /* TimelineViewCell.xib in Resources */,
+				1F7B0A261E5C478A004D08C8 /* like-icon@2x.png in Resources */,
 				1F2E3CBC1E5C31A7007B698A /* back_to_login_arrow.png in Resources */,
 				1F2E3CC61E5C31A7007B698A /* imageLeft.png in Resources */,
+				1F7B0A281E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png in Resources */,
 				1F2E3CDB1E5C31A7007B698A /* singUp_image.png in Resources */,
 				1F2E3CCC1E5C31A7007B698A /* map-icon-hightlighted@2x.png in Resources */,
+				1F7B0A2A1E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png in Resources */,
 				1F2E3CC11E5C31A7007B698A /* image1.jpg in Resources */,
 				1F2E3CBE1E5C31A7007B698A /* edit-icon@2x.png in Resources */,
 				1F2C54541E476941006B7F82 /* MenuCell.xib in Resources */,

@@ -62,10 +62,12 @@
         [cell setBackgroundColor:[UIColor clearColor]];
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Menu";
-            if ([UIScreen mainScreen].bounds.size.width > 370) {
+            if ([UIScreen mainScreen].bounds.size.width < 370) {
+                cell.indentationLevel = 12;
+            }
+            else {
                 cell.indentationLevel = 15;
             }
-            cell.indentationLevel = 12;
         }
         return cell;
     }
@@ -113,6 +115,7 @@
         default:
             break;
     }
+
 }
 
 

@@ -47,6 +47,15 @@
     cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
     cell.label.text = @"Sunset in Rome is Wonderful";
     
+    int likes = 5;
+    int disklikes = 8;
+    
+    
+    [cell.dislikeButton setTitle:[NSString stringWithFormat:@"%d Dislikes", disklikes] forState:UIControlStateNormal];
+    [cell.likeButton setTitle:[NSString stringWithFormat:@"%d Likes", likes] forState:UIControlStateNormal];
+    
+    [self adjustButtonContentFormatForCell:cell];
+    
     [self adjustImageHeightForCell:cell];
     [self adjustStringFormat:cell];
     
@@ -58,6 +67,14 @@
 
 
 #pragma mark - Adjustments
+-(void)adjustButtonContentFormatForCell:(TimelineCellController *) cell {
+    [cell.dislikeButton setImage:[UIImage imageNamed:@"dislike-icon-hightlighted"] forState:UIControlStateNormal];
+    [cell.dislikeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    
+    [cell.likeButton setImage:[UIImage imageNamed:@"like-icon-higtlighted"] forState:UIControlStateNormal];
+    [cell.likeButton setTitleColor:[UIColor colorWithRed:(155/255.0) green:186/255.0 blue:205/255.0 alpha:1.0]
+                          forState:UIControlStateNormal];
+}
 
 -(void)adjustImageHeightForCell:(TimelineCellController *) cell {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
