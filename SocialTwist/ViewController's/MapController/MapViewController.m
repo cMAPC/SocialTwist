@@ -24,6 +24,15 @@
     [locationManager startUpdatingLocation];
 }
 
+-(void)viewDidLayoutSubviews {
+    [KeyboardViewController initOnViewController:self];
+    [[KeyboardViewController getObject] addObserver:self
+                                         forKeyPath:@"selectedIndex"
+                                            options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                            context:nil];
+    [KeyboardViewController enableSwipeGestureRecognizer:YES];
+}
+
 #pragma mark - MKMapViewDelegate
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     MKMapCamera* mapCamera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate fromEyeCoordinate:userLocation.coordinate eyeAltitude:3000];
@@ -37,11 +46,24 @@
     
     if(sender.state == UIGestureRecognizerStateBegan) {
         annotationDescriptionView = [[[NSBundle mainBundle] loadNibNamed:@"AnnotationDescriptionView" owner:self options:nil] firstObject];
-        annotationDescriptionView.center = self.view.center;
+        annotationDescriptionView.center = self.mapView.center;
         [self.view addSubview:annotationDescriptionView];
     }
     
     [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self action:@selector(addAnnotationDescriptionAction) forControlEvents:UIControlEventTouchUpInside];
+    [annotationDescriptionView.selectPinCategoryButton addTarget:self action:@selector(selectPinCategoryAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark - AnnotationDescriptionView Action
+-(void)selectPinCategoryAction
+{
+    if ([KeyboardViewController isHidden]) {
+        [KeyboardViewController showAnimated:YES];
+    }
+    else {
+        [KeyboardViewController hideAnimated:YES];
+    }
+    
 }
 
 -(void)addAnnotationDescriptionAction
@@ -53,6 +75,22 @@
     [self.mapView addAnnotation:pointAnnotation];
     
     [annotationDescriptionView removeFromSuperview];
+    [KeyboardViewController hideAnimated:YES];
+}
+
+#pragma mark - KVO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    NSLog(@"Observer");
+    if ([keyPath isEqualToString:@"selectedIndex"]) {
+        [annotationDescriptionView.selectPinCategoryButton setTitle:nil forState:UIControlStateNormal];
+        [annotationDescriptionView.selectPinCategoryButton setImage:[KeyboardViewController getSelectedIndexImage]
+                                                           forState:UIControlStateNormal];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [KeyboardViewController hideAnimated:YES];
+        });
+        
+    }
 }
 
 #pragma mark - BottomBarButton's Action

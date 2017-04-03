@@ -11,5 +11,6 @@
 @property (weak, nonatomic) IBOutlet UITextView *subtitleTextView;
 
 @property (weak, nonatomic) IBOutlet UIButton *addAnnotationDescriptionButton;
+@property (weak, nonatomic) IBOutlet UIButton *selectPinCategoryButton;
 
 @end

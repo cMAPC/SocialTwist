@@ -28,6 +28,10 @@
 		1F2C544F1E4768EF006B7F82 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C544D1E4768EF006B7F82 /* TableViewCell.xib */; };
 		1F2C54531E476941006B7F82 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C54511E476941006B7F82 /* MenuCell.m */; };
 		1F2C54541E476941006B7F82 /* MenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2C54521E476941006B7F82 /* MenuCell.xib */; };
+		1F2DBE551E8175FC002DB97D /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DBE4F1E8175FC002DB97D /* KeyboardViewController.m */; };
+		1F2DBE561E8175FC002DB97D /* KeyboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2DBE501E8175FC002DB97D /* KeyboardViewController.xib */; };
+		1F2DBE571E8175FC002DB97D /* KeyboardItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DBE531E8175FC002DB97D /* KeyboardItemView.m */; };
+		1F2DBE581E8175FC002DB97D /* KeyboardItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2DBE541E8175FC002DB97D /* KeyboardItemView.xib */; };
 		1F2E3CBB1E5C31A7007B698A /* 50x50.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E3C941E5C31A7007B698A /* 50x50.gif */; };
 		1F2E3CBC1E5C31A7007B698A /* back_to_login_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E3C951E5C31A7007B698A /* back_to_login_arrow.png */; };
 		1F2E3CBD1E5C31A7007B698A /* camera-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F2E3C961E5C31A7007B698A /* camera-icon@2x.png */; };
@@ -114,6 +118,12 @@
 		1F2C54501E476941006B7F82 /* MenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCell.h; sourceTree = "<group>"; };
 		1F2C54511E476941006B7F82 /* MenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCell.m; sourceTree = "<group>"; };
 		1F2C54521E476941006B7F82 /* MenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuCell.xib; sourceTree = "<group>"; };
+		1F2DBE4E1E8175FC002DB97D /* KeyboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		1F2DBE4F1E8175FC002DB97D /* KeyboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		1F2DBE501E8175FC002DB97D /* KeyboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardViewController.xib; sourceTree = "<group>"; };
+		1F2DBE521E8175FC002DB97D /* KeyboardItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardItemView.h; sourceTree = "<group>"; };
+		1F2DBE531E8175FC002DB97D /* KeyboardItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardItemView.m; sourceTree = "<group>"; };
+		1F2DBE541E8175FC002DB97D /* KeyboardItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardItemView.xib; sourceTree = "<group>"; };
 		1F2E3C941E5C31A7007B698A /* 50x50.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 50x50.gif; sourceTree = "<group>"; };
 		1F2E3C951E5C31A7007B698A /* back_to_login_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_to_login_arrow.png; sourceTree = "<group>"; };
 		1F2E3C961E5C31A7007B698A /* camera-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon@2x.png"; sourceTree = "<group>"; };
@@ -276,6 +286,7 @@
 		1F2055351E465C45005AAEA9 /* MapController */ = {
 			isa = PBXGroup;
 			children = (
+				1F2DBE4C1E8175FC002DB97D /* CustomKeyboard */,
 				1F2055361E465C45005AAEA9 /* AnnotationDescriptionView */,
 				1F20553A1E465C45005AAEA9 /* MapViewController.h */,
 				1F20553B1E465C45005AAEA9 /* MapViewController.m */,
@@ -360,6 +371,35 @@
 				1F2C544D1E4768EF006B7F82 /* TableViewCell.xib */,
 			);
 			path = MenuProfileCell;
+			sourceTree = "<group>";
+		};
+		1F2DBE4C1E8175FC002DB97D /* CustomKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				1F2DBE4D1E8175FC002DB97D /* CollectionView */,
+				1F2DBE511E8175FC002DB97D /* CollectionViewCell */,
+			);
+			path = CustomKeyboard;
+			sourceTree = "<group>";
+		};
+		1F2DBE4D1E8175FC002DB97D /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				1F2DBE4E1E8175FC002DB97D /* KeyboardViewController.h */,
+				1F2DBE4F1E8175FC002DB97D /* KeyboardViewController.m */,
+				1F2DBE501E8175FC002DB97D /* KeyboardViewController.xib */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		1F2DBE511E8175FC002DB97D /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F2DBE521E8175FC002DB97D /* KeyboardItemView.h */,
+				1F2DBE531E8175FC002DB97D /* KeyboardItemView.m */,
+				1F2DBE541E8175FC002DB97D /* KeyboardItemView.xib */,
+			);
+			path = CollectionViewCell;
 			sourceTree = "<group>";
 		};
 		1F2E3C931E5C31A7007B698A /* Images */ = {
@@ -524,6 +564,7 @@
 				1F2E3CCB1E5C31A7007B698A /* logo_text.png in Resources */,
 				1F2E3CD61E5C31A7007B698A /* search-icon@2x.png in Resources */,
 				1F2E3CD51E5C31A7007B698A /* placeholder.svg in Resources */,
+				1F2DBE561E8175FC002DB97D /* KeyboardViewController.xib in Resources */,
 				1F2E3CCF1E5C31A7007B698A /* menu-icon@2x.png in Resources */,
 				1F2E3CBF1E5C31A7007B698A /* friends.png in Resources */,
 				1F2E3CDF1E5C31A7007B698A /* star-icon@2x.png in Resources */,
@@ -535,6 +576,7 @@
 				1F2E3CE11E5C31A7007B698A /* timeline-icon@2x.png in Resources */,
 				1F2E3CDA1E5C31A7007B698A /* singIn_image.png in Resources */,
 				1F2E3CC71E5C31A7007B698A /* imageRight.png in Resources */,
+				1F2DBE581E8175FC002DB97D /* KeyboardItemView.xib in Resources */,
 				1F2054E11E465541005AAEA9 /* LaunchScreen.storyboard in Resources */,
 				1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */,
 				1F2E3CBD1E5C31A7007B698A /* camera-icon@2x.png in Resources */,
@@ -618,6 +660,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F2DBE571E8175FC002DB97D /* KeyboardItemView.m in Sources */,
+				1F2DBE551E8175FC002DB97D /* KeyboardViewController.m in Sources */,
 				1F2055C21E466A6E005AAEA9 /* MainViewController.m in Sources */,
 				1F2055531E4662CD005AAEA9 /* TimelineCellController.m in Sources */,
 				1F2055551E4662CD005AAEA9 /* TimelineTableController.m in Sources */,

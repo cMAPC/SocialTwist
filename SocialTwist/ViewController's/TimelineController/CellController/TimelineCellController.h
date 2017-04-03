@@ -20,4 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commentButton;
 @property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
 
+@property (assign, nonatomic) NSInteger likeCount;
+@property (assign, nonatomic) NSInteger dislikeCount;
+
 @end

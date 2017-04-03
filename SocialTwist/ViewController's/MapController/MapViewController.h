@@ -9,6 +9,7 @@
 
 #import "AnnotationDescriptionView.h"
 #import <AKASegmentedControl.h>
+#import "KeyboardViewController.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

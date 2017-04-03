@@ -585,11 +585,11 @@
                         <constraints>
                             <constraint firstItem="ern-IG-0kb" firstAttribute="top" secondItem="aQC-2K-rjg" secondAttribute="bottom" id="NVz-Jw-rFI"/>
                             <constraint firstItem="ern-IG-0kb" firstAttribute="leading" secondItem="UCj-ZD-9u9" secondAttribute="leading" id="Qv7-LO-pkZ"/>
+                            <constraint firstItem="TmV-Il-Qso" firstAttribute="top" secondItem="ern-IG-0kb" secondAttribute="bottom" id="cA0-hD-L0g"/>
                             <constraint firstAttribute="trailing" secondItem="ern-IG-0kb" secondAttribute="trailing" id="dPc-zb-7y1"/>
-                            <constraint firstItem="TmV-Il-Qso" firstAttribute="top" secondItem="ern-IG-0kb" secondAttribute="bottom" id="hua-y6-ZXQ"/>
+                            <constraint firstItem="aQC-2K-rjg" firstAttribute="top" secondItem="mUY-Dw-aMz" secondAttribute="bottom" id="oxW-eJ-gty"/>
                             <constraint firstAttribute="trailing" secondItem="aQC-2K-rjg" secondAttribute="trailing" id="qUG-FE-ywC"/>
                             <constraint firstItem="aQC-2K-rjg" firstAttribute="leading" secondItem="UCj-ZD-9u9" secondAttribute="leading" id="uZY-4M-rYG"/>
-                            <constraint firstItem="aQC-2K-rjg" firstAttribute="top" secondItem="mUY-Dw-aMz" secondAttribute="bottom" id="xHE-nN-BHy"/>
                         </constraints>
                     </view>
                     <connections>

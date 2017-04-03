@@ -47,12 +47,14 @@
     cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
     cell.label.text = @"Sunset in Rome is Wonderful";
     
-    int likes = 5;
-    int disklikes = 8;
+    int likes = 11;
+    int disklikes = 12;
     
+    cell.likeButton.tag = indexPath.row;
+    [cell.likeButton addTarget:self action:@selector(likeButtonAction:onCell:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell.dislikeButton setTitle:[NSString stringWithFormat:@"%d Dislikes", disklikes] forState:UIControlStateNormal];
-    [cell.likeButton setTitle:[NSString stringWithFormat:@"%d Likes", likes] forState:UIControlStateNormal];
+    [cell.likeButton setTitle:[NSString stringWithFormat:@"%ld Likes", cell.likeCount] forState:UIControlStateNormal];
     
     [self adjustButtonContentFormatForCell:cell];
     
@@ -61,6 +63,26 @@
     
     return cell;
 }
+
+
+
+
+#pragma mark - Actions
+
+-(void)likeButtonAction:(UIButton *) sender onCell:(TimelineCellController *) cell{
+    
+    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
+    
+    TimelineCellController* celll = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    celll.likeCount ++;
+    celll.dislikeCount++;
+    [self.tableView reloadData];
+    NSLog(@"button clicked %ld %@", sender.tag, celll.statusLabel);
+}
+
+
 
 #pragma mark - UITableViewDelegate
 

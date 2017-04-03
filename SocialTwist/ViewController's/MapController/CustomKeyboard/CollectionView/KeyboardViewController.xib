@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="KeyboardViewController">
+            <connections>
+                <outlet property="collectionView" destination="7lc-8q-Wfj" id="HlI-8R-XyY"/>
+                <outlet property="horizontalLayoutConstraint" destination="Yec-43-KrD" id="8iX-Qt-s7k"/>
+                <outlet property="swipeGestureRecongnizer" destination="Jd3-b0-aOm" id="be8-iA-miX"/>
+                <outlet property="verticalLayoutConstraint" destination="7if-gj-HUk" id="Z7M-ya-0dZ"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="218"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="144" scrollEnabled="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="7lc-8q-Wfj">
+                    <rect key="frame" x="0.0" y="37" width="375" height="144"/>
+                    <color key="backgroundColor" red="0.95294117647058818" green="0.94901960784313721" blue="0.98039215686274506" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="144" id="7if-gj-HUk"/>
+                        <constraint firstAttribute="width" constant="375" id="Yec-43-KrD"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rxx-hm-ShJ">
+                        <size key="itemSize" width="45" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="7" minY="0.0" maxX="7" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="3a6-TA-x3J"/>
+                        <outlet property="delegate" destination="-1" id="hBw-6q-dvr"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="0.95294117647058818" green="0.94901960784313721" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="tintColor" red="0.95294117647058818" green="0.94901960784313721" blue="0.98039215686274506" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstItem="7lc-8q-Wfj" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="XUK-o1-gQm"/>
+                <constraint firstItem="7lc-8q-Wfj" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="uKZ-aO-0ue"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Jd3-b0-aOm" appends="YES" id="e5S-Y1-E0P"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="-112"/>
+        </view>
+        <swipeGestureRecognizer direction="down" id="Jd3-b0-aOm">
+            <connections>
+                <action selector="hadnleDownSwipe:" destination="-1" id="e88-bx-A59"/>
+            </connections>
+        </swipeGestureRecognizer>
+    </objects>
+</document>
