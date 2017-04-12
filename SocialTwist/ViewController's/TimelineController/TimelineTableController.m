@@ -6,11 +6,11 @@
 
 #import "TimelineTableController.h"
 
-@interface TimelineTableController () <UITextViewDelegate> {
+@interface TimelineTableController () {
     NSUInteger correctedHeight;
     
-    PostEventCell* prototypeCell;
-    CGFloat rowHeight;
+    PostEventCell* prototypePostCell;
+    CGFloat postCellHeight;
 }
 
 @end
@@ -27,11 +27,13 @@
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     [self.tableView setEstimatedRowHeight:500];
     
-    rowHeight = 130;
-    
+    postCellHeight = 130;
 }
 
-
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
+}
 
 -(void)initTableWithCustomCell {
     [self.tableView registerNib:[UINib nibWithNibName:@"TimelineViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCell"];
@@ -40,7 +42,6 @@
 
 
 #pragma mark - UITableView DataSource
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 15;
 }
@@ -50,7 +51,7 @@
     if (indexPath.row == 0) {
         PostEventCell* postEventCell = [tableView dequeueReusableCellWithIdentifier:@"PostCellIndetifier"];
         postEventCell.subtitleTextView.delegate = self;
-        prototypeCell = postEventCell;
+        prototypePostCell = postEventCell;
         return postEventCell;
     }
     
@@ -76,50 +77,44 @@
     
     return cell;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+#pragma mark - UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return rowHeight;
+        return postCellHeight;
     }
-    else {
-        return UITableViewAutomaticDimension;
-    }
+    return UITableViewAutomaticDimension;
 }
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - UITextViewDelegate
 -(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if (prototypeCell.subtitleTextView.frame.size.height < _textView.contentSize.height) {
-        [self adjustFrames];
-    }
-    
+    [self adjustTextViewFrameForPostCell];
     return YES;
 }
 
-
--(void) adjustFrames
-{
-    CGRect textFrame = prototypeCell.subtitleTextView.frame;
-    textFrame.size.height = prototypeCell.subtitleTextView.contentSize.height;
-    prototypeCell.subtitleTextView.frame = textFrame;
-    [self updateViewConstraints];
+- (void)textViewDidChange:(UITextView *)textView {
+    [self adjustHeightForPostEventCell];
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
-    if (prototypeCell.subtitleTextView.frame.size.height < textView.contentSize.height) {
-        [self.tableView beginUpdates];
-        CGFloat paddingForTextView = 90; //Padding varies depending on your cell design
-        rowHeight = prototypeCell.subtitleTextView.contentSize.height + paddingForTextView;
-        [self.tableView endUpdates];
+-(void)textViewDidBeginEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@"What's new?"]) {
+        [textView setText:@""];
+        [textView setTextColor:[UIColor blackColor]];
     }
-   
+    [textView becomeFirstResponder];
+}
+-(void)textViewDidEndEditing:(UITextView *)textView {
+    if ([textView.text isEqualToString:@""]) {
+        [textView setText:@"What's new?"];
+        [textView setTextColor:[UIColor colorWithRed:169/255.0 green:169/255.0 blue:169/255.0 alpha:1]];
+    }
+    [textView resignFirstResponder];
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Actions
-
 -(void)likeButtonAction:(UIButton *) sender onCell:(TimelineCellController *) cell{
     
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -135,13 +130,19 @@
     NSLog(@"button clicked %ld %@", sender.tag, celll.statusLabel);
 }
 
-#pragma mark - UITableViewDelegate
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView reloadData];
+#pragma mark - Adjustments
+-(void)adjustTextViewFrameForPostCell {
+    CGRect textFrame = prototypePostCell.subtitleTextView.frame;
+    textFrame.size.height = prototypePostCell.subtitleTextView.contentSize.height;
+    prototypePostCell.subtitleTextView.frame = textFrame;
+}
+-(void)adjustHeightForPostEventCell {
+    [self.tableView beginUpdates];
+    CGFloat paddingForTextView = 95; //Padding varies depending on your cell design
+    postCellHeight = prototypePostCell.subtitleTextView.contentSize.height + paddingForTextView;
+    [self.tableView endUpdates];
 }
 
-#pragma mark - Adjustments
 -(void)adjustButtonContentFormatForCell:(TimelineCellController *) cell {
     [cell.dislikeButton setImage:[UIImage imageNamed:@"dislike-icon-hightlighted"] forState:UIControlStateNormal];
     [cell.dislikeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];

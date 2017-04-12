@@ -7,7 +7,6 @@
 #import "TimelineCellController.h"
 #import "PostEventCell.h"
 
-@interface TimelineTableController : UITableViewController
-
+@interface TimelineTableController : UITableViewController <UITextViewDelegate>
 
 @end
