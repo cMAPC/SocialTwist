@@ -19,6 +19,7 @@
 +(void)hideAnimated:(BOOL) value;
 +(KeyboardViewController *)getObject;
 +(UIImage *)getSelectedIndexImage;
++(NSInteger)getSelectedIndex;
 +(BOOL)isHidden;
 +(void)enableSwipeGestureRecognizer:(BOOL) value;
 

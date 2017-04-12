@@ -19,7 +19,7 @@
     
     [self initTableWithCustomCell];
     
-    [self.tableView setContentInset:UIEdgeInsetsMake(-55.f, 0.f, 44.f, 0.f)];
+    [self.tableView setContentInset:UIEdgeInsetsMake(10.f, 0.f, 44.f, 0.f)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     [self.tableView setEstimatedRowHeight:500];
@@ -45,7 +45,7 @@
     
     cell.cellImage.image = [UIImage imageNamed:@"imageLeft"];
     cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
-    cell.label.text = @"Sunset in Rome is Wonderful";
+//    cell.label.text = @"Sunset in Rome is Wonderful";
     
     int likes = 11;
     int disklikes = 12;

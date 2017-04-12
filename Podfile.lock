@@ -1,15 +1,18 @@
 PODS:
   - AKASegmentedControl (1.0.5)
+  - DXCustomCallout-ObjC (0.2.0)
   - LGSideMenuController (2.0.5)
 
 DEPENDENCIES:
   - AKASegmentedControl
+  - DXCustomCallout-ObjC
   - LGSideMenuController
 
 SPEC CHECKSUMS:
   AKASegmentedControl: b98249ce1d319cc1971f9f78172173fd90c5f4d5
+  DXCustomCallout-ObjC: fb223603ee148365de51c2d69bb10443943ff89b
   LGSideMenuController: 3cc82025a53b672926d3ffb3f428f4f3e15e3349
 
-PODFILE CHECKSUM: b8edbcfcdfb5394c1b4b8a877cf58976832f8430
+PODFILE CHECKSUM: a5cdaa5f843f96fb2194ec6a916d6466d024a769
 
 COCOAPODS: 1.2.0

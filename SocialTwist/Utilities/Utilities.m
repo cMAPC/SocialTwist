@@ -10,9 +10,8 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = imageView.bounds;
     gradientLayer.colors = @[
-                             (id)[[UIColor colorWithRed:(151/255.0) green:(157/255.0) blue:(183/255.0) alpha:0.9] CGColor],
-                             (id)[[UIColor colorWithRed:(146/255.0) green:(159/255.0) blue:(182/255.0) alpha:0.9] CGColor],
-                             (id)[[UIColor colorWithRed:(145/255.0) green:(170/255.0) blue:(194/255.0) alpha:0.9] CGColor]
+                             (id)[[UIColor colorWithRed:(149/255.0) green:(151/255.0) blue:(185/255.0) alpha:0.9] CGColor],
+                             (id)[[UIColor colorWithRed:(155/255.0) green:(186/255.0) blue:(205/255.0) alpha:0.9] CGColor]
                                  ];
     [imageView.layer addSublayer:gradientLayer];
 }
@@ -23,9 +22,8 @@
     
     gradientLayer.frame = tableView.bounds;
     gradientLayer.colors = @[
-                             (id)[[UIColor colorWithRed:(151/255.0) green:(157/255.0) blue:(183/255.0) alpha:0.9] CGColor],
-                             (id)[[UIColor colorWithRed:(146/255.0) green:(159/255.0) blue:(182/255.0) alpha:0.9] CGColor],
-                             (id)[[UIColor colorWithRed:(145/255.0) green:(170/255.0) blue:(194/255.0) alpha:0.9] CGColor]
+                             (id)[[UIColor colorWithRed:(149/255.0) green:(151/255.0) blue:(186/255.0) alpha:1] CGColor],
+                             (id)[[UIColor colorWithRed:(155/255.0) green:(186/255.0) blue:(205/255.0) alpha:1] CGColor]
                              ];
     
     UIView* view = [[UIView alloc] initWithFrame:tableView.bounds];

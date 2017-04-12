@@ -4,8 +4,6 @@
 //
 
 #import "LoginViewController.h"
-#import "RegisterViewController.h"
-#import "Utilities.h"
 
 @interface LoginViewController () {
 
@@ -26,6 +24,7 @@
                                                   forKeys:[NSArray arrayWithObjects:@"user", nil]];
     
     [Utilities setGradientForImage:self.singInImage];
+    [KeyboardAvoiding avoidKeyboardForViewController:self];
     
 }
 

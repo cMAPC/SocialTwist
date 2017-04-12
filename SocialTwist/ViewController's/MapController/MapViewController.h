@@ -10,6 +10,10 @@
 #import "AnnotationDescriptionView.h"
 #import <AKASegmentedControl.h>
 #import "KeyboardViewController.h"
+#import <DXAnnotationView.h>
+#import <DXAnnotationSettings.h>
+#import "PinView.h"
+#import "KeyboardAvoiding.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

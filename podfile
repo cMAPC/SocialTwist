@@ -1,4 +1,5 @@
 target 'SocialTwist' do
    pod 'AKASegmentedControl'
    pod 'LGSideMenuController'
+   pod 'DXCustomCallout-ObjC'
 end

@@ -5,6 +5,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RegisterViewController.h"
+#import "Utilities.h"
+#import "KeyboardAvoiding.h"
+
 @interface LoginViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;

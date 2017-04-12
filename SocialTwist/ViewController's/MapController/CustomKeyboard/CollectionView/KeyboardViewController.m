@@ -19,6 +19,7 @@
 KeyboardViewController* obj;
 NSInteger destinationHeight;
 UIImage* selectedImageAtIndex;
+NSInteger selectedIndex;
 BOOL isHidden = YES;
 BOOL isEnabled = YES;
 
@@ -130,6 +131,7 @@ BOOL isEnabled = YES;
     [self performAnimationOnView:cell duration:0.5f delay:0.f];
     
     selectedImageAtIndex = [UIImage imageNamed:imageArray[indexPath.row]];
+    selectedIndex = indexPath.row;
     [obj setValue:[NSNumber numberWithInteger:indexPath.row] forKey:@"selectedIndex"];
     
 }
@@ -189,7 +191,13 @@ BOOL isEnabled = YES;
     [viewController addChildViewController:obj];
     [viewController.view addSubview:[obj view]];
     [obj didMoveToParentViewController:viewController];
+    
+    [obj addObserver:viewController
+          forKeyPath:@"selectedIndex"
+             options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+             context:nil];
 }
+
 
 +(BOOL)isHidden {
     return isHidden;
@@ -206,4 +214,9 @@ BOOL isEnabled = YES;
 +(UIImage *)getSelectedIndexImage{
     return selectedImageAtIndex;
 }
+
++(NSInteger)getSelectedIndex{
+    return selectedIndex;
+}
+
 @end

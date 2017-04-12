@@ -61,7 +61,8 @@
         UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
         [cell setBackgroundColor:[UIColor clearColor]];
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"Menu";
+            [cell.textLabel setText:@"Menu"];
+            [cell.textLabel setTextColor:[UIColor whiteColor]];
             if ([UIScreen mainScreen].bounds.size.width < 370) {
                 cell.indentationLevel = 12;
             }
@@ -74,7 +75,7 @@
     
     if(indexPath.row == 1) {
         TableViewCell* profileCustomCell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
-        profileCustomCell.imageView.translatesAutoresizingMaskIntoConstraints = YES;
+//        profileCustomCell.imageView.translatesAutoresizingMaskIntoConstraints = YES;
         profileCustomCell.cellImage.image = [UIImage imageNamed:@"imageRoot"];
         return profileCustomCell;
     }
@@ -83,6 +84,11 @@
         MenuCell* menuCell = [tableView dequeueReusableCellWithIdentifier:@"menuCell"];
         menuCell.itemImageView.image = [UIImage imageNamed:self.itemsImageArray[indexPath.row - 3]];
         menuCell.itemTextLabel.text = self.itemsTextArray[indexPath.row - 3];
+        
+        if (indexPath.row != 3 && indexPath.row != 5) {
+            [menuCell.countView setHidden:YES];
+        }
+        
         return menuCell;
     }
 }

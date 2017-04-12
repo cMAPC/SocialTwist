@@ -4,10 +4,8 @@
 //
 
 #import "RegisterViewController.h"
-#import "LoginViewController.h"
-#import "Utilities.h"
 
-@interface RegisterViewController () <UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
+@interface RegisterViewController () <UIPickerViewDelegate, UIPickerViewDataSource> {
     
     UIDatePicker* datePicker;
     UIPickerView* genderPickerView;
@@ -50,6 +48,7 @@
     [self.dateOfBirthTextField setInputAccessoryView:[self createPickerToolbar:1]];
     
     [Utilities setGradientForImage:self.singUpImage];
+    [KeyboardAvoiding avoidKeyboardForScrollView:self.scrollView onViewController:self];
 }
 
 
@@ -76,33 +75,33 @@
     [self.genderTextField becomeFirstResponder];
 }
 
-- (void)keyboardWillShowAction:(NSNotification *)notification {
-    
-    CGRect keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    if (selectedTextField.frame.origin.y + 44 > keyboardSize.origin.y) {
-        [UIView animateWithDuration:0.3 animations:^{
-            CGRect viewFrame = self.view.frame;
-            viewFrame.origin.y = keyboardSize.origin.y - selectedTextField.frame.origin.y -selectedTextField.frame.size.height - 20;
-            self.view.frame = viewFrame;
-        }];
-    }
-    
-    NSLog(@"%@", [notification userInfo]);
-    NSLog(@"TextField origin y : %f", selectedTextField.frame.origin.y);
-    NSLog(@"Frame origin y : %f", self.view.frame.origin.y);
-}
+//- (void)keyboardWillShowAction:(NSNotification *)notification {
+//    
+//    CGRect keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    
+//    if (selectedTextField.frame.origin.y + 44 > keyboardSize.origin.y) {
+//        [UIView animateWithDuration:0.3 animations:^{
+//            CGRect viewFrame = self.view.frame;
+//            viewFrame.origin.y = keyboardSize.origin.y - selectedTextField.frame.origin.y -selectedTextField.frame.size.height - 20;
+//            self.view.frame = viewFrame;
+//        }];
+//    }
+//    
+//    NSLog(@"%@", [notification userInfo]);
+//    NSLog(@"TextField origin y : %f", selectedTextField.frame.origin.y);
+//    NSLog(@"Frame origin y : %f", self.view.frame.origin.y);
+//}
 
-- (void)keyboardWillHideAction:(NSNotification *)notification {
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect viewFrame = self.view.frame;
-        viewFrame.origin.y = 0.f;
-        self.view.frame = viewFrame;
-    }];
-    
-    
-}
+//- (void)keyboardWillHideAction:(NSNotification *)notification {
+//    
+//    [UIView animateWithDuration:0.3 animations:^{
+//        CGRect viewFrame = self.view.frame;
+//        viewFrame.origin.y = 0.f;
+//        self.view.frame = viewFrame;
+//    }];
+//    
+//    
+//}
 
 #pragma mark - UIPickerViewDataSource
 
@@ -126,44 +125,44 @@
 
 #pragma mark - UITextFieldDelegate
 
--(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    selectedTextField = textField;
-    notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillShowAction:)
-                               name:UIKeyboardWillShowNotification
-                             object:nil];
-    return YES;
-}
-
--(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    
-    notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self
-                           selector:@selector(keyboardWillHideAction:)
-                               name:UIKeyboardWillHideNotification
-                             object:nil];
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
-    NSInteger nextTag = textField.tag + 1;
-    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
-
-    if (nextResponder) {
-        [nextResponder becomeFirstResponder];
-    } else {
-        [textField resignFirstResponder];
-    }
-    
-    if (textField == self.confirmPasswordTextField){
-        [self.dateOfBirthTextField becomeFirstResponder];
-    }
-    
-    return NO;
-}
+//-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+//    
+//    selectedTextField = textField;
+//    notificationCenter = [NSNotificationCenter defaultCenter];
+//    [notificationCenter addObserver:self
+//                           selector:@selector(keyboardWillShowAction:)
+//                               name:UIKeyboardWillShowNotification
+//                             object:nil];
+//    return YES;
+//}
+//
+//-(BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+//    
+//    notificationCenter = [NSNotificationCenter defaultCenter];
+//    [notificationCenter addObserver:self
+//                           selector:@selector(keyboardWillHideAction:)
+//                               name:UIKeyboardWillHideNotification
+//                             object:nil];
+//    return YES;
+//}
+//
+//- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+//
+//    NSInteger nextTag = textField.tag + 1;
+//    UIResponder* nextResponder = [textField.superview viewWithTag:nextTag];
+//
+//    if (nextResponder) {
+//        [nextResponder becomeFirstResponder];
+//    } else {
+//        [textField resignFirstResponder];
+//    }
+//    
+//    if (textField == self.confirmPasswordTextField){
+//        [self.dateOfBirthTextField becomeFirstResponder];
+//    }
+//    
+//    return NO;
+//}
 
 
 #pragma mark - Utilities

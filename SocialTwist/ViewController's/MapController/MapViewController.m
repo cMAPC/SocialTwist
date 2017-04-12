@@ -10,6 +10,8 @@
     MKPointAnnotation* pointAnnotation;
     CLLocationCoordinate2D touchCoordinate;
     AnnotationDescriptionView* annotationDescriptionView;
+    
+    NSArray* pinImageArray;
 }
 
 @end
@@ -22,21 +24,69 @@
     locationManager = [[CLLocationManager alloc] init];
     [locationManager requestWhenInUseAuthorization];
     [locationManager startUpdatingLocation];
+
+    
+    
+    
+    pinImageArray = @[ @"Eating",
+                       @"Sport",
+                       @"Coffee",
+                       @"Drink",
+                       @"Thinking",
+                       @"Traveling",
+                       @"Watching",
+                       @"Celebrating",
+                       @"Celebrating1",
+                       @"Meeting",
+                       @"Listen",
+                       @"Shopping",
+                       @"Reading",
+                       @"Supporting",
+                       @"Attending",
+                       @"Making",
+                       @"Sad",
+                       @"Happy",
+                       @"Loved",
+                       @"Amused",
+                       @"Wonderful",
+                       @"Energized",
+                       @"Alone",
+                       @"Hungry"];
 }
 
 -(void)viewDidLayoutSubviews {
     [KeyboardViewController initOnViewController:self];
-    [[KeyboardViewController getObject] addObserver:self
-                                         forKeyPath:@"selectedIndex"
-                                            options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                                            context:nil];
     [KeyboardViewController enableSwipeGestureRecognizer:YES];
+    [KeyboardAvoiding avoidKeyboardForViewController:self];
+    [KeyboardAvoiding disableGestureRecognizerOnView:[KeyboardViewController getObject].view];
 }
 
 #pragma mark - MKMapViewDelegate
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     MKMapCamera* mapCamera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate fromEyeCoordinate:userLocation.coordinate eyeAltitude:3000];
     [self.mapView setCamera:mapCamera animated:YES];
+}
+
+-(MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+
+    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        return nil;
+    }
+    
+    PinView *pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
+    pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
+                                                           pinImageArray[[KeyboardViewController getSelectedIndex]]]];
+    
+    DXAnnotationView *annotationView = (DXAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([DXAnnotationView class])];
+    if (!annotationView) {
+        annotationView = [[DXAnnotationView alloc] initWithAnnotation:annotation
+                                                      reuseIdentifier:NSStringFromClass([DXAnnotationView class])
+                                                              pinView:pinView
+                                                          calloutView:nil
+                                                             settings:[DXAnnotationSettings defaultSettings]];
+    }
+    
+    return annotationView;
 }
 
 #pragma mark - Action
@@ -63,19 +113,31 @@
     else {
         [KeyboardViewController hideAnimated:YES];
     }
-    
 }
 
 -(void)addAnnotationDescriptionAction
 {
-    pointAnnotation = [[MKPointAnnotation alloc] init];
-    pointAnnotation.coordinate = touchCoordinate;
-    pointAnnotation.title = @"Title";
-    pointAnnotation.subtitle = annotationDescriptionView.titleTextField.text;
-    [self.mapView addAnnotation:pointAnnotation];
-    
-    [annotationDescriptionView removeFromSuperview];
-    [KeyboardViewController hideAnimated:YES];
+    if (annotationDescriptionView.selectPinCategoryButton.imageView.image &&
+        annotationDescriptionView.titleTextField.text.length > 0 &&
+        annotationDescriptionView.subtitleTextView.text.length > 0) {
+        pointAnnotation = [[MKPointAnnotation alloc] init];
+        pointAnnotation.coordinate = touchCoordinate;
+        pointAnnotation.title = @"Title";
+        pointAnnotation.subtitle = annotationDescriptionView.titleTextField.text;
+        [self.mapView addAnnotation:pointAnnotation];
+        
+        [annotationDescriptionView removeFromSuperview];
+        [KeyboardViewController hideAnimated:YES];
+    }
+    else if (annotationDescriptionView.titleTextField.text.length <= 0) {
+        NSLog(@"Title requiered");
+    }
+    else if (annotationDescriptionView.subtitleTextView.text.length <= 0) {
+        NSLog(@"Subtitle requiered");
+    }
+    else if (!annotationDescriptionView.selectPinCategoryButton.imageView.image) {
+        NSLog(@"Pin category requiered");
+    }
 }
 
 #pragma mark - KVO

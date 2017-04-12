@@ -91,7 +91,7 @@
                                                           self.tabBarView.frame.origin.y + self.tabBarView.frame.size.height - 2,
                                                           self.tabBarView.frame.size.width/2,
                                                           2.0f)];
-    [sliderView setBackgroundColor:[UIColor blueColor]];
+    [sliderView setBackgroundColor:[UIColor colorWithRed:(155/255.0) green:(186/255.0) blue:(205/255.0) alpha:1]];
     [self.view addSubview:sliderView];
 }
 
@@ -123,7 +123,7 @@
                                                         self.tabBarView.frame.origin.y + self.tabBarView.frame.size.height - 2,
                                                         self.tabBarView.frame.size.width/2,
                                                         2.0f)];
-    [sliderView setBackgroundColor:[UIColor blueColor]];
+    [sliderView setBackgroundColor:[UIColor colorWithRed:(155/255.0) green:(186/255.0) blue:(205/255.0) alpha:1]];
     [self.view addSubview:sliderView];
     
     [UIView animateWithDuration:30.0f
@@ -144,7 +144,7 @@
                                                         self.tabBarView.frame.origin.y + self.tabBarView.frame.size.height - 2,
                                                         self.tabBarView.frame.size.width/2,
                                                         2.0f)];
-    [sliderView setBackgroundColor:[UIColor blueColor]];
+    [sliderView setBackgroundColor:[UIColor colorWithRed:(155/255.0) green:(186/255.0) blue:(205/255.0) alpha:1]];
     [self.view addSubview:sliderView];
     
     [UIView animateWithDuration:30.0f
@@ -219,7 +219,14 @@
     UILabel* searchPlaceholderLabel = [searchTextField valueForKey:@"placeholderLabel"];
     [searchTextField setBackgroundColor:[UIColor clearColor]];
     [searchPlaceholderLabel setText:@"Search anything here..."];
-    [searchPlaceholderLabel setTextColor:[UIColor redColor]];
+    [searchPlaceholderLabel setTextColor:[UIColor colorWithRed:205/255.0 green:221/255.0 blue:230/255.0 alpha:1]];
+    [searchTextField setLeftViewMode:UITextFieldViewModeNever];
+    [searchController_.searchBar setSearchTextPositionAdjustment:UIOffsetMake(8, 0)];
+    UIBarButtonItem* cancelButtonInSearchBar = [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]];
+    [cancelButtonInSearchBar setImage:[UIImage imageNamed:@"search-icon"]];
+    [cancelButtonInSearchBar setTintColor:[UIColor whiteColor]];
+    [cancelButtonInSearchBar setTitle:nil];
+    
     
     [self.navigationItem setTitleView:searchController_.searchBar];
     

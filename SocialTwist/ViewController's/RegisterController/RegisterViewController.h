@@ -5,6 +5,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "LoginViewController.h"
+#import "Utilities.h"
+#import "KeyboardAvoiding.h"
+
 @interface RegisterViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
@@ -15,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIImageView *singUpImage;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (IBAction)backToLoginAction:(id)sender;
 
