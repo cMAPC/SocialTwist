@@ -45,7 +45,7 @@
     
     cell.cellImage.image = [UIImage imageNamed:@"imageLeft"];
     cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
-//    cell.label.text = @"Sunset in Rome is Wonderful";
+    cell.label.text = @"\rSunset in Rome is Wonderful\r";
     
     int likes = 11;
     int disklikes = 12;
@@ -56,7 +56,7 @@
     [cell.dislikeButton setTitle:[NSString stringWithFormat:@"%d Dislikes", disklikes] forState:UIControlStateNormal];
     [cell.likeButton setTitle:[NSString stringWithFormat:@"%ld Likes", cell.likeCount] forState:UIControlStateNormal];
     
-    [self adjustButtonContentFormatForCell:cell];
+    
     
     [self adjustImageHeightForCell:cell];
     [self adjustStringFormat:cell];
@@ -78,6 +78,8 @@
     
     celll.likeCount ++;
     celll.dislikeCount++;
+    
+    [self adjustButtonContentFormatForCell:celll];
     [self.tableView reloadData];
     NSLog(@"button clicked %ld %@", sender.tag, celll.statusLabel);
 }
