@@ -6,8 +6,11 @@
 
 #import "TimelineTableController.h"
 
-@interface TimelineTableController () {
+@interface TimelineTableController () <UITextViewDelegate> {
     NSUInteger correctedHeight;
+    
+    PostEventCell* prototypeCell;
+    CGFloat rowHeight;
 }
 
 @end
@@ -24,12 +27,15 @@
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     [self.tableView setEstimatedRowHeight:500];
     
+    rowHeight = 130;
+    
 }
 
 
 
 -(void)initTableWithCustomCell {
     [self.tableView registerNib:[UINib nibWithNibName:@"TimelineViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PostEventCell" bundle:nil] forCellReuseIdentifier:@"PostCellIndetifier"];
 }
 
 
@@ -40,6 +46,13 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) {
+        PostEventCell* postEventCell = [tableView dequeueReusableCellWithIdentifier:@"PostCellIndetifier"];
+        postEventCell.subtitleTextView.delegate = self;
+        prototypeCell = postEventCell;
+        return postEventCell;
+    }
     
     TimelineCellController* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
     
@@ -63,9 +76,47 @@
     
     return cell;
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return rowHeight;
+    }
+    else {
+        return UITableViewAutomaticDimension;
+    }
+}
 
 
 
+-(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if (prototypeCell.subtitleTextView.frame.size.height < _textView.contentSize.height) {
+        [self adjustFrames];
+    }
+    
+    return YES;
+}
+
+
+-(void) adjustFrames
+{
+    CGRect textFrame = prototypeCell.subtitleTextView.frame;
+    textFrame.size.height = prototypeCell.subtitleTextView.contentSize.height;
+    prototypeCell.subtitleTextView.frame = textFrame;
+    [self updateViewConstraints];
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    if (prototypeCell.subtitleTextView.frame.size.height < textView.contentSize.height) {
+        [self.tableView beginUpdates];
+        CGFloat paddingForTextView = 90; //Padding varies depending on your cell design
+        rowHeight = prototypeCell.subtitleTextView.contentSize.height + paddingForTextView;
+        [self.tableView endUpdates];
+    }
+   
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma mark - Actions
 
@@ -84,11 +135,11 @@
     NSLog(@"button clicked %ld %@", sender.tag, celll.statusLabel);
 }
 
-
-
 #pragma mark - UITableViewDelegate
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView reloadData];
+}
 
 #pragma mark - Adjustments
 -(void)adjustButtonContentFormatForCell:(TimelineCellController *) cell {

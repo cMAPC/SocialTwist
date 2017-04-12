@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */; };
+		1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */; };
 		1F2054D31E465541005AAEA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D21E465541005AAEA9 /* main.m */; };
 		1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D51E465541005AAEA9 /* AppDelegate.m */; };
 		1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F2054DA1E465541005AAEA9 /* Main.storyboard */; };
@@ -86,6 +88,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F0AAD9D1E9E722F00745A6A /* PostEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostEventCell.h; sourceTree = "<group>"; };
+		1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostEventCell.m; sourceTree = "<group>"; };
+		1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEventCell.xib; sourceTree = "<group>"; };
 		1F2054CE1E465541005AAEA9 /* SocialTwist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialTwist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F2054D21E465541005AAEA9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F2054D41E465541005AAEA9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -320,6 +325,8 @@
 		1F20554C1E4662CD005AAEA9 /* TimelineController */ = {
 			isa = PBXGroup;
 			children = (
+				1FE1B2E91E9E57E500999557 /* ProfileCell */,
+				1FE1B2EA1E9E57E500999557 /* PostEventCell */,
 				1F20554D1E4662CD005AAEA9 /* CellController */,
 				1F2055511E4662CD005AAEA9 /* TimelineTableController.h */,
 				1F2055521E4662CD005AAEA9 /* TimelineTableController.m */,
@@ -503,6 +510,23 @@
 			path = PinView;
 			sourceTree = "<group>";
 		};
+		1FE1B2E91E9E57E500999557 /* ProfileCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ProfileCell;
+			sourceTree = "<group>";
+		};
+		1FE1B2EA1E9E57E500999557 /* PostEventCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F0AAD9D1E9E722F00745A6A /* PostEventCell.h */,
+				1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */,
+				1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */,
+			);
+			path = PostEventCell;
+			sourceTree = "<group>";
+		};
 		2D735A0FD5CEB821D6C22CD3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -632,6 +656,7 @@
 				1F20553E1E465C45005AAEA9 /* AnnotationDescriptionView.xib in Resources */,
 				1F2054DE1E465541005AAEA9 /* Assets.xcassets in Resources */,
 				1F2E3CD81E5C31A7007B698A /* settings-icon@2x.png in Resources */,
+				1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */,
 				1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */,
 				1F2E3CBB1E5C31A7007B698A /* 50x50.gif in Resources */,
 				1F2E3CC31E5C31A7007B698A /* image3.jpg in Resources */,
@@ -706,6 +731,7 @@
 				1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,
+				1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */,
 				1F2055C51E466A6E005AAEA9 /* TableViewController.m in Sources */,
 				1F2C54531E476941006B7F82 /* MenuCell.m in Sources */,
 				1F20553F1E465C45005AAEA9 /* MapViewController.m in Sources */,
