@@ -10,6 +10,8 @@
 #import "EventContent.h"
 #import "KeyboardViewController.h"
 
-@interface TimelineTableController : UITableViewController <UITextViewDelegate>
+@interface TimelineTableController : UIViewController <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end

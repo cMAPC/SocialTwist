@@ -536,6 +536,43 @@
             </objects>
             <point key="canvasLocation" x="-313" y="382"/>
         </scene>
+        <!--Timeline Table Controller-->
+        <scene sceneID="cjB-bP-YVP">
+            <objects>
+                <viewController id="TGm-X1-Zdd" customClass="TimelineTableController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b7s-mB-0Tv"/>
+                        <viewControllerLayoutGuide type="bottom" id="9tl-n5-vd7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ab2-dS-2ld">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ytg-ux-Pmg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.92549019607843142" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="TGm-X1-Zdd" id="bTb-Np-wIf"/>
+                                    <outlet property="delegate" destination="TGm-X1-Zdd" id="2SP-UN-4Ns"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ytg-ux-Pmg" firstAttribute="top" secondItem="b7s-mB-0Tv" secondAttribute="bottom" id="hvk-u2-cza"/>
+                            <constraint firstItem="ytg-ux-Pmg" firstAttribute="leading" secondItem="ab2-dS-2ld" secondAttribute="leading" id="j8A-Ce-teA"/>
+                            <constraint firstItem="ytg-ux-Pmg" firstAttribute="bottom" secondItem="9tl-n5-vd7" secondAttribute="top" id="ooC-jv-XBG"/>
+                            <constraint firstAttribute="trailing" secondItem="ytg-ux-Pmg" secondAttribute="trailing" id="z6Y-8x-6sW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="ytg-ux-Pmg" id="5PF-mT-Ygv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iI5-HR-1XA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6165.6000000000004" y="413.3433283358321"/>
+        </scene>
         <!--Map View Controller-->
         <scene sceneID="MpZ-RC-a3t">
             <objects>
@@ -649,7 +686,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rN7-Rz-EGB">
                                 <rect key="frame" x="0.0" y="48" width="375" height="555"/>
                                 <connections>
-                                    <segue destination="BcN-hl-iKj" kind="embed" id="LZG-wI-P12"/>
+                                    <segue destination="TGm-X1-Zdd" kind="embed" id="uLd-0h-ZXN"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mIm-t5-kjs">
@@ -704,24 +741,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5lu-e6-3O2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5272.8000000000002" y="751.57421289355329"/>
-        </scene>
-        <!--Timeline Table Controller-->
-        <scene sceneID="UCA-lr-p2A">
-            <objects>
-                <tableViewController id="BcN-hl-iKj" customClass="TimelineTableController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Cpb-i3-79L">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="555"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.92941176470588238" green="0.92549019607843142" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <connections>
-                            <outlet property="dataSource" destination="BcN-hl-iKj" id="IuA-Af-9YX"/>
-                            <outlet property="delegate" destination="BcN-hl-iKj" id="vIu-b7-GR2"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hcR-1a-iWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6184.8000000000002" y="431.33433283358323"/>
         </scene>
         <!--Table View Controller-->
         <scene sceneID="vZJ-K8-E9J">

@@ -39,12 +39,9 @@
 }
 
 -(void)viewDidLayoutSubviews{
-//    [KeyboardViewController initOnViewController:self];
-//    [KeyboardViewController enableSwipeGestureRecognizer:YES];
     [super viewDidLayoutSubviews];
-    [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
-    
-    
+    [KeyboardViewController initOnViewController:self];
+    [KeyboardViewController enableSwipeGestureRecognizer:YES];
 }
 
 -(void)initTableWithCustomCell {
@@ -70,9 +67,8 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     NSLog(@"Observer");
     if ([keyPath isEqualToString:@"selectedIndex"]) {
-//        [eventContent. setTitle:nil forState:UIControlStateNormal];
-//        [prototypePostCell.eventCategoryButton setImage:[KeyboardViewController getSelectedIndexImage]
-//                                                           forState:UIControlStateNormal];
+        [prototypePostCell.eventCategoryButton setImage:[KeyboardViewController getSelectedIndexImage]
+                                                           forState:UIControlStateNormal];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [KeyboardViewController hideAnimated:YES];
@@ -143,6 +139,7 @@
 
 - (void)textViewDidChange:(UITextView *)textView {
     [self adjustHeightForPostEventCell];
+    [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
 
 -(void)textViewDidBeginEditing:(UITextView *)textView {
