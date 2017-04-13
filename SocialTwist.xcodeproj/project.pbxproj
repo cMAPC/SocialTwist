@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */; };
 		1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */; };
+		1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AADA41E9F868D00745A6A /* EventContent.m */; };
 		1F2054D31E465541005AAEA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D21E465541005AAEA9 /* main.m */; };
 		1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D51E465541005AAEA9 /* AppDelegate.m */; };
 		1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F2054DA1E465541005AAEA9 /* Main.storyboard */; };
@@ -91,6 +92,8 @@
 		1F0AAD9D1E9E722F00745A6A /* PostEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostEventCell.h; sourceTree = "<group>"; };
 		1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostEventCell.m; sourceTree = "<group>"; };
 		1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEventCell.xib; sourceTree = "<group>"; };
+		1F0AADA31E9F868D00745A6A /* EventContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventContent.h; sourceTree = "<group>"; };
+		1F0AADA41E9F868D00745A6A /* EventContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventContent.m; sourceTree = "<group>"; };
 		1F2054CE1E465541005AAEA9 /* SocialTwist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialTwist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F2054D21E465541005AAEA9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F2054D41E465541005AAEA9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -204,6 +207,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0AADA21E9F865100745A6A /* EventContent */ = {
+			isa = PBXGroup;
+			children = (
+				1F0AADA31E9F868D00745A6A /* EventContent.h */,
+				1F0AADA41E9F868D00745A6A /* EventContent.m */,
+			);
+			path = EventContent;
+			sourceTree = "<group>";
+		};
 		1F2054C51E465541005AAEA9 = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +337,7 @@
 		1F20554C1E4662CD005AAEA9 /* TimelineController */ = {
 			isa = PBXGroup;
 			children = (
+				1F0AADA21E9F865100745A6A /* EventContent */,
 				1FE1B2E91E9E57E500999557 /* ProfileCell */,
 				1FE1B2EA1E9E57E500999557 /* PostEventCell */,
 				1F20554D1E4662CD005AAEA9 /* CellController */,
@@ -734,6 +747,7 @@
 				1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */,
 				1F2055C51E466A6E005AAEA9 /* TableViewController.m in Sources */,
 				1F2C54531E476941006B7F82 /* MenuCell.m in Sources */,
+				1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */,
 				1F20553F1E465C45005AAEA9 /* MapViewController.m in Sources */,
 				1F20553C1E465C45005AAEA9 /* ContainerViewController.m in Sources */,
 				1F2054EF1E46575E005AAEA9 /* LoginViewController.m in Sources */,

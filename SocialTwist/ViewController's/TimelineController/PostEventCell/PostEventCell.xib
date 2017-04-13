@@ -23,26 +23,28 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7u-7q-c3z">
                                 <rect key="frame" x="0.0" y="67" width="52" height="42"/>
-                                <color key="backgroundColor" red="0.34874276220659828" green="0.95428359508514404" blue="0.48862769472249606" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="YKb-5B-KlS"/>
                                     <constraint firstAttribute="width" constant="52" id="fCI-Pd-6GE"/>
                                 </constraints>
-                                <state key="normal" image="marker"/>
+                                <state key="normal" image="marker">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wYe-1I-Lmm">
                                 <rect key="frame" x="104" y="67" width="52" height="42"/>
-                                <color key="backgroundColor" red="0.95428359508514404" green="0.30097986135015031" blue="0.2733317960548915" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="camera"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZgQ-af-Q9l">
                                 <rect key="frame" x="52" y="67" width="52" height="42"/>
-                                <color key="backgroundColor" red="0.10995695257450677" green="0.66035612072657379" blue="0.95428359508514404" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="friend"/>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p0w-oF-Vd9">
                                 <rect key="frame" x="275" y="67" width="60" height="42"/>
-                                <color key="backgroundColor" red="0.80571664718888847" green="0.0" blue="0.95428359508514404" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="3HW-dy-Kz8"/>
                                     <constraint firstAttribute="height" constant="42" id="8cG-OR-Obk"/>
@@ -77,13 +79,13 @@
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I4B-FW-yKA" userLabel="Delimiter">
                                 <rect key="frame" x="15" y="66" width="305" height="1"/>
-                                <color key="backgroundColor" red="1" green="0.046772837529804212" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="Kir-WJ-Y3Z"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.7627093624307586" blue="0.16805823950621179" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="USl-Xf-ERg" firstAttribute="leading" secondItem="Bnl-Bc-fNC" secondAttribute="leading" constant="15" id="3qc-0a-FDf"/>
                             <constraint firstItem="cgl-Uw-a6z" firstAttribute="leading" secondItem="USl-Xf-ERg" secondAttribute="trailing" constant="10" id="7a7-PG-yBQ"/>
@@ -129,6 +131,9 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="eventCameraButton" destination="wYe-1I-Lmm" id="M6n-uY-qIQ"/>
+                <outlet property="eventCategoryButton" destination="v7u-7q-c3z" id="bVU-mW-6kJ"/>
+                <outlet property="postButton" destination="p0w-oF-Vd9" id="4EY-f9-lZf"/>
                 <outlet property="subtitleTextView" destination="cgl-Uw-a6z" id="JYR-L4-KmZ"/>
             </connections>
             <point key="canvasLocation" x="-64.5" y="97"/>

@@ -11,6 +11,9 @@
     
     PostEventCell* prototypePostCell;
     CGFloat postCellHeight;
+    
+    EventContent* eventContent;
+    CLLocationManager* locationManager;
 }
 
 @end
@@ -28,11 +31,20 @@
     [self.tableView setEstimatedRowHeight:500];
     
     postCellHeight = 130;
+    
+    locationManager = [[CLLocationManager alloc] init];
+    [locationManager requestWhenInUseAuthorization];
+    eventContent = [[EventContent alloc] init];
+    [eventContent getEvents];
 }
 
 -(void)viewDidLayoutSubviews{
+//    [KeyboardViewController initOnViewController:self];
+//    [KeyboardViewController enableSwipeGestureRecognizer:YES];
     [super viewDidLayoutSubviews];
     [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
+    
+    
 }
 
 -(void)initTableWithCustomCell {
@@ -40,10 +52,40 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"PostEventCell" bundle:nil] forCellReuseIdentifier:@"PostCellIndetifier"];
 }
 
+#pragma mark - PostEventCell Action
+-(void)postNewEventAction{
+    [eventContent addNewEventWithTitle:@"" subtitle:prototypePostCell.subtitleTextView.text coordinates:locationManager.location eventCategory:1 profileImage:[UIImage imageNamed:@"cat"] eventImage:[UIImage imageNamed:@"imageLeft"]];
+    [self.tableView reloadData];
+}
+-(void)selectEventCategoryAction{
+    if ([KeyboardViewController isHidden]) {
+        [KeyboardViewController showAnimated:YES];
+        [self.tableView setScrollEnabled:NO];
+    }
+    else {
+        [KeyboardViewController hideAnimated:YES];
+    }
+}
+#pragma mark - KVO
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    NSLog(@"Observer");
+    if ([keyPath isEqualToString:@"selectedIndex"]) {
+//        [eventContent. setTitle:nil forState:UIControlStateNormal];
+//        [prototypePostCell.eventCategoryButton setImage:[KeyboardViewController getSelectedIndexImage]
+//                                                           forState:UIControlStateNormal];
+
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [KeyboardViewController hideAnimated:YES];
+        });
+        
+    }
+}
+
 
 #pragma mark - UITableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
+//    return 15;
+    return eventContent.eventsArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -51,16 +93,22 @@
     if (indexPath.row == 0) {
         PostEventCell* postEventCell = [tableView dequeueReusableCellWithIdentifier:@"PostCellIndetifier"];
         postEventCell.subtitleTextView.delegate = self;
+        [postEventCell.postButton addTarget:self action:@selector(postNewEventAction) forControlEvents:UIControlEventTouchUpInside];
+        [postEventCell.eventCategoryButton addTarget:self action:@selector(selectEventCategoryAction) forControlEvents:UIControlEventTouchUpInside];
         prototypePostCell = postEventCell;
         return postEventCell;
     }
     
     TimelineCellController* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
     
-    cell.cellImage.image = [UIImage imageNamed:@"imageLeft"];
-    cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
-    cell.label.text = @"\rSunset in Rome is Wonderful\r";
+//    cell.cellImage.image = [UIImage imageNamed:@"imageLeft"];
+//    cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
+//    cell.label.text = @"\rSunset in Rome is Wonderful\r";
     
+    cell.cellImage.image = [eventContent.eventsArray[indexPath.row] eventImage];
+    cell.profileImageView.image = [eventContent.eventsArray[indexPath.row] profileImage];
+    cell.label.text = [eventContent.eventsArray[indexPath.row] subtitle];
+//    
     int likes = 11;
     int disklikes = 12;
     
