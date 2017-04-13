@@ -14,6 +14,7 @@
 #import <DXAnnotationSettings.h>
 #import "PinView.h"
 #import "KeyboardAvoiding.h"
+#import "EventContent.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

@@ -17,12 +17,12 @@
 @property (strong, nonatomic) UIImage* eventImage;
 @property (strong, nonatomic) UIImage* profileImage;
 
-@property (strong, nonatomic) CLLocation* coordinate;
+@property (assign, nonatomic) CLLocationCoordinate2D eventCoordinate;
 
 @property (strong, nonatomic) NSMutableArray* eventsArray;
 
 -(void)getEvents;
--(void)addNewEventWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinates:(CLLocation *)coordinates
+-(void)addNewEventWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinates:(CLLocationCoordinate2D)coordinates
               eventCategory:(NSUInteger)category profileImage:(UIImage *)profileImage eventImage:(UIImage *)eventImage;
 
 @end

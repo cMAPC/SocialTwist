@@ -36,6 +36,8 @@
     [locationManager requestWhenInUseAuthorization];
     eventContent = [[EventContent alloc] init];
     [eventContent getEvents];
+    
+    
 }
 
 -(void)viewDidLayoutSubviews{
@@ -51,13 +53,23 @@
 
 #pragma mark - PostEventCell Action
 -(void)postNewEventAction{
-    [eventContent addNewEventWithTitle:@"" subtitle:prototypePostCell.subtitleTextView.text coordinates:locationManager.location eventCategory:1 profileImage:[UIImage imageNamed:@"cat"] eventImage:[UIImage imageNamed:@"imageLeft"]];
-    [self.tableView reloadData];
+    [eventContent addNewEventWithTitle:@""
+                              subtitle:prototypePostCell.subtitleTextView.text
+                           coordinates:locationManager.location.coordinate
+                         eventCategory:[KeyboardViewController getSelectedIndex]
+                          profileImage:[UIImage imageNamed:@"imageRight"]
+                            eventImage:[UIImage imageNamed:@"imageLeft"]];
+    
+    [self.tableView beginUpdates];
+    [self restoreEmptyPostCell];
+    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]]
+                          withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
 }
+
 -(void)selectEventCategoryAction{
     if ([KeyboardViewController isHidden]) {
         [KeyboardViewController showAnimated:YES];
-        [self.tableView setScrollEnabled:NO];
     }
     else {
         [KeyboardViewController hideAnimated:YES];
@@ -80,8 +92,7 @@
 
 #pragma mark - UITableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 15;
-    return eventContent.eventsArray.count;
+    return eventContent.eventsArray.count + 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -101,11 +112,11 @@
 //    cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
 //    cell.label.text = @"\rSunset in Rome is Wonderful\r";
     
-    cell.cellImage.image = [eventContent.eventsArray[indexPath.row] eventImage];
-    cell.profileImageView.image = [eventContent.eventsArray[indexPath.row] profileImage];
-    cell.label.text = [eventContent.eventsArray[indexPath.row] subtitle];
-//    
-    int likes = 11;
+    cell.cellImage.image = [eventContent.eventsArray[indexPath.row -1] eventImage];
+    cell.profileImageView.image = [eventContent.eventsArray[indexPath.row -1] profileImage];
+    cell.label.text = [eventContent.eventsArray[indexPath.row -1] subtitle];
+
+//    int likes = 11;
     int disklikes = 12;
     
     cell.likeButton.tag = indexPath.row;
@@ -132,12 +143,13 @@
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - UITextViewDelegate
--(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    [self adjustTextViewFrameForPostCell];
-    return YES;
-}
+//-(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//    [self adjustTextViewFrameForPostCell];
+//    return YES;
+//}
 
 - (void)textViewDidChange:(UITextView *)textView {
+    [self adjustTextViewFrameForPostCell];
     [self adjustHeightForPostEventCell];
     [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
@@ -151,8 +163,7 @@
 }
 -(void)textViewDidEndEditing:(UITextView *)textView {
     if ([textView.text isEqualToString:@""]) {
-        [textView setText:@"What's new?"];
-        [textView setTextColor:[UIColor colorWithRed:169/255.0 green:169/255.0 blue:169/255.0 alpha:1]];
+        [self setPlaceholderOnTextView:textView];
     }
     [textView resignFirstResponder];
 }
@@ -173,6 +184,22 @@
     [self adjustButtonContentFormatForCell:celll];
     [self.tableView reloadData];
     NSLog(@"button clicked %ld %@", sender.tag, celll.statusLabel);
+}
+
+-(void)restoreEmptyPostCell{
+    [prototypePostCell.eventCategoryButton setImage:[UIImage imageNamed:@"marker"] forState:UIControlStateNormal];
+    [self setPlaceholderOnTextView:prototypePostCell.subtitleTextView];
+    [self adjustHeightForPostEventCell];
+    
+    [prototypePostCell.subtitleTextView resignFirstResponder];
+}
+
+-(void)setPlaceholderOnTextView:(UITextView *)textView {
+    [textView setText:@"What's new?"];
+    [textView setTextColor:[UIColor colorWithRed:169/255.0
+                                           green:169/255.0
+                                            blue:169/255.0
+                                           alpha:1]];
 }
 
 #pragma mark - Adjustments
