@@ -25,6 +25,9 @@
     [locationManager requestWhenInUseAuthorization];
     [locationManager startUpdatingLocation];
 
+    
+    
+    
     pinImageArray = @[ @"Eating",
                        @"Sport",
                        @"Coffee",
@@ -49,7 +52,6 @@
                        @"Energized",
                        @"Alone",
                        @"Hungry"];
-    
 }
 
 -(void)viewDidLayoutSubviews {
@@ -98,12 +100,8 @@
         [self.view addSubview:annotationDescriptionView];
     }
     
-    [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self
-                                                                 action:@selector(addAnnotationDescriptionAction)
-                                                       forControlEvents:UIControlEventTouchUpInside];
-    [annotationDescriptionView.selectPinCategoryButton addTarget:self
-                                                          action:@selector(selectPinCategoryAction)
-                                                forControlEvents:UIControlEventTouchUpInside];
+    [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self action:@selector(addAnnotationDescriptionAction) forControlEvents:UIControlEventTouchUpInside];
+    [annotationDescriptionView.selectPinCategoryButton addTarget:self action:@selector(selectPinCategoryAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - AnnotationDescriptionView Action
@@ -169,5 +167,4 @@
 - (IBAction)editButtonAction:(UIButton *)sender {
     NSLog(@"Edit button pressed");
 }
-
 @end

@@ -12,7 +12,7 @@
     PostEventCell* prototypePostCell;
     CGFloat postCellHeight;
     
-    EventContent* eventContent;
+//    EventContent* eventContent;
     CLLocationManager* locationManager;
 }
 
@@ -34,8 +34,8 @@
     
     locationManager = [[CLLocationManager alloc] init];
     [locationManager requestWhenInUseAuthorization];
-    eventContent = [[EventContent alloc] init];
-    [eventContent getEvents];
+//    eventContent = [[EventContent alloc] init];
+    [[EventContent sharedEventContent] getEvents];
     
     
 }
@@ -53,18 +53,20 @@
 
 #pragma mark - PostEventCell Action
 -(void)postNewEventAction{
-    [eventContent addNewEventWithTitle:@""
+    [[EventContent sharedEventContent] addNewEventWithTitle:@""
                               subtitle:prototypePostCell.subtitleTextView.text
                            coordinates:locationManager.location.coordinate
                          eventCategory:[KeyboardViewController getSelectedIndex]
                           profileImage:[UIImage imageNamed:@"imageRight"]
-                            eventImage:[UIImage imageNamed:@"imageLeft"]];
+                                                 eventImage:prototypePostCell.eventImag.image];
     
     [self.tableView beginUpdates];
-    [self restoreEmptyPostCell];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
+    [self restoreEmptyPostCell];
     [self.tableView endUpdates];
+    
+    prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 2;
 }
 
 -(void)selectEventCategoryAction{
@@ -75,6 +77,22 @@
         [KeyboardViewController hideAnimated:YES];
     }
 }
+
+-(void)selectEventImageAction{
+    prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 60;
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController.delegate = self;
+    imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    prototypePostCell.eventImag.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    postCellHeight = 180;
+    [self adjustHeightForPostEventCell];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     NSLog(@"Observer");
@@ -92,7 +110,7 @@
 
 #pragma mark - UITableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return eventContent.eventsArray.count + 1;
+    return [EventContent sharedEventContent].eventsArray.count + 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -102,7 +120,11 @@
         postEventCell.subtitleTextView.delegate = self;
         [postEventCell.postButton addTarget:self action:@selector(postNewEventAction) forControlEvents:UIControlEventTouchUpInside];
         [postEventCell.eventCategoryButton addTarget:self action:@selector(selectEventCategoryAction) forControlEvents:UIControlEventTouchUpInside];
+        [postEventCell.eventCameraButton addTarget:self action:@selector(selectEventImageAction) forControlEvents:UIControlEventTouchUpInside];
         prototypePostCell = postEventCell;
+//        if (prototypePostCell.eventImag.image != nil) {
+//            postCellHeight = 180;
+//        }
         return postEventCell;
     }
     
@@ -112,9 +134,9 @@
 //    cell.profileImageView.image = [UIImage imageNamed:@"imageRight"];
 //    cell.label.text = @"\rSunset in Rome is Wonderful\r";
     
-    cell.cellImage.image = [eventContent.eventsArray[indexPath.row -1] eventImage];
-    cell.profileImageView.image = [eventContent.eventsArray[indexPath.row -1] profileImage];
-    cell.label.text = [eventContent.eventsArray[indexPath.row -1] subtitle];
+    cell.cellImage.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] eventImage];
+    cell.profileImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
+    cell.label.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
 
 //    int likes = 11;
     int disklikes = 12;
@@ -188,6 +210,11 @@
 
 -(void)restoreEmptyPostCell{
     [prototypePostCell.eventCategoryButton setImage:[UIImage imageNamed:@"marker"] forState:UIControlStateNormal];
+    [prototypePostCell.eventImag setImage:nil];
+//    [prototypePostCell.eventImag setFrame:CGRectZero];
+    
+//    [prototypePostCell.eventImag removeFromSuperview];
+    
     [self setPlaceholderOnTextView:prototypePostCell.subtitleTextView];
     [self adjustHeightForPostEventCell];
     
@@ -210,10 +237,18 @@
 }
 -(void)adjustHeightForPostEventCell {
     [self.tableView beginUpdates];
-    CGFloat paddingForTextView = 95; //Padding varies depending on your cell design
+    CGFloat paddingForTextView;
+    if (prototypePostCell.eventImag.image != nil) {
+        paddingForTextView = 155;
+    }
+    else {
+        paddingForTextView = 95; //Padding varies depending on your cell design
+    }
     postCellHeight = prototypePostCell.subtitleTextView.contentSize.height + paddingForTextView;
     [self.tableView endUpdates];
 }
+
+
 
 -(void)adjustButtonContentFormatForCell:(TimelineCellController *) cell {
     [cell.dislikeButton setImage:[UIImage imageNamed:@"dislike-icon-hightlighted"] forState:UIControlStateNormal];

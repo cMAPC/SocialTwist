@@ -7,15 +7,25 @@
 
 @implementation EventContent
 
++(EventContent *)sharedEventContent {
+    static EventContent* eventContent = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        eventContent = [[EventContent alloc] init];
+    });
+    return eventContent;
+}
+
+
 -(void)getEvents{
-    self.eventsArray = [[NSMutableArray alloc] init];
+    [EventContent sharedEventContent].eventsArray = [[NSMutableArray alloc] init];
     for (int i = 0; i < 10; i++) {
         EventContent* event = [[EventContent alloc] init];
         [event setTitle:@"Title"];
         [event setSubtitle:[NSString stringWithFormat:@"\rSunset in Rome is Wonderful %d\r", i]];
         [event setEventImage:[UIImage imageNamed:@"imageRight"]];
         [event setProfileImage:[UIImage imageNamed:@"imageLeft"]];
-        [self.eventsArray addObject:event];
+        [[EventContent sharedEventContent].eventsArray addObject:event];
     }
 }
 
@@ -28,7 +38,7 @@
     [newEvent setEventCategory:category];
     [newEvent setProfileImage:profileImage];
     [newEvent setEventImage:eventImage];
-    [self.eventsArray insertObject:newEvent atIndex:0];
+    [[EventContent sharedEventContent].eventsArray insertObject:newEvent atIndex:0];
 }
 
 @end

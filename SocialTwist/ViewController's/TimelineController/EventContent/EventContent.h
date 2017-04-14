@@ -21,6 +21,8 @@
 
 @property (strong, nonatomic) NSMutableArray* eventsArray;
 
++(EventContent *)sharedEventContent;
+
 -(void)getEvents;
 -(void)addNewEventWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinates:(CLLocationCoordinate2D)coordinates
               eventCategory:(NSUInteger)category profileImage:(UIImage *)profileImage eventImage:(UIImage *)eventImage;
