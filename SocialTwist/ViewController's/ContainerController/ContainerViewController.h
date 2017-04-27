@@ -7,6 +7,7 @@
 #import "AKASegmentedControl.h"
 #import <LGSideMenuController.h>
 #import "SearchResultController.h"
+#import "TimelineTableController.h"
 
 @interface ContainerViewController : UIViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 

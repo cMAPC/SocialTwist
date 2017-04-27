@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -85,7 +85,7 @@
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="hcc-mG-F7E">
-                                <rect key="frame" x="60" y="45" width="60" height="8.5"/>
+                                <rect key="frame" x="65" y="45" width="60" height="8.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="DGH-DC-pN7"/>
                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="60" id="kCL-DX-fm5"/>
@@ -95,7 +95,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="USl-Xf-ERg" firstAttribute="leading" secondItem="Bnl-Bc-fNC" secondAttribute="leading" constant="15" id="3qc-0a-FDf"/>
-                            <constraint firstItem="hcc-mG-F7E" firstAttribute="leading" secondItem="Bnl-Bc-fNC" secondAttribute="leading" constant="60" id="6hY-UY-b5N"/>
+                            <constraint firstItem="hcc-mG-F7E" firstAttribute="leading" secondItem="Bnl-Bc-fNC" secondAttribute="leading" constant="65" id="6hY-UY-b5N"/>
                             <constraint firstItem="cgl-Uw-a6z" firstAttribute="leading" secondItem="USl-Xf-ERg" secondAttribute="trailing" constant="10" id="7a7-PG-yBQ"/>
                             <constraint firstAttribute="trailing" secondItem="I4B-FW-yKA" secondAttribute="trailing" constant="15" id="91h-k2-1ae"/>
                             <constraint firstItem="ZgQ-af-Q9l" firstAttribute="top" secondItem="I4B-FW-yKA" secondAttribute="bottom" id="9OW-34-Kjt"/>
@@ -139,6 +139,11 @@
                     <constraint firstItem="Bnl-Bc-fNC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KR7-eU-8ml"/>
                 </constraints>
             </tableViewCellContentView>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="tag">
+                    <integer key="value" value="100"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="eventCameraButton" destination="wYe-1I-Lmm" id="M6n-uY-qIQ"/>
                 <outlet property="eventCategoryButton" destination="v7u-7q-c3z" id="bVU-mW-6kJ"/>

@@ -85,7 +85,6 @@
     });
 }
 
-
 - (void)initSlider {
     sliderView = [[UIView alloc] initWithFrame:CGRectMake(self.tabBarView.frame.size.width/2,
                                                           self.tabBarView.frame.origin.y + self.tabBarView.frame.size.height - 2,
@@ -99,23 +98,86 @@
 #pragma mark - Action
 -(void)segmentedControlValueChanged:(AKASegmentedControl *) sender {
     
+
+    
+
+    TimelineTableController * obj = (TimelineTableController *)self.childViewControllers[0];
+    if ([obj isPosting]) {
+        [Utilities showAlertControllerWithTitle:@"Error"
+                                        message:@"Cancel or Discard ?"
+                                     buttonType:UIAlertButtonDiscard
+                                  buttonHandler:^{
+                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                      [self.view endEditing:YES];
+                                              [obj restoreEmptyPostCell];
+                                              [sender setSelectedIndex:1];
+                                              [self showMapController];
+                                                });
+                                      
+                                     
+                                  } onViewController:self];
+        
+        [sender setSelectedIndex:0];
+        return;
+    }
+   
+    MapViewController * obj1 = (MapViewController *)self.childViewControllers[1];
+    if ([obj1 isPosting]) {
+        [Utilities showAlertControllerWithTitle:@"Error"
+                                        message:@"Cancel or Discard ?"
+                                     buttonType:UIAlertButtonDiscard
+                                  buttonHandler:^{
+                                      [sender setSelectedIndex:0];
+                                      [self showTimelineController];
+                                      [obj1 dismissPostAnnotationView];
+                                  } onViewController:self];
+        
+        [sender setSelectedIndex:1];
+        return;
+    }
+    
     if (sender.selectedIndexes.firstIndex == 0) {
-        [UIView animateWithDuration:(0.5) animations:^{
-            [sliderView removeFromSuperview];
-            self.timelineViewChild.alpha = 1;
-            self.mapViewChild.alpha = 0;
-            [self rightToLeftAnimation];
-        }];
-    } else {
-        [UIView animateWithDuration:(0.5) animations:^{
-            [sliderView removeFromSuperview];
-            self.timelineViewChild.alpha = 0;
-            self.mapViewChild.alpha = 1;
-            [self leftToRightAnimation];
-        }];
+        [self showTimelineController];
+    }
+    else
+    {
+        [self showMapController];
     }
 }
 
+-(void)showTimelineController {
+    [UIView animateWithDuration:(0.5) animations:^{
+        [sliderView removeFromSuperview];
+        self.timelineViewChild.alpha = 1;
+        self.mapViewChild.alpha = 0;
+        [self rightToLeftAnimation];
+        
+        MapViewController * mapViewController = (MapViewController *)self.childViewControllers[1];
+        if (![[mapViewController eventCategoryKeyboard] isHidden]) {
+            [[mapViewController eventCategoryKeyboard] hideAnimated:YES];
+        }
+        
+        [mapViewController.view endEditing:YES];
+    }];
+
+}
+
+-(void)showMapController {
+    [UIView animateWithDuration:(0.5) animations:^{
+        [sliderView removeFromSuperview];
+        self.timelineViewChild.alpha = 0;
+        self.mapViewChild.alpha = 1;
+        [self leftToRightAnimation];
+        
+        TimelineTableController * timelineController = (TimelineTableController *)self.childViewControllers[0];
+        if (![[timelineController eventCategoryKeyboard] isHidden]) {
+            [[timelineController eventCategoryKeyboard] hideAnimated:YES];
+        }
+        
+        [timelineController.view endEditing:YES];
+    }];
+
+}
 
 #pragma mark - Animation
 -(void) rightToLeftAnimation{

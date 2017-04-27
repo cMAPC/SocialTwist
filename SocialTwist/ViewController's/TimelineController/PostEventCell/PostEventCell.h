@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *eventCategoryButton;
 @property (weak, nonatomic) IBOutlet UIButton *eventCameraButton;
 @property (weak, nonatomic) IBOutlet UIImageView *eventImag;
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *eventImageViewHeighLayoutConstraint;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightTextViewConstraint;

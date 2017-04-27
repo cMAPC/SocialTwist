@@ -12,6 +12,8 @@
     AnnotationDescriptionView* annotationDescriptionView;
     
     NSArray* pinImageArray;
+    
+    BOOL isPosting;
 }
 
 @end
@@ -24,9 +26,6 @@
     locationManager = [[CLLocationManager alloc] init];
     [locationManager requestWhenInUseAuthorization];
     [locationManager startUpdatingLocation];
-
-    
-    
     
     pinImageArray = @[ @"Eating",
                        @"Sport",
@@ -52,13 +51,15 @@
                        @"Energized",
                        @"Alone",
                        @"Hungry"];
+    
+    [KeyboardAvoiding avoidKeyboardForViewController:self];
+    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
+    
 }
 
 -(void)viewDidLayoutSubviews {
-    [KeyboardViewController initOnViewController:self];
-    [KeyboardViewController enableSwipeGestureRecognizer:YES];
-    [KeyboardAvoiding avoidKeyboardForViewController:self];
-    [KeyboardAvoiding disableGestureRecognizerOnView:[KeyboardViewController getObject].view];
+    [self.eventCategoryKeyboard setViewController:self];
+    [KeyboardAvoiding disableGestureRecognizerOnView:self.eventCategoryKeyboard.view];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -73,16 +74,19 @@
         return nil;
     }
     
+    CalloutView* calloutView = [[[NSBundle mainBundle] loadNibNamed:@"CalloutView" owner:self options:nil] firstObject];
     PinView *pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
     pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-                                                           pinImageArray[[KeyboardViewController getSelectedIndex]]]];
+                                                           pinImageArray[[self.eventCategoryKeyboard selectedIndex].integerValue]]];
+    
+    calloutView.subtitleLabel.text = @"Subtitle";
     
     DXAnnotationView *annotationView = (DXAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([DXAnnotationView class])];
     if (!annotationView) {
         annotationView = [[DXAnnotationView alloc] initWithAnnotation:annotation
                                                       reuseIdentifier:NSStringFromClass([DXAnnotationView class])
                                                               pinView:pinView
-                                                          calloutView:nil
+                                                          calloutView:calloutView
                                                              settings:[DXAnnotationSettings defaultSettings]];
     }
     
@@ -90,7 +94,7 @@
 }
 
 #pragma mark - Action
-- (IBAction)longPressAddPinAction:(UILongPressGestureRecognizer*) sender {
+-(IBAction)longPressAddPinAction:(UILongPressGestureRecognizer*) sender {
     CGPoint touchView = [sender locationInView:self.mapView];
     touchCoordinate = [self.mapView convertPoint:touchView toCoordinateFromView:self.mapView];
     
@@ -104,14 +108,22 @@
     [annotationDescriptionView.selectPinCategoryButton addTarget:self action:@selector(selectPinCategoryAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
+-(BOOL)isPosting {
+    return isPosting;
+}
+
+-(void)dismissPostAnnotationView {
+    isPosting = NO;
+    [annotationDescriptionView removeFromSuperview];
+}
 #pragma mark - AnnotationDescriptionView Action
 -(void)selectPinCategoryAction
 {
-    if ([KeyboardViewController isHidden]) {
-        [KeyboardViewController showAnimated:YES];
+    if ([self.eventCategoryKeyboard isHidden]) {
+        [self.eventCategoryKeyboard showAnimated:YES];
     }
     else {
-        [KeyboardViewController hideAnimated:YES];
+        [self.eventCategoryKeyboard hideAnimated:YES];
     }
 }
 
@@ -120,14 +132,17 @@
     if (annotationDescriptionView.selectPinCategoryButton.imageView.image &&
         annotationDescriptionView.titleTextField.text.length > 0 &&
         annotationDescriptionView.subtitleTextView.text.length > 0) {
+        
         pointAnnotation = [[MKPointAnnotation alloc] init];
         pointAnnotation.coordinate = touchCoordinate;
         pointAnnotation.title = @"Title";
-        pointAnnotation.subtitle = annotationDescriptionView.titleTextField.text;
+        pointAnnotation.subtitle = @"Subtitle";
         [self.mapView addAnnotation:pointAnnotation];
         
         [annotationDescriptionView removeFromSuperview];
-        [KeyboardViewController hideAnimated:YES];
+        [self.eventCategoryKeyboard hideAnimated:YES];
+        
+        isPosting = NO;
     }
     else if (annotationDescriptionView.titleTextField.text.length <= 0) {
         NSLog(@"Title requiered");
@@ -145,11 +160,14 @@
     NSLog(@"Observer");
     if ([keyPath isEqualToString:@"selectedIndex"]) {
         [annotationDescriptionView.selectPinCategoryButton setTitle:nil forState:UIControlStateNormal];
-        [annotationDescriptionView.selectPinCategoryButton setImage:[KeyboardViewController getSelectedIndexImage]
+        [annotationDescriptionView.selectPinCategoryButton setImage:[self.eventCategoryKeyboard selectedIndexImage]
                                                            forState:UIControlStateNormal];
         
+        NSLog(@"selected index : %ld", (long)[self.eventCategoryKeyboard selectedIndex].integerValue);
+        isPosting = YES;
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [KeyboardViewController hideAnimated:YES];
+            [self.eventCategoryKeyboard hideAnimated:YES];
         });
         
     }

@@ -11,7 +11,7 @@
 @interface EventContent : NSObject
 
 @property (strong, nonatomic) NSString* title;
-@property (strong, nonatomic) NSString* subtitle;
+@property (retain, nonatomic) NSString* subtitle;
 @property (assign, nonatomic) NSInteger eventCategory;
 
 @property (strong, nonatomic) UIImage* eventImage;
@@ -19,7 +19,7 @@
 
 @property (assign, nonatomic) CLLocationCoordinate2D eventCoordinate;
 
-@property (strong, nonatomic) NSMutableArray* eventsArray;
+@property (retain, nonatomic) NSMutableArray* eventsArray;
 
 +(EventContent *)sharedEventContent;
 

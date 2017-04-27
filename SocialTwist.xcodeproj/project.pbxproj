@@ -85,6 +85,8 @@
 		1FD5DACD1E925F1A0083DFB2 /* PinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD5DACC1E925F1A0083DFB2 /* PinView.m */; };
 		1FD5DACF1E925F270083DFB2 /* PinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FD5DACE1E925F270083DFB2 /* PinView.xib */; };
 		1FD5DAD11E9266A20083DFB2 /* cat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FD5DAD01E9266A20083DFB2 /* cat.jpg */; };
+		1FDC3C381EA60B370094A7E9 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC3C371EA60B370094A7E9 /* CalloutView.m */; };
+		1FDC3C3A1EA60B410094A7E9 /* CalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FDC3C391EA60B410094A7E9 /* CalloutView.xib */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
 /* End PBXBuildFile section */
 
@@ -190,6 +192,9 @@
 		1FD5DACC1E925F1A0083DFB2 /* PinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinView.m; sourceTree = "<group>"; };
 		1FD5DACE1E925F270083DFB2 /* PinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinView.xib; sourceTree = "<group>"; };
 		1FD5DAD01E9266A20083DFB2 /* cat.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat.jpg; sourceTree = "<group>"; };
+		1FDC3C361EA60B370094A7E9 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
+		1FDC3C371EA60B370094A7E9 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
+		1FDC3C391EA60B410094A7E9 /* CalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalloutView.xib; sourceTree = "<group>"; };
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
@@ -508,6 +513,7 @@
 		1FD5DAC91E925E840083DFB2 /* EventAnnotationView */ = {
 			isa = PBXGroup;
 			children = (
+				1FDC3C351EA60B1A0094A7E9 /* CalloutView */,
 				1FD5DACA1E925E840083DFB2 /* PinView */,
 			);
 			path = EventAnnotationView;
@@ -521,6 +527,16 @@
 				1FD5DACE1E925F270083DFB2 /* PinView.xib */,
 			);
 			path = PinView;
+			sourceTree = "<group>";
+		};
+		1FDC3C351EA60B1A0094A7E9 /* CalloutView */ = {
+			isa = PBXGroup;
+			children = (
+				1FDC3C361EA60B370094A7E9 /* CalloutView.h */,
+				1FDC3C371EA60B370094A7E9 /* CalloutView.m */,
+				1FDC3C391EA60B410094A7E9 /* CalloutView.xib */,
+			);
+			path = CalloutView;
 			sourceTree = "<group>";
 		};
 		1FE1B2E91E9E57E500999557 /* ProfileCell */ = {
@@ -642,6 +658,7 @@
 				1F2E3CE01E5C31A7007B698A /* timeline-icon-hightlighted@2x.png in Resources */,
 				1F2E3CC81E5C31A7007B698A /* imageRoot.png in Resources */,
 				1F2E3CDE1E5C31A7007B698A /* star-icon.png in Resources */,
+				1FDC3C3A1EA60B410094A7E9 /* CalloutView.xib in Resources */,
 				1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */,
 				1F2E3CE11E5C31A7007B698A /* timeline-icon@2x.png in Resources */,
 				1F2E3CDA1E5C31A7007B698A /* singIn_image.png in Resources */,
@@ -754,6 +771,7 @@
 				1F2054F01E46575E005AAEA9 /* RegisterViewController.m in Sources */,
 				1F2055071E46586B005AAEA9 /* Utilities.m in Sources */,
 				1F7500391E5AEE8B0066E71E /* SearchResultController.m in Sources */,
+				1FDC3C381EA60B370094A7E9 /* CalloutView.m in Sources */,
 				1F6275A41E94FC1F0009F43E /* KeyboardAvoiding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

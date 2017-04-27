@@ -14,18 +14,22 @@
 #import <DXAnnotationSettings.h>
 #import "PinView.h"
 #import "KeyboardAvoiding.h"
+#import "CalloutView.h"
+#import "EventContent.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
+@property (strong, nonatomic) KeyboardViewController* eventCategoryKeyboard;
 
 - (IBAction)longPressAddPinAction:(UILongPressGestureRecognizer*) sender;
 
-@property (weak, nonatomic) IBOutlet UIView *bottomBarView;
-
 - (IBAction)cameraButtonAction:(UIButton *)sender;
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender;
-
 - (IBAction)editButtonAction:(UIButton *)sender;
+
+- (BOOL)isPosting;
+- (void)dismissPostAnnotationView;
 
 @end

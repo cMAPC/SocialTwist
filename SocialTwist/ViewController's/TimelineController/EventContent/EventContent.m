@@ -31,9 +31,16 @@
 
 -(void)addNewEventWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinates:(CLLocationCoordinate2D)coordinates
               eventCategory:(NSUInteger)category profileImage:(UIImage *)profileImage eventImage:(UIImage *)eventImage {
+    if (eventImage == nil) {
+        NSLog(@"Image is nil");
+    }
     EventContent* newEvent = [[EventContent alloc] init];
     [newEvent setTitle:title];
-    [newEvent setSubtitle:[NSString stringWithFormat:@"\r%@\r", subtitle]];
+    if (subtitle.length > 0 && ![subtitle isEqualToString:@"What's new?"]) {
+        [newEvent setSubtitle:[NSString stringWithFormat:@"\r%@\r", subtitle]];
+    } else {
+        [newEvent setSubtitle:@""];
+    }
     [newEvent setEventCoordinate:coordinates];
     [newEvent setEventCategory:category];
     [newEvent setProfileImage:profileImage];

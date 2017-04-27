@@ -41,6 +41,35 @@
     return view;
 }
 
++(void)showAlertControllerWithTitle:(NSString *)title message:(NSString *)message cancelAction:(BOOL)value onViewController:(UIViewController *)viewController{
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    
+    if (value) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    }
+    
+    [viewController presentViewController:alertController animated:YES completion:nil];
+}
+
++(void)showAlertControllerWithTitle:(NSString *)title message:(NSString *)message buttonType:(ButtonType)type buttonHandler:(ButtonHandler)handler onViewController:(UIViewController *)viewController {
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    
+    
+    if (type == UIAlertButtonDiscard) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Discard" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            handler();
+        }]];
+    }
+    
+    [viewController presentViewController:alertController animated:NO completion:nil];
+}
+
+
 @end
 
 
