@@ -87,6 +87,11 @@
 		1FD5DAD11E9266A20083DFB2 /* cat.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1FD5DAD01E9266A20083DFB2 /* cat.jpg */; };
 		1FDC3C381EA60B370094A7E9 /* CalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC3C371EA60B370094A7E9 /* CalloutView.m */; };
 		1FDC3C3A1EA60B410094A7E9 /* CalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FDC3C391EA60B410094A7E9 /* CalloutView.xib */; };
+		1FDE93751EB74F42006EFF3A /* EventFilterTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE93741EB74F42006EFF3A /* EventFilterTableView.m */; };
+		1FDE937C1EB750E1006EFF3A /* EventFilterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE937A1EB750E1006EFF3A /* EventFilterCell.m */; };
+		1FDE937D1EB750E1006EFF3A /* EventFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FDE937B1EB750E1006EFF3A /* EventFilterCell.xib */; };
+		1FDE93801EB76588006EFF3A /* EventFilterTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE937F1EB76588006EFF3A /* EventFilterTableController.m */; };
+		1FDE93A91EB881EB006EFF3A /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE93A81EB881EB006EFF3A /* CustomAnnotation.m */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
 /* End PBXBuildFile section */
 
@@ -195,6 +200,15 @@
 		1FDC3C361EA60B370094A7E9 /* CalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutView.h; sourceTree = "<group>"; };
 		1FDC3C371EA60B370094A7E9 /* CalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutView.m; sourceTree = "<group>"; };
 		1FDC3C391EA60B410094A7E9 /* CalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalloutView.xib; sourceTree = "<group>"; };
+		1FDE93731EB74F42006EFF3A /* EventFilterTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventFilterTableView.h; sourceTree = "<group>"; };
+		1FDE93741EB74F42006EFF3A /* EventFilterTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventFilterTableView.m; sourceTree = "<group>"; };
+		1FDE93791EB750E1006EFF3A /* EventFilterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventFilterCell.h; sourceTree = "<group>"; };
+		1FDE937A1EB750E1006EFF3A /* EventFilterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventFilterCell.m; sourceTree = "<group>"; };
+		1FDE937B1EB750E1006EFF3A /* EventFilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventFilterCell.xib; sourceTree = "<group>"; };
+		1FDE937E1EB76588006EFF3A /* EventFilterTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventFilterTableController.h; sourceTree = "<group>"; };
+		1FDE937F1EB76588006EFF3A /* EventFilterTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventFilterTableController.m; sourceTree = "<group>"; };
+		1FDE93A71EB881EB006EFF3A /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
+		1FDE93A81EB881EB006EFF3A /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +238,8 @@
 		1F2054C51E465541005AAEA9 = {
 			isa = PBXGroup;
 			children = (
+				1FDE93A71EB881EB006EFF3A /* CustomAnnotation.h */,
+				1FDE93A81EB881EB006EFF3A /* CustomAnnotation.m */,
 				1F2054D01E465541005AAEA9 /* SocialTwist */,
 				1F2054CF1E465541005AAEA9 /* Products */,
 				2D735A0FD5CEB821D6C22CD3 /* Pods */,
@@ -320,6 +336,7 @@
 		1F2055351E465C45005AAEA9 /* MapController */ = {
 			isa = PBXGroup;
 			children = (
+				1F2922F71EB4C3600065EF72 /* EventFilterView */,
 				1F2DBE4C1E8175FC002DB97D /* CustomKeyboard */,
 				1F2055361E465C45005AAEA9 /* AnnotationDescriptionView */,
 				1FD5DAC91E925E840083DFB2 /* EventAnnotationView */,
@@ -389,6 +406,28 @@
 				1F2055C11E466A6E005AAEA9 /* TableViewController.m */,
 			);
 			path = MenuTable;
+			sourceTree = "<group>";
+		};
+		1F2922F71EB4C3600065EF72 /* EventFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				1F2922F81EB4C3600065EF72 /* EventFilterCellView */,
+				1FDE93731EB74F42006EFF3A /* EventFilterTableView.h */,
+				1FDE93741EB74F42006EFF3A /* EventFilterTableView.m */,
+				1FDE937E1EB76588006EFF3A /* EventFilterTableController.h */,
+				1FDE937F1EB76588006EFF3A /* EventFilterTableController.m */,
+			);
+			path = EventFilterView;
+			sourceTree = "<group>";
+		};
+		1F2922F81EB4C3600065EF72 /* EventFilterCellView */ = {
+			isa = PBXGroup;
+			children = (
+				1FDE93791EB750E1006EFF3A /* EventFilterCell.h */,
+				1FDE937A1EB750E1006EFF3A /* EventFilterCell.m */,
+				1FDE937B1EB750E1006EFF3A /* EventFilterCell.xib */,
+			);
+			path = EventFilterCellView;
 			sourceTree = "<group>";
 		};
 		1F2C54491E4768EF006B7F82 /* MenuCell */ = {
@@ -649,6 +688,7 @@
 				1F2E3CC41E5C31A7007B698A /* image4.jpg in Resources */,
 				1F2E3CCB1E5C31A7007B698A /* logo_text.png in Resources */,
 				1F2E3CD61E5C31A7007B698A /* search-icon@2x.png in Resources */,
+				1FDE937D1EB750E1006EFF3A /* EventFilterCell.xib in Resources */,
 				1F2E3CD51E5C31A7007B698A /* placeholder.svg in Resources */,
 				1F2DBE561E8175FC002DB97D /* KeyboardViewController.xib in Resources */,
 				1F2E3CCF1E5C31A7007B698A /* menu-icon@2x.png in Resources */,
@@ -754,14 +794,18 @@
 				1F2DBE551E8175FC002DB97D /* KeyboardViewController.m in Sources */,
 				1FD5DACD1E925F1A0083DFB2 /* PinView.m in Sources */,
 				1F2055C21E466A6E005AAEA9 /* MainViewController.m in Sources */,
+				1FDE93751EB74F42006EFF3A /* EventFilterTableView.m in Sources */,
 				1F2055531E4662CD005AAEA9 /* TimelineCellController.m in Sources */,
 				1F2055551E4662CD005AAEA9 /* TimelineTableController.m in Sources */,
+				1FDE93801EB76588006EFF3A /* EventFilterTableController.m in Sources */,
 				1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */,
+				1FDE93A91EB881EB006EFF3A /* CustomAnnotation.m in Sources */,
 				1F20553D1E465C45005AAEA9 /* AnnotationDescriptionView.m in Sources */,
 				1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,
 				1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */,
+				1FDE937C1EB750E1006EFF3A /* EventFilterCell.m in Sources */,
 				1F2055C51E466A6E005AAEA9 /* TableViewController.m in Sources */,
 				1F2C54531E476941006B7F82 /* MenuCell.m in Sources */,
 				1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */,

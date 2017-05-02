@@ -10,7 +10,7 @@
 
 @interface PinView : UIView
 
-@property (weak, nonatomic) IBOutlet UIImageView *categoryImageView;
+@property (strong, nonatomic) IBOutlet UIImageView *categoryImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 
 @end

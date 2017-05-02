@@ -22,6 +22,7 @@
 @property (retain, nonatomic) NSMutableArray* eventsArray;
 
 +(EventContent *)sharedEventContent;
+-(void)allocaArray;
 
 -(void)getEvents;
 -(void)addNewEventWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinates:(CLLocationCoordinate2D)coordinates

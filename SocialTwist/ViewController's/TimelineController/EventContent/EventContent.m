@@ -16,6 +16,9 @@
     return eventContent;
 }
 
+-(void)allocaArray {
+    [EventContent sharedEventContent].eventsArray = [[NSMutableArray alloc] init];
+}
 
 -(void)getEvents{
     [EventContent sharedEventContent].eventsArray = [[NSMutableArray alloc] init];

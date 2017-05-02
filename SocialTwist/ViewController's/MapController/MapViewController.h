@@ -17,11 +17,15 @@
 #import "CalloutView.h"
 #import "EventContent.h"
 
+#import "EventFilterTableController.h"
+
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
+
 @property (strong, nonatomic) KeyboardViewController* eventCategoryKeyboard;
+@property (strong, nonatomic) NSMutableArray* selectedCategories;
 
 - (IBAction)longPressAddPinAction:(UILongPressGestureRecognizer*) sender;
 
@@ -31,5 +35,8 @@
 
 - (BOOL)isPosting;
 - (void)dismissPostAnnotationView;
+
+-(void)trashAction:(NSMutableArray *)array;
+@property (strong, nonatomic) NSString* trash;
 
 @end

@@ -13,7 +13,7 @@
     BOOL _hasCalloutView;
 }
 
-@property(nonatomic, strong) UIView *pinView;
+//@property(nonatomic, strong) UIView *pinView;
 @property(nonatomic, strong) UIView *calloutView;
 @property(nonatomic, strong) DXAnnotationSettings *settings;
 

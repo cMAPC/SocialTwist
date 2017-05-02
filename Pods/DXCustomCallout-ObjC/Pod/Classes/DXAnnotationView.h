@@ -16,7 +16,7 @@
                            pinView:(UIView *)pinView
                        calloutView:(UIView *)calloutView
                           settings:(DXAnnotationSettings *)settings;
-
+@property(nonatomic, strong) UIView *pinView;
 - (void)hideCalloutView;
 - (void)showCalloutView;
 
