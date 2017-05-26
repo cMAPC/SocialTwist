@@ -25,4 +25,5 @@ typedef enum buttonTypes {
 
 +(void)showAlertControllerWithTitle:(NSString *)title message:(NSString *)message buttonType:(ButtonType)type buttonHandler:(ButtonHandler)handler onViewController:(UIViewController *)viewController;
 
++(UIImage *)imageFromView:(UIView *)view;
 @end

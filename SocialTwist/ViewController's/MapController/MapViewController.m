@@ -6,19 +6,21 @@
 #import "MapViewController.h"
 
 #import "CustomAnnotation.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MapViewController () {
     CLLocationManager* locationManager;
     MKPointAnnotation* pointAnnotation;
     CLLocationCoordinate2D touchCoordinate;
     AnnotationDescriptionView* annotationDescriptionView;
+    PinView* pinView;
     
     NSArray* pinImageArray;
-    
     BOOL isPosting;
     
-    NSMutableArray* postedPinsArray;
     NSInteger eventCategoryIndex;
+    
+    SMVisualEffectView* blurView;
 }
 
 @end
@@ -57,18 +59,12 @@
                        @"Alone",
                        @"Hungry"];
     
-    [KeyboardAvoiding avoidKeyboardForViewController:self];
-    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
+//    [KeyboardAvoiding avoidKeyboardForViewController:self];
     
-    postedPinsArray = [[NSMutableArray alloc] init];
-    _selectedCategories = [[NSMutableArray alloc] init];
-//  [_selectedCategories addObject:[NSNumber numberWithInteger:1]];
-//    [[EventContent sharedEventContent] allocaArray];
-}
-
--(void)viewDidLayoutSubviews {
-    [self.eventCategoryKeyboard setViewController:self];
-    [KeyboardAvoiding disableGestureRecognizerOnView:self.eventCategoryKeyboard.view];
+    self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
+    self.selectedCategories = [[NSMutableArray alloc] init];
+    
+    pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -83,98 +79,49 @@
         return nil;
     }
     
-//    
-//    MKAnnotationView *annotationView = (MKAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"singleAnnotationView"];
-//    
-//    if (!annotationView) {
-//        annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"singleAnnotationView"];
-//    }
-//    annotationView.annotation = annotation;
-//    annotationView.image = nil;
-//    annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-//                                                pinImageArray[eventCategoryIndex]]];
-//    
-//    return annotationView;
+    /* varianta initiala
+    CalloutView* calloutView = [[[NSBundle mainBundle] loadNibNamed:@"CalloutView" owner:self options:nil] firstObject];
+    
+    PinView *pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
+    pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
+                                                           pinImageArray[[self.eventCategoryKeyboard selectedIndex].integerValue]]];
 
-//    CalloutView* calloutView = [[[NSBundle mainBundle] loadNibNamed:@"CalloutView" owner:self options:nil] firstObject];
-//    
-//    PinView *pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
-////    pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-////                                                           pinImageArray[[self.eventCategoryKeyboard selectedIndex].integerValue]]];
-//
-//
-//    calloutView.subtitleLabel.text = @"Subtitle";
-//    
-//    DXAnnotationView *annotationView = (DXAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([DXAnnotationView class])];
-//    if (!annotationView) {
-//        annotationView = [[DXAnnotationView alloc] initWithAnnotation:annotation
-//                                                      reuseIdentifier:NSStringFromClass([DXAnnotationView class])
-//                                                              pinView:pinView
-//                                                          calloutView:calloutView
-//                                                             settings:[DXAnnotationSettings defaultSettings]];
-//    }
-//    else {
-//        annotationView.annotation= annotation;
-//    }
-//    
-//    pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-//                                                           pinImageArray[eventCategoryIndex]]];
-//    
-//    return annotationView;
+
+    calloutView.subtitleLabel.text = @"Subtitle";
     
-////    if ([annotation isKindOfClass:[MKAnnotationView class]]) {
-//    
-//        UIImageView *pinView = nil;
-//        
-//        UIView *calloutView = nil;
-//        
-//        DXAnnotationView *annotationView = (DXAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([DXAnnotationView class])];
-//        if (!annotationView) {
-//            pinView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-//                                                                              pinImageArray[eventCategoryIndex]]]];
-//            calloutView = [[[NSBundle mainBundle] loadNibNamed:@"CalloutView" owner:self options:nil] firstObject];
-//            
-//            annotationView = [[DXAnnotationView alloc] initWithAnnotation:annotation
-//                                                          reuseIdentifier:NSStringFromClass([DXAnnotationView class])
-//                                                                  pinView:pinView
-//                                                              calloutView:calloutView
-//                                                                 settings:[DXAnnotationSettings defaultSettings]];
-//        }else {
-//            
-//            //Changing PinView's image to test the recycle
-////            pinView = (UIImageView *)annotationView.pinView;
-////            pinView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-////                                                 pinImageArray[eventCategoryIndex]]];
-//        }
-////    pinView = (UIImageView *)annotationView.pinView;
-//    pinView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-//                                         pinImageArray[eventCategoryIndex]]];
-////        annotationView.pinView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
-////                                             pinImageArray[eventCategoryIndex]]];
-//
-//        return annotationView;
-////    }
-//    return nil;
+    DXAnnotationView *annotationView = (DXAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([DXAnnotationView class])];
+    if (!annotationView) {
+        annotationView = [[DXAnnotationView alloc] initWithAnnotation:annotation
+                                                      reuseIdentifier:NSStringFromClass([DXAnnotationView class])
+                                                              pinView:pinView
+                                                          calloutView:calloutView
+                                                             settings:[DXAnnotationSettings defaultSettings]];
+    }
+
+
+    return annotationView;
+    */
     
+    // varianta cu sortare
     if ([annotation isKindOfClass:[CustomAnnotation class]]) {
-        CustomAnnotation* location = (CustomAnnotation *)annotation;
+        CustomAnnotation* customAnnotation = (CustomAnnotation *)annotation;
         
         MKAnnotationView* annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"MyCustomAnnotation"];
         
-        if (annotationView == nil) {
-            annotationView = location.annotationView;
+        if (annotationView == nil)
+        {
+            annotationView = customAnnotation.annotationView;
         }
-        else{
+        else
+        {
             annotationView.annotation = annotation;
-        
         }
-        annotationView.image =[UIImage imageNamed:location.image];
-
-        return annotationView;
         
+        annotationView.image = customAnnotation.pinImage;
+        return annotationView;
     }
     else
-    return nil;
+        return nil;
 }
 
 #pragma mark - Action
@@ -183,13 +130,58 @@
     touchCoordinate = [self.mapView convertPoint:touchView toCoordinateFromView:self.mapView];
     
     if(sender.state == UIGestureRecognizerStateBegan) {
-        annotationDescriptionView = [[[NSBundle mainBundle] loadNibNamed:@"AnnotationDescriptionView" owner:self options:nil] firstObject];
+        annotationDescriptionView = [[[NSBundle mainBundle]
+                                      loadNibNamed:@"AnnotationDescriptionView"
+                                      owner:self
+                                      options:nil] firstObject];
+        
         annotationDescriptionView.center = self.mapView.center;
-        [self.view addSubview:annotationDescriptionView];
+
+//        [self.view addSubview:annotationDescriptionView];
+//        [self.view bringSubviewToFront:_eventCategoryKeyboard.view];
+        
+        [self addBlurEffect];
     }
     
-    [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self action:@selector(addAnnotationDescriptionAction) forControlEvents:UIControlEventTouchUpInside];
-    [annotationDescriptionView.selectPinCategoryButton addTarget:self action:@selector(selectPinCategoryAction) forControlEvents:UIControlEventTouchUpInside];
+    [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self
+                                                                 action:@selector(addAnnotationDescriptionAction)
+                                                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [annotationDescriptionView.selectPinCategoryButton addTarget:self
+                                                          action:@selector(selectPinCategoryAction)
+                                                forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)addBlurEffect {
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    
+    blurView = [[SMVisualEffectView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+    [blurView setBlurRadius:2.5f];
+
+    UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
+    [currentWindow addSubview:blurView];
+//    [blurView addSubview:annotationDescriptionView];
+    [self.eventCategoryKeyboard addToView:blurView];
+    
+    [blurView setAlpha:0.0f];
+    
+    [UIView animateWithDuration:0.8f animations:^{
+        [blurView setAlpha:1.0f];
+    } completion:^(BOOL finished) {
+        [blurView addSubview:annotationDescriptionView];
+    }];
+    
+    
+}
+
+-(void)removeBlurEffect {
+//    [blurView removeFromSuperview];
+    [UIView animateWithDuration:0.8f animations:^{
+        [blurView setAlpha:0.0f];
+    } completion:^(BOOL finished) {
+        [blurView removeFromSuperview];
+    }];
 }
 
 -(BOOL)isPosting {
@@ -200,6 +192,7 @@
     isPosting = NO;
     [annotationDescriptionView removeFromSuperview];
 }
+
 #pragma mark - AnnotationDescriptionView Action
 -(void)selectPinCategoryAction
 {
@@ -217,19 +210,30 @@
         annotationDescriptionView.titleTextField.text.length > 0 &&
         annotationDescriptionView.subtitleTextView.text.length > 0) {
         
+        // varianta initiala
 //        pointAnnotation = [[MKPointAnnotation alloc] init];
 //        pointAnnotation.coordinate = touchCoordinate;
 //        pointAnnotation.title = @"Title";
 //        pointAnnotation.subtitle = @"Subtitle";
 //        eventCategoryIndex = [[_eventCategoryKeyboard selectedIndex] integerValue];
 //        [self.mapView addAnnotation:pointAnnotation];
+//        [annotationDescriptionView removeFromSuperview];
         
-        CustomAnnotation* annotatino = [[CustomAnnotation alloc] initWithTitle:@"Title" location:touchCoordinate];
+        // varianta cu sortare
+        CustomAnnotation* customAnnotation = [[CustomAnnotation alloc] initWithTitle:@"Title" location:touchCoordinate];
         eventCategoryIndex = [[_eventCategoryKeyboard selectedIndex] integerValue];
-        annotatino.image = [NSString stringWithFormat:@"mapPinIcons/%@",
-                                                              pinImageArray[[[_eventCategoryKeyboard selectedIndex] integerValue]]];
+        customAnnotation.image = [NSString stringWithFormat:@"mapPinIcons/%@",
+                            pinImageArray[[[_eventCategoryKeyboard selectedIndex] integerValue]]];
+        
+//        PinView* pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
+        pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@",
+                                           pinImageArray[[[_eventCategoryKeyboard selectedIndex] integerValue]]]];
+        pinView.profileImageView.image = [UIImage imageNamed:@"cat.jpg"];
+        
+        customAnnotation.pinImage = [Utilities imageFromView:pinView];
+        customAnnotation.eventCategory = [[_eventCategoryKeyboard selectedIndex] integerValue];
 
-         [self.mapView addAnnotation:annotatino];
+        [self.mapView addAnnotation:customAnnotation];
         [annotationDescriptionView removeFromSuperview];
         [self.eventCategoryKeyboard hideAnimated:YES];
         
@@ -242,6 +246,9 @@
         [obj setSubtitle:@"Subtitle"];
         [obj setEventCategory:[_eventCategoryKeyboard selectedIndex].integerValue];
         [[[EventContent sharedEventContent] eventsArray] addObject:obj];
+        
+        [self removeBlurEffect];
+        [self.eventCategoryKeyboard addToView:self.view];
     }
     else if (annotationDescriptionView.titleTextField.text.length <= 0) {
         NSLog(@"Title requiered");
@@ -275,90 +282,56 @@
 #pragma mark - BottomBarButton's Action
 - (IBAction)cameraButtonAction:(UIButton *)sender {
     NSLog(@"Camera button pressed");
-   [self.mapView removeAnnotations:[self.mapView annotations]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
- 
-//    for (EventContent* obj in [[EventContent sharedEventContent] eventsArray]) {
-////        if ([selectedCategorys containsObject:[NSNumber numberWithInteger:obj.eventCategory]]) {
-//        
-//        
-//                    pointAnnotation = [[MKPointAnnotation alloc] init];
-//            eventCategoryIndex = obj.eventCategory;
-//            pointAnnotation.coordinate = obj.eventCoordinate;
-//            pointAnnotation.title = obj.title;
-//            pointAnnotation.subtitle = obj.subtitle;
-//            NSLog(@"category %d", obj.eventCategory);
-//        
-//            [self.mapView addAnnotation:pointAnnotation];
-//            [self.mapView setNeedsLayout];
-//            [self.mapView setNeedsDisplay];
-//   
-//      
-//
-////        }
-//       
-//
-//    }
-    });
-
-    NSLog(@"Selected categories %@", self.trash);
-    
-    NSMutableArray* array = [NSMutableArray new];
-        for (EventContent* obj in [[EventContent sharedEventContent] eventsArray]) {
-            if ([self.selectedCategories containsObject:[NSNumber numberWithInteger:obj.eventCategory]]) {
-            CustomAnnotation* annotatino = [[CustomAnnotation alloc] initWithTitle:@"Title" location:obj.eventCoordinate];
-            eventCategoryIndex = obj.eventCategory;
-            annotatino.image = [NSString stringWithFormat:@"mapPinIcons/%@", pinImageArray[obj.eventCategory]];
-//            pointAnnotation.coordinate = obj.eventCoordinate;
-//            pointAnnotation.title = obj.title;
-//            pointAnnotation.subtitle = obj.subtitle;
-//            NSLog(@"category %d", obj.eventCategory);
-
-                [array addObject:annotatino]; }
-//            [self.mapView addAnnotation:annotatino];
-        }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [self.mapView addAnnotations:array];
-        
-    });
 }
 
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender {
-//    NSLog(@"nav contro %@", self.navigationController.viewControllers );
     [self mapView:self.mapView didUpdateUserLocation:(MKUserLocation *)locationManager.location];
+    
+    NSLog(@"SelectedCategories array value %@", self.selectedCategories);
 }
 
 - (IBAction)editButtonAction:(UIButton *)sender {
     NSLog(@"Edit button pressed");
-  
-    [_selectedCategories addObject:[NSNumber numberWithInteger:0]];
-    [_selectedCategories addObject:[NSNumber numberWithInteger:3]];
-    [_selectedCategories addObject:[NSNumber numberWithInteger:6]];
-    
-    EventFilterTableController* eventFilterController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventFilterViewControllerID"];
+
+    EventFilterTableController* eventFilterController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventFilterTableControllerID"];
     
     [self.navigationController pushViewController:eventFilterController animated:YES];
-//    [self presentViewController:eventFilterController animated:YES completion:nil];
 }
 
--(void)trashAction:(NSMutableArray *)array{
-    NSLog(@"Trash %@", array);
-//    self.navigationController.navigationBar.topItem.title = @"Title";
-//    [self.navigationItem setTitleView:nil];
-//    [self.navigationItem setTitle:@"News"];
-//    [self.navigationItem set:@"News"];
-}
+-(void)filterEventsByCategories {
+    
+    for (CustomAnnotation* annotation in self.mapView.annotations) {
+        if (![annotation isKindOfClass:[MKUserLocation class]]) {
+            if (![self.selectedCategories containsObject:[NSNumber numberWithInteger:annotation.eventCategory]]
+                && [self.selectedCategories count] != 0)
+                [[self.mapView viewForAnnotation:annotation] setHidden:YES];
+            else
+                [[self.mapView viewForAnnotation:annotation] setHidden:NO];
+        }
+    }
 
--(void)viewWillAppear:(BOOL)animated {
+    /* remove alternative
+    [self.mapView removeAnnotations:[self.mapView annotations]];
+    NSMutableArray* array = [NSMutableArray new];
+    
+    for (EventContent* obj in [[EventContent sharedEventContent] eventsArray]) {
+        if ([self.selectedCategories containsObject:[NSNumber numberWithInteger:obj.eventCategory]]) {
+            CustomAnnotation* annotatino = [[CustomAnnotation alloc] initWithTitle:@"Title" location:obj.eventCoordinate];
+            eventCategoryIndex = obj.eventCategory;
+            
+            //annotatino.image = [NSString stringWithFormat:@"mapPinIcons/%@", pinImageArray[obj.eventCategory]];
+            //PinView* pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
+            
+            pinView.categoryImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"mapPinIcons/%@", pinImageArray[obj.eventCategory]]];
+            pinView.profileImageView.image = [UIImage imageNamed:@"cat.jpg"];
+            annotatino.pinImage = [Utilities imageFromView:pinView];
+            [array addObject:annotatino];
+        }
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:0];
-        navCon.navigationItem.title = @"News";
+        [self.mapView addAnnotations:array];
     });
-//    UINavigationController *navCon  = (UINavigationController*) [self.navigationController.viewControllers objectAtIndex:0];
-//    navCon.navigationItem.title = @"News";
-//self.navigationController.navigationBar.topItem.title = @"News";
+    */
 }
+
 @end

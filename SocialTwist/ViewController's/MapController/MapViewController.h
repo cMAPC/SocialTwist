@@ -18,6 +18,8 @@
 #import "EventContent.h"
 
 #import "EventFilterTableController.h"
+#import "Utilities.h"
+#import "SMVisualEffectView.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
@@ -32,11 +34,12 @@
 - (IBAction)cameraButtonAction:(UIButton *)sender;
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender;
 - (IBAction)editButtonAction:(UIButton *)sender;
+- (void)filterEventsByCategories;
 
 - (BOOL)isPosting;
 - (void)dismissPostAnnotationView;
 
--(void)trashAction:(NSMutableArray *)array;
-@property (strong, nonatomic) NSString* trash;
+
+
 
 @end

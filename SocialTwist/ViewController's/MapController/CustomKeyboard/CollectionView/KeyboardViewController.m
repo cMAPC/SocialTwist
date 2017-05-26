@@ -9,7 +9,9 @@
     NSArray *titleArray;
     NSArray *imageArray;
     
-    UIViewController* destinationViewController;
+    UIViewController* parentViewController;
+    
+    UIView* parentView;
 }
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint* verticalLayoutConstraint;
@@ -88,7 +90,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"KeyboardItemView" bundle:nil] forCellWithReuseIdentifier:@"cell"];
     [self.horizontalLayoutConstraint setConstant:[UIScreen mainScreen].bounds.size.width];
     
-    [self addObserver:destinationViewController
+    [self addObserver:parentViewController
            forKeyPath:@"selectedIndex"
               options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
               context:nil];
@@ -106,7 +108,7 @@
 
 -(void)keyboardWillShow:(NSNotification *)notification {
     self.view.frame = CGRectMake(0,
-                                 destinationViewController.view.frame.size.height,
+                                 parentView.frame.size.height,
                                  [UIScreen mainScreen].bounds.size.width,
                                  self.collectionView.frame.size.height);
     [self setIsHidden:YES];
@@ -175,12 +177,18 @@
 }
 
 -(void)showAnimated:(BOOL) value{
-    [destinationViewController.view endEditing:YES];
+    [parentViewController.view endEditing:YES];
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    
+//    NSLog(@"screen height %f", [UIScreen mainScreen].bounds.size.height);
+//    NSLog(@"collection height %f", self.collectionView.frame.size.height);
+//    NSLog(@"trash view height %f", parentView.frame.size.height - self.collectionView.frame.size.height);
+    
     [UIView animateWithDuration:0.2f delay:0.f options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self view].frame = CGRectMake(0,
-                                      destinationViewController.view.frame.size.height - self.collectionView.frame.size.height,
-                                      [UIScreen mainScreen].bounds.size.width,
-                                      [self view].frame.size.height);
+                                       parentView.frame.size.height - self.collectionView.frame.size.height,
+                                       [UIScreen mainScreen].bounds.size.width,
+                                       [self view].frame.size.height);
     } completion:^(BOOL finished) {
         [self setIsHidden:NO];
     }];
@@ -189,32 +197,76 @@
 -(void)hideAnimated:(BOOL) value {
     [UIView animateWithDuration:0.3f delay:0.f options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self view].frame = CGRectMake(0,
-                                      destinationViewController.view.frame.size.height,
-                                      [UIScreen mainScreen].bounds.size.width,
-                                      [self view].frame.size.height);
+                                       parentView.frame.size.height,
+                                       [UIScreen mainScreen].bounds.size.width,
+                                       [self view].frame.size.height);
     } completion:^(BOOL finished) {
         [self setIsHidden:YES];
     }];
 }
 
 #pragma mark - Initialization
--(void)setViewController:(UIViewController *) viewController {
-    destinationViewController = viewController;
-    [viewController addChildViewController:self];
-    [viewController.view addSubview:[self view]];
-    [self didMoveToParentViewController:viewController];
+-(instancetype)initOnViewController:(UIViewController *)viewController
+{
+    self = [super init];
+    if (self) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            parentViewController = viewController;
+            parentView = [[UIView alloc] initWithFrame:CGRectMake(viewController.view.frame.origin.x,
+                                                                 viewController.view.frame.origin.y,
+                                                                 viewController.view.frame.size.width,
+                                                                 viewController.view.frame.size.height)];
+            [viewController addChildViewController:self];
+            [viewController.view addSubview:[self view]];
+            [self didMoveToParentViewController:viewController];
+        });
+        
+    }
+    return self;
+}
+
+-(void)addToView:(UIView *)view {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        parentView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.origin.x,
+                                                             view.frame.origin.y,
+                                                             view.frame.size.width,
+                                                             view.frame.size.height)];
+        [view addSubview:[self view]];
+    });
 }
 
 #pragma mark - Dealloc
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self removeObserver:destinationViewController forKeyPath:@"selectedIndex"];
+    [self removeObserver:parentViewController forKeyPath:@"selectedIndex"];
 }
 
 
+#pragma mark - TrashUntil
+/*
+-(void)setViewController:(UIViewController *) viewController {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        destinationViewController = viewController;
+        [viewController addChildViewController:self];
+        [viewController.view addSubview:[self view]];
+        [self didMoveToParentViewController:viewController];
+    });
+    
+}
 
-
-
+-(void)setViewController:(UIViewController *) viewController onView:(UIView *)view {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        destinationViewController = viewController;
+        parentView = [[UIView alloc] initWithFrame:CGRectMake(view.frame.origin.x,
+                                                             view.frame.origin.y,
+                                                             view.frame.size.width,
+                                                             view.frame.size.height)];
+        [viewController addChildViewController:self];
+        [view addSubview:[self view]];
+        [self didMoveToParentViewController:viewController];
+    });
+}
+*/
 
 
 

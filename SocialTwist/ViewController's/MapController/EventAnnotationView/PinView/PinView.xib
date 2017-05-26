@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PinView">
-            <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+        <view clipsSubviews="YES" contentMode="scaleToFill" id="iN0-l3-epB" customClass="PinView">
+            <rect key="frame" x="0.0" y="0.0" width="57" height="75"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cat.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="q7h-r3-4bQ">
-                    <rect key="frame" x="2" y="4" width="21" height="21"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="q7h-r3-4bQ">
+                    <rect key="frame" x="4" y="13" width="48" height="48"/>
                     <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="47"/>
-                        </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Hungry1" translatesAutoresizingMaskIntoConstraints="NO" id="QVK-ZL-8qr">
-                    <rect key="frame" x="0.0" y="0.0" width="25" height="30"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QVK-ZL-8qr">
+                    <rect key="frame" x="0.0" y="0.0" width="57" height="75"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="QVK-ZL-8qr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1ku-06-dJl"/>
                 <constraint firstAttribute="bottom" secondItem="QVK-ZL-8qr" secondAttribute="bottom" id="T3Z-Zt-nLi"/>
-                <constraint firstItem="q7h-r3-4bQ" firstAttribute="trailing" secondItem="QVK-ZL-8qr" secondAttribute="trailing" constant="-2" id="UoL-BN-sIX"/>
-                <constraint firstItem="q7h-r3-4bQ" firstAttribute="centerY" secondItem="QVK-ZL-8qr" secondAttribute="centerY" id="cEm-Oj-94i"/>
+                <constraint firstItem="q7h-r3-4bQ" firstAttribute="trailing" secondItem="QVK-ZL-8qr" secondAttribute="trailing" constant="-5" id="UoL-BN-sIX"/>
+                <constraint firstItem="q7h-r3-4bQ" firstAttribute="centerY" secondItem="QVK-ZL-8qr" secondAttribute="centerY" constant="-0.5" id="cEm-Oj-94i"/>
                 <constraint firstItem="QVK-ZL-8qr" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gzL-O9-uaP"/>
-                <constraint firstItem="q7h-r3-4bQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="izM-NC-TRf"/>
+                <constraint firstItem="q7h-r3-4bQ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="izM-NC-TRf"/>
                 <constraint firstAttribute="trailing" secondItem="QVK-ZL-8qr" secondAttribute="trailing" id="pIg-H1-pX0"/>
-                <constraint firstItem="q7h-r3-4bQ" firstAttribute="leading" secondItem="QVK-ZL-8qr" secondAttribute="leading" constant="2" id="w0P-3u-f6i"/>
+                <constraint firstItem="q7h-r3-4bQ" firstAttribute="leading" secondItem="QVK-ZL-8qr" secondAttribute="leading" constant="4" id="w0P-3u-f6i"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
@@ -47,11 +49,7 @@
                 <outlet property="categoryImageView" destination="QVK-ZL-8qr" id="DmE-m0-2JG"/>
                 <outlet property="profileImageView" destination="q7h-r3-4bQ" id="5A3-ab-fY9"/>
             </connections>
-            <point key="canvasLocation" x="-89.5" y="239"/>
+            <point key="canvasLocation" x="-73.5" y="262"/>
         </view>
     </objects>
-    <resources>
-        <image name="Hungry1" width="48" height="74"/>
-        <image name="cat.jpg" width="632" height="475"/>
-    </resources>
 </document>

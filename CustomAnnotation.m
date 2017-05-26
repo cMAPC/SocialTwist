@@ -27,7 +27,10 @@
     annotationView.image = nil;
     annotationView.enabled = YES;
     annotationView.canShowCallout = YES;
-    annotationView.image = [UIImage imageNamed:self.image];
+//    annotationView.image = [UIImage imageNamed:self.image];
+    
+//    annotationView.image = self.pinImage;
+//    [annotationView.superview addSubview:self.pinView];
     
     return annotationView;
 }

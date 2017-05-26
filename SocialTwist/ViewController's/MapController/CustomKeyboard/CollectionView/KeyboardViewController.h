@@ -16,11 +16,18 @@
 @property (assign, nonatomic) BOOL isHidden;
 
 - (IBAction)hadnleDownSwipe:(UISwipeGestureRecognizer *)sender;
-- (void)setViewController:(UIViewController *) viewController;
 - (void)showAnimated:(BOOL) value;
 - (void)hideAnimated:(BOOL) value;
 
+- (instancetype)initOnViewController:(UIViewController *)viewController;
+- (void)addToView:(UIView *)view;
 
+/*Trash until
+- (void)setViewController:(UIViewController *) viewController;
+- (void)setViewController:(UIViewController *) viewController onView:(UIView *)view;
+*/
+ 
+ 
 //@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 //@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *swipeGestureRecongnizer;
 //@property (strong, nonatomic) NSNumber* selectedIndex;

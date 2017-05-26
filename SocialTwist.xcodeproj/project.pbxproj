@@ -10,6 +10,7 @@
 		1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9E1E9E722F00745A6A /* PostEventCell.m */; };
 		1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */; };
 		1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0AADA41E9F868D00745A6A /* EventContent.m */; };
+		1F0FD47A1ED74E9D005788D3 /* SMVisualEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0FD4791ED74E9D005788D3 /* SMVisualEffectView.m */; };
 		1F2054D31E465541005AAEA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D21E465541005AAEA9 /* main.m */; };
 		1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054D51E465541005AAEA9 /* AppDelegate.m */; };
 		1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1F2054DA1E465541005AAEA9 /* Main.storyboard */; };
@@ -101,6 +102,8 @@
 		1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostEventCell.xib; sourceTree = "<group>"; };
 		1F0AADA31E9F868D00745A6A /* EventContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventContent.h; sourceTree = "<group>"; };
 		1F0AADA41E9F868D00745A6A /* EventContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventContent.m; sourceTree = "<group>"; };
+		1F0FD4781ED74E9D005788D3 /* SMVisualEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMVisualEffectView.h; sourceTree = "<group>"; };
+		1F0FD4791ED74E9D005788D3 /* SMVisualEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMVisualEffectView.m; sourceTree = "<group>"; };
 		1F2054CE1E465541005AAEA9 /* SocialTwist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialTwist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F2054D21E465541005AAEA9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1F2054D41E465541005AAEA9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -235,6 +238,24 @@
 			path = EventContent;
 			sourceTree = "<group>";
 		};
+		1F0FD4761ED74E56005788D3 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FD4771ED74E56005788D3 /* BlurEfect */,
+			);
+			name = General;
+			path = "ViewController's/General";
+			sourceTree = "<group>";
+		};
+		1F0FD4771ED74E56005788D3 /* BlurEfect */ = {
+			isa = PBXGroup;
+			children = (
+				1F0FD4781ED74E9D005788D3 /* SMVisualEffectView.h */,
+				1F0FD4791ED74E9D005788D3 /* SMVisualEffectView.m */,
+			);
+			path = BlurEfect;
+			sourceTree = "<group>";
+		};
 		1F2054C51E465541005AAEA9 = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +279,7 @@
 		1F2054D01E465541005AAEA9 /* SocialTwist */ = {
 			isa = PBXGroup;
 			children = (
+				1F0FD4761ED74E56005788D3 /* General */,
 				1F2E3C931E5C31A7007B698A /* Images */,
 				1F2055041E46586B005AAEA9 /* Utilities */,
 				1F2054E81E46575E005AAEA9 /* ViewController's */,
@@ -801,6 +823,7 @@
 				1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */,
 				1FDE93A91EB881EB006EFF3A /* CustomAnnotation.m in Sources */,
 				1F20553D1E465C45005AAEA9 /* AnnotationDescriptionView.m in Sources */,
+				1F0FD47A1ED74E9D005788D3 /* SMVisualEffectView.m in Sources */,
 				1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,

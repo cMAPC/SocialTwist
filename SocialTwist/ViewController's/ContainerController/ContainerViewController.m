@@ -97,9 +97,6 @@
 
 #pragma mark - Action
 -(void)segmentedControlValueChanged:(AKASegmentedControl *) sender {
-    
-
-    
 
     TimelineTableController * obj = (TimelineTableController *)self.childViewControllers[0];
     if ([obj isPosting]) {

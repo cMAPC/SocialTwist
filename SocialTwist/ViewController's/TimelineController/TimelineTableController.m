@@ -32,11 +32,12 @@
     postCellHeight = 130;
 
     [[EventContent sharedEventContent] getEvents];
-    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
+//    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
+    self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
 }
 
 -(void)viewWillLayoutSubviews{
-    [self.eventCategoryKeyboard setViewController:self];
+//    [self.eventCategoryKeyboard setViewController:self];
 }
 
 -(void)initTableWithCustomCell {
@@ -222,6 +223,9 @@
 //        dispatch_async(dispatch_get_main_queue(), ^{
             //Update UI
 //            [prototypePostCell.subtitleTextView resignFirstResponder];
+            [self.view endEditing:YES];
+            [self.eventCategoryKeyboard hideAnimated:YES];
+    
             [prototypePostCell.eventCategoryButton setImage:[UIImage imageNamed:@"marker"] forState:UIControlStateNormal];
             [prototypePostCell.eventImag setImage:nil];
             prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 2;

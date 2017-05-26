@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#import "ContainerViewController.h"
 #import "MapViewController.h"
 
 @interface EventFilterTableController : UITableViewController
 
 @property (strong, nonatomic) IBOutletCollection(UISwitch) NSArray *switchCollection;
-@property (strong, nonatomic) NSMutableArray* eventCategorys;
+@property (strong, nonatomic) NSMutableArray* eventCategories;
 
 - (IBAction)switchDidChangeState:(id)sender;
 

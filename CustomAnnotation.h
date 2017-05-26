@@ -14,8 +14,11 @@
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 @property (copy, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* image;
+@property (assign, nonatomic) NSInteger eventCategory;
 
 -(id)initWithTitle:(NSString *)title location:(CLLocationCoordinate2D)location;
 -(MKAnnotationView *)annotationView;
+
+@property (strong, nonatomic) UIImage* pinImage;
 
 @end
