@@ -20,6 +20,7 @@
 #import "EventFilterTableController.h"
 #import "Utilities.h"
 #import "SMVisualEffectView.h"
+#import "PostEventView.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

@@ -13,6 +13,7 @@
     MKPointAnnotation* pointAnnotation;
     CLLocationCoordinate2D touchCoordinate;
     AnnotationDescriptionView* annotationDescriptionView;
+    PostEventView* postEventView;
     PinView* pinView;
     
     NSArray* pinImageArray;
@@ -130,19 +131,38 @@
     touchCoordinate = [self.mapView convertPoint:touchView toCoordinateFromView:self.mapView];
     
     if(sender.state == UIGestureRecognizerStateBegan) {
+        /*
         annotationDescriptionView = [[[NSBundle mainBundle]
                                       loadNibNamed:@"AnnotationDescriptionView"
                                       owner:self
                                       options:nil] firstObject];
         
-        annotationDescriptionView.center = self.mapView.center;
+        annotationDescriptionView.center = self.mapView.center; 
+         */
 
 //        [self.view addSubview:annotationDescriptionView];
 //        [self.view bringSubviewToFront:_eventCategoryKeyboard.view];
         
+        postEventView = [[PostEventView alloc] initWithFrame:CGRectMake(20,
+                                                                        ([UIScreen mainScreen].bounds.size.height - 244) / 2,
+                                                                        [UIScreen mainScreen].bounds.size.width - 40, 244)];
+        [self getReverseGeocodeForCoordinates:touchCoordinate];
         [self addBlurEffect];
     }
     
+    [postEventView.postButton addTarget:self
+                                 action:@selector(postNewEventAction)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [postEventView.eventCategoryButton addTarget:self
+                                          action:@selector(selectEventCategoryAction)
+                                forControlEvents:UIControlEventTouchUpInside];
+    
+    [postEventView.eventCameraButton addTarget:self
+                                        action:@selector(selectEventImageAction)
+                              forControlEvents:UIControlEventTouchUpInside];
+    
+    /*
     [annotationDescriptionView.addAnnotationDescriptionButton addTarget:self
                                                                  action:@selector(addAnnotationDescriptionAction)
                                                        forControlEvents:UIControlEventTouchUpInside];
@@ -150,18 +170,35 @@
     [annotationDescriptionView.selectPinCategoryButton addTarget:self
                                                           action:@selector(selectPinCategoryAction)
                                                 forControlEvents:UIControlEventTouchUpInside];
+     */
+}
+
+-(void)getReverseGeocodeForCoordinates:(CLLocationCoordinate2D)coordinates {
+    CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+    CLLocation* location = [[CLLocation alloc] initWithLatitude:coordinates.latitude longitude:coordinates.longitude];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks,
+                                                                  NSError * _Nullable error) {
+        CLPlacemark* placemark = [placemarks firstObject];
+        NSDictionary* address = placemark.addressDictionary;
+        
+        NSString* street = [address valueForKey:@"Thoroughfare"];
+        NSString* city = [address valueForKey:@"City"];
+        NSString* place = [NSString stringWithFormat:@"%@, %@", street, city];
+        postEventView.placeLabel.text = place;
+    }];
 }
 
 -(void)addBlurEffect {
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
     CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    
+   
     blurView = [[SMVisualEffectView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
     [blurView setBlurRadius:2.5f];
 
     UIWindow* currentWindow = [UIApplication sharedApplication].keyWindow;
     [currentWindow addSubview:blurView];
-//    [blurView addSubview:annotationDescriptionView];
+//    [self.view addSubview:blurView];
     [self.eventCategoryKeyboard addToView:blurView];
     
     [blurView setAlpha:0.0f];
@@ -169,7 +206,8 @@
     [UIView animateWithDuration:0.8f animations:^{
         [blurView setAlpha:1.0f];
     } completion:^(BOOL finished) {
-        [blurView addSubview:annotationDescriptionView];
+        [blurView addSubview:postEventView];
+        [blurView bringSubviewToFront:self.eventCategoryKeyboard.view];
     }];
     
     
@@ -194,7 +232,7 @@
 }
 
 #pragma mark - AnnotationDescriptionView Action
--(void)selectPinCategoryAction
+-(void)selectEventCategoryAction
 {
     if ([self.eventCategoryKeyboard isHidden]) {
         [self.eventCategoryKeyboard showAnimated:YES];
@@ -204,11 +242,36 @@
     }
 }
 
--(void)addAnnotationDescriptionAction
+-(void)selectEventImageAction{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController.delegate = postEventView;
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        imagePickerController.sourceType =  UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Choose from Gallery" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:imagePickerController animated:YES completion:nil];
+        
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)postNewEventAction
 {
-    if (annotationDescriptionView.selectPinCategoryButton.imageView.image &&
-        annotationDescriptionView.titleTextField.text.length > 0 &&
-        annotationDescriptionView.subtitleTextView.text.length > 0) {
+    if (![postEventView.eventCategoryButton.currentImage isEqual:[UIImage imageNamed:@"marker"]] &&
+        postEventView.titleTextField.text.length > 0 &&
+        postEventView.subtitleTextView.text.length > 0) {
         
         // varianta initiala
 //        pointAnnotation = [[MKPointAnnotation alloc] init];
@@ -234,7 +297,7 @@
         customAnnotation.eventCategory = [[_eventCategoryKeyboard selectedIndex] integerValue];
 
         [self.mapView addAnnotation:customAnnotation];
-        [annotationDescriptionView removeFromSuperview];
+//        [annotationDescriptionView removeFromSuperview];
         [self.eventCategoryKeyboard hideAnimated:YES];
         
         isPosting = NO;
@@ -250,13 +313,13 @@
         [self removeBlurEffect];
         [self.eventCategoryKeyboard addToView:self.view];
     }
-    else if (annotationDescriptionView.titleTextField.text.length <= 0) {
+    else if (postEventView.titleTextField.text.length <= 0) {
         NSLog(@"Title requiered");
     }
-    else if (annotationDescriptionView.subtitleTextView.text.length <= 0) {
+    else if (postEventView.subtitleTextView.text.length <= 0) {
         NSLog(@"Subtitle requiered");
     }
-    else if (!annotationDescriptionView.selectPinCategoryButton.imageView.image) {
+    else if ([postEventView.eventCategoryButton.currentImage isEqual:[UIImage imageNamed:@"marker"]]) {
         NSLog(@"Pin category requiered");
     }
 }
@@ -265,8 +328,8 @@
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     NSLog(@"Observer");
     if ([keyPath isEqualToString:@"selectedIndex"]) {
-        [annotationDescriptionView.selectPinCategoryButton setTitle:nil forState:UIControlStateNormal];
-        [annotationDescriptionView.selectPinCategoryButton setImage:[self.eventCategoryKeyboard selectedIndexImage]
+        [postEventView.eventCategoryButton setTitle:nil forState:UIControlStateNormal];
+        [postEventView.eventCategoryButton setImage:[self.eventCategoryKeyboard selectedIndexImage]
                                                            forState:UIControlStateNormal];
         
         NSLog(@"selected index : %ld", (long)[self.eventCategoryKeyboard selectedIndex].integerValue);
