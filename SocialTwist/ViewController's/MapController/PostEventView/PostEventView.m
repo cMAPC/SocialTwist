@@ -12,27 +12,6 @@
     CGRect postEvenViewFrame;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
-//- (instancetype)initWithCoder:(NSCoder *)coder
-//{
-//    self = [super initWithCoder:coder];
-//    if (self) {
-
-//        
-//        [self.secondView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//        [self addConstraintRelateToSuperview];
-//        
-//        [self addSubview:self.secondView];
-//    }
-//    return self;
-//}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {

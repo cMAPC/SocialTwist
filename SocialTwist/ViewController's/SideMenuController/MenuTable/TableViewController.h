@@ -12,6 +12,8 @@
 #import "MainViewController.h"
 #import "Utilities.h"
 
+#import "NotificationsViewController.h"
+
 @interface TableViewController : UITableViewController
 
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendRequestCell" rowHeight="120" id="KGk-i7-Jjw" customClass="FriendRequestCell">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="97"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="97"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ie6-e8-rVq">
+                        <rect key="frame" x="23" y="38" width="235" height="21"/>
+                        <color key="backgroundColor" red="0.40141639362448234" green="1" blue="0.6115045435368982" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="235" id="LtG-Nb-oGz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlh-wx-UMV">
+                        <rect key="frame" x="318" y="46" width="53" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.96885771133335519" blue="0.30577582473904585" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="53" id="m1n-a3-KVo"/>
+                        </constraints>
+                        <state key="normal" title="Reject"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gR-RF-Chj">
+                        <rect key="frame" x="316" y="8" width="55" height="30"/>
+                        <color key="backgroundColor" red="1" green="0.42378100893413495" blue="0.1847101492326445" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="55" id="ajt-Ix-5qM"/>
+                        </constraints>
+                        <state key="normal" title="Confirm"/>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Jlh-wx-UMV" secondAttribute="trailing" constant="43" id="3L0-Dp-IWr"/>
+                    <constraint firstItem="Ie6-e8-rVq" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4uZ-to-yX1"/>
+                    <constraint firstItem="Jlh-wx-UMV" firstAttribute="top" secondItem="7gR-RF-Chj" secondAttribute="bottom" constant="8" id="GmT-O0-g3z"/>
+                    <constraint firstAttribute="bottom" secondItem="Jlh-wx-UMV" secondAttribute="bottom" constant="20.5" id="Gvi-zE-CQk"/>
+                    <constraint firstItem="Jlh-wx-UMV" firstAttribute="leading" secondItem="Ie6-e8-rVq" secondAttribute="trailing" constant="60" id="IHB-Rv-HBP"/>
+                    <constraint firstAttribute="trailing" secondItem="7gR-RF-Chj" secondAttribute="trailing" constant="43" id="N3q-zN-p0Q"/>
+                    <constraint firstItem="Ie6-e8-rVq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="15" id="kkr-eu-h0d"/>
+                    <constraint firstItem="7gR-RF-Chj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="rzE-1S-hEV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="confirmRequestButton" destination="7gR-RF-Chj" id="UvX-dK-sc7"/>
+                <outlet property="name" destination="Ie6-e8-rVq" id="GVI-YJ-tEh"/>
+                <outlet property="rejectRequestButton" destination="Jlh-wx-UMV" id="iKc-xA-mBf"/>
+            </connections>
+            <point key="canvasLocation" x="81" y="80.5"/>
+        </tableViewCell>
+    </objects>
+</document>

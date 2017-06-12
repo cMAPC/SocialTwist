@@ -30,7 +30,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
     }
     
-    [cell.textLabel setText:[self.searchResult objectAtIndex:indexPath.row]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@",
+                             [[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"firstName"],
+                             [[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"lastName"]
+                             ]];
     
     return cell;
 }
@@ -40,7 +43,14 @@
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UserProfileViewController* userProfileController = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
     
-    [userProfileController setName:[self.searchResult objectAtIndex:indexPath.row]];
+//    [userProfileController setName:[self.searchResult objectAtIndex:indexPath.row]];
+    
+    [userProfileController setUserId:[[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"userId"]];
+    
+    [userProfileController setName:[NSString stringWithFormat:@"%@ %@",
+                                    [[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"firstName"],
+                                    [[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"userId"]
+                                    ]];
     
     [self.presentingViewController.navigationController pushViewController:userProfileController animated:YES];
 }

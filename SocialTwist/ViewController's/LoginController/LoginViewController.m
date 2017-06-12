@@ -45,25 +45,47 @@
 
 - (IBAction)logInButton:(UIButton *)sender {
     
+    UIViewController* mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainControllerID"];
     
-    if ([[loginDictionary objectForKey: self.passwordField.text] isEqualToString:self.usernameField.text]) {
-        UIViewController* mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainControllerID"];
-        [self presentViewController:mainController animated:YES completion:nil];
-        NSLog(@"Succes");
-    }
-    else {
-        NSLog(@"Unsucces");
-        
-        UIAlertController* loginErrorAlertController = [UIAlertController alertControllerWithTitle:@"Error Signing In"
-                                                                    message:@"The user name or password is incorrect"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* loginErrorAlertAction = [UIAlertAction actionWithTitle:@"OK"
-                                                                        style:UIAlertActionStyleDefault
-                                                                      handler:nil];
-        
-        [loginErrorAlertController addAction:loginErrorAlertAction];
-        [self presentViewController:loginErrorAlertController animated:YES completion:nil];
-    }
+    [[RequestManager sharedManager] loginWithEmail:self.usernameField.text
+                                          username:self.usernameField.text
+                                          password:self.passwordField.text
+                                         onSuccess:^(id response) {
+                                             NSLog(@"Login respones %@", response);
+                                             
+                                             [self presentViewController:mainController
+                                                                animated:YES
+                                                              completion:nil];
+                                             
+                                             [[TokenManager sharedToken] setToken:[response valueForKey:@"access_token"]];
+                                             
+                                         } onFail:^(NSError *error, NSInteger statusCode) {
+                                             NSLog(@"Login error %@ with status code %ld", error, (long)statusCode);
+                                             
+                                             [Utilities showAlertControllerWithTitle:@"Error Signing In"
+                                                                             message:@"\rThe user name or password is incorrect"
+                                                                        cancelAction:NO
+                                                                    onViewController:self];
+                                         }];
+    
+//    if ([[loginDictionary objectForKey: self.passwordField.text] isEqualToString:self.usernameField.text]) {
+//        UIViewController* mainController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainControllerID"];
+//        [self presentViewController:mainController animated:YES completion:nil];
+//        NSLog(@"Succes");
+//    }
+//    else {
+//        NSLog(@"Unsucces");
+//        
+//        UIAlertController* loginErrorAlertController = [UIAlertController alertControllerWithTitle:@"Error Signing In"
+//                                                                    message:@"The user name or password is incorrect"preferredStyle:UIAlertControllerStyleAlert];
+//        
+//        UIAlertAction* loginErrorAlertAction = [UIAlertAction actionWithTitle:@"OK"
+//                                                                        style:UIAlertActionStyleDefault
+//                                                                      handler:nil];
+//        
+//        [loginErrorAlertController addAction:loginErrorAlertAction];
+//        [self presentViewController:loginErrorAlertController animated:YES completion:nil];
+//    }
 }
 
 - (IBAction)registerButton:(UIButton *)sender {

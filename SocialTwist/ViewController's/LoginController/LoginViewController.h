@@ -9,6 +9,9 @@
 #import "Utilities.h"
 #import "KeyboardAvoiding.h"
 
+#import "RequestManager.h"
+#import "TokenManager.h"
+
 @interface LoginViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;

@@ -13,6 +13,8 @@
     NSDateFormatter* dateFormatter;
     NSNotificationCenter* notificationCenter;
     UITextField* selectedTextField;
+    
+    LoginViewController *loginViewController;
 }
 
 @end
@@ -21,6 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    loginViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewControllerID"];
     
     genderPickerView = [[UIPickerView alloc] init];
     genderPickerView.delegate = self;
@@ -55,7 +59,8 @@
 #pragma mark - Actions
 
 - (void)updateDateOfBirthTextFieldAction:(id) sender {
-    dateFormatter.dateFormat = @"dd-MMM-yyyy";
+//    dateFormatter.dateFormat = @"dd-MMM-yyyy";
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
     NSString* formattedStringDate = [dateFormatter stringFromDate:datePicker.date];
     self.dateOfBirthTextField.text = formattedStringDate;
 }
@@ -74,34 +79,6 @@
     
     [self.genderTextField becomeFirstResponder];
 }
-
-//- (void)keyboardWillShowAction:(NSNotification *)notification {
-//    
-//    CGRect keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-//    
-//    if (selectedTextField.frame.origin.y + 44 > keyboardSize.origin.y) {
-//        [UIView animateWithDuration:0.3 animations:^{
-//            CGRect viewFrame = self.view.frame;
-//            viewFrame.origin.y = keyboardSize.origin.y - selectedTextField.frame.origin.y -selectedTextField.frame.size.height - 20;
-//            self.view.frame = viewFrame;
-//        }];
-//    }
-//    
-//    NSLog(@"%@", [notification userInfo]);
-//    NSLog(@"TextField origin y : %f", selectedTextField.frame.origin.y);
-//    NSLog(@"Frame origin y : %f", self.view.frame.origin.y);
-//}
-
-//- (void)keyboardWillHideAction:(NSNotification *)notification {
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        CGRect viewFrame = self.view.frame;
-//        viewFrame.origin.y = 0.f;
-//        self.view.frame = viewFrame;
-//    }];
-//    
-//    
-//}
 
 #pragma mark - UIPickerViewDataSource
 
@@ -199,12 +176,47 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
+#pragma mark - Action's
 - (IBAction)backToLoginAction:(id)sender {
-    
-    LoginViewController *loginViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginViewControllerID"];
     [self presentViewController:loginViewController animated:YES completion:nil];
 }
+
+- (IBAction)signUpAction:(id)sender {
+    
+    if (![self.passwordTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
+        [Utilities showAlertControllerWithTitle:@"Try again"
+                                        message:@"\rPasswords don't match"
+                                   cancelAction:NO
+                               onViewController:self];
+    }
+    else
+    {
+        [[RequestManager sharedManager] registerWithName:self.firstNameTextField.text
+                                                 surname:self.lastNameTextField.text
+                                                   email:self.emailTextField.text
+                                                password:self.passwordTextField.text
+                                                birthday:self.dateOfBirthTextField.text
+                                                  gender:@"M" // ??????????????????????
+                                                 success:^(id responseObject) {
+                                                     NSLog(@"Register response object : %@", responseObject);
+                                                     
+                                                     [Utilities showAlertControllerWithTitle:@"Congratulations"
+                                                                                     message:@"\rYou've just create new account. Press OK to sign in"
+                                                                                  buttonType:UIAlertButtonOK
+                                                                               buttonHandler:^{
+                                                                                   [self presentViewController:loginViewController
+                                                                                                      animated:YES
+                                                                                                    completion:nil];
+                                                                               }
+                                                                            onViewController:self];
+                                                     
+                                                 } fail:^(NSError *error, NSInteger statusCode) {
+                                                     
+                                                 }];
+    }
+    
+}
+
 
 @end
 

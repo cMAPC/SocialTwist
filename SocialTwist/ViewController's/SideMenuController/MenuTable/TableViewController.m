@@ -102,10 +102,15 @@
     
     UINavigationController* containerNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"ContainerNavigationControllerID"];
     
+    UINavigationController* notificationsNavigationControllerID = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsNavigationControllerID"];
+    
     switch (indexPath.row) {
         case 1:
             break;
         case 3:
+            [mainViewController setRootViewController:notificationsNavigationControllerID];
+            [mainViewController setLeftViewController:leftViewController];
+            [self presentViewController:mainViewController animated:YES completion:nil];
             break;
         case 4:
             [mainViewController setRootViewController:containerNavigationController];

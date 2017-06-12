@@ -9,6 +9,8 @@
 #import "Utilities.h"
 #import "KeyboardAvoiding.h"
 
+#import "RequestManager.h"
+
 @interface RegisterViewController : UIViewController 
 
 @property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;

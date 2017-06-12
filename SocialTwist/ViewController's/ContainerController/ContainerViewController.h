@@ -9,6 +9,9 @@
 #import "SearchResultController.h"
 #import "TimelineTableController.h"
 
+#import "RequestManager.h"
+#import "SearchContent.h"
+
 @interface ContainerViewController : UIViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
 @property (weak, nonatomic) IBOutlet UIView *mapViewChild;

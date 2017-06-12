@@ -31,7 +31,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfe-0j-eOa" userLabel="AuthenticationView">
                                 <rect key="frame" x="40" y="335" width="295" height="120"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="user" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-aD-Wuh">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="qwer1234" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-aD-Wuh">
                                         <rect key="frame" x="40" y="60" width="215" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="bpZ-aD-Wuh" secondAttribute="height" multiplier="43:12" id="sZc-3V-hbt"/>
@@ -54,7 +54,7 @@
                                             <constraint firstAttribute="height" constant="1" id="T2g-w5-ZL1"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="user" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djQ-CU-ZSO">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="maximspinu" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="djQ-CU-ZSO">
                                         <rect key="frame" x="40" y="0.0" width="215" height="59"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1253,6 +1253,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="signUpAction:" destination="dHb-Re-qUp" eventType="touchUpInside" id="pq4-Mz-kzh"/>
+                                        </connections>
                                     </button>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CU4-jZ-N8M" userLabel="DateOfBirthView">
                                         <rect key="frame" x="40" y="584" width="295" height="60"/>
@@ -1737,6 +1740,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJc-XC-mhB">
+                                <rect key="frame" x="131" y="482" width="113" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add to friend list">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="addFriend:" destination="pXw-kL-NF6" eventType="touchUpInside" id="fkU-9N-iW0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.17071153790059501" green="0.62954756077145335" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
@@ -1746,7 +1759,66 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gML-en-bTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6212" y="1674.5127436281859"/>
+            <point key="canvasLocation" x="6185" y="1675"/>
+        </scene>
+        <!--Notifications View Controller-->
+        <scene sceneID="yPD-Gz-Dc3">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsViewControllerID" id="s84-y9-yxQ" customClass="NotificationsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DgN-oF-JVU"/>
+                        <viewControllerLayoutGuide type="bottom" id="zKi-ac-7el"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DUW-fK-dX9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="23x-pz-nC1">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="424"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="s84-y9-yxQ" id="kEs-ye-qEQ"/>
+                                    <outlet property="delegate" destination="s84-y9-yxQ" id="BoT-7c-qIY"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.29012755413881619" blue="0.35359697459858586" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hYE-TR-WV1">
+                        <barButtonItem key="leftBarButtonItem" image="menu-icon" id="4mq-Ov-5zM">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="showLeftViewAnimated:" destination="s84-y9-yxQ" id="MZc-sM-9v1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="23x-pz-nC1" id="zIC-Vb-6o3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N0K-wD-CfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8444" y="1691.6041979010497"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="G2R-hG-Xdc">
+            <objects>
+                <navigationController storyboardIdentifier="NotificationsNavigationControllerID" automaticallyAdjustsScrollViewInsets="NO" id="eM3-3n-7bD" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="B94-Ts-4Xy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.60784313725490191" green="0.72941176470588232" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="s84-y9-yxQ" kind="relationship" relationship="rootViewController" id="VCt-Ph-3si"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Xc-hT-SW3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7504.8000000000002" y="1691.6041979010497"/>
         </scene>
     </scenes>
     <resources>

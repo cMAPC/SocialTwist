@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AKASegmentedControl.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +42,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4E66C1670CF1E6570284C409FB81853</key>
+		<key>9E033EDB5EC0819481B0546434FA577B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E79DCD4091F55B3526505BCB866C7942</key>
+		<key>A3822766C45DDE00F6F541032ABF8986</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A4E66C1670CF1E6570284C409FB81853</key>
 		<dict>
 			<key>primary</key>
 			<true/>
