@@ -3,4 +3,6 @@ target 'SocialTwist' do
    pod 'LGSideMenuController'
    pod 'DXCustomCallout-ObjC'
    pod 'AFNetworking', '~> 3.0'
+   pod 'AFNetworking-Synchronous/3.x'
+   pod 'Mantle'
 end

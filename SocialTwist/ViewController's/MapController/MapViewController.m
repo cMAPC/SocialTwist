@@ -345,6 +345,15 @@
 #pragma mark - BottomBarButton's Action
 - (IBAction)cameraButtonAction:(UIButton *)sender {
     NSLog(@"Camera button pressed");
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude, locationManager.location.coordinate.longitude);
+    NSLog(@"%f", locationManager.location.coordinate.latitude);
+    [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
+                                                  withRadius:1
+                                                     success:^(id responseObject) {
+                                                         NSLog(@"%@", responseObject);
+                                                     } fail:^(NSError *error, NSInteger statusCode) {
+                                                         
+                                                     }];
 }
 
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender {

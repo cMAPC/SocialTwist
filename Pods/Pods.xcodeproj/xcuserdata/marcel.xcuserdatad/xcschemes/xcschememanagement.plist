@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking-Synchronous.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -20,6 +25,11 @@
 			<false/>
 		</dict>
 		<key>LGSideMenuController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Mantle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -42,17 +52,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>8E2F85A9EA167EFA71B3DCB5DF170059</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>91C17B5EA23F78EFC5A5F2B6FEF45CA5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A3822766C45DDE00F6F541032ABF8986</key>
+		<key>A4E66C1670CF1E6570284C409FB81853</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A4E66C1670CF1E6570284C409FB81853</key>
+		<key>DEFC9391F7DC3917DFAE9DC68C6334FD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

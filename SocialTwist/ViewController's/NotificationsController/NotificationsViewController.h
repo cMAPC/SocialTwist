@@ -12,6 +12,8 @@
 #import "SearchContent.h"
 #import "FriendRequestCell.h"
 
+#import "UserData.h"
+
 @interface NotificationsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

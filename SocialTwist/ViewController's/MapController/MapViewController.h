@@ -21,6 +21,7 @@
 #import "Utilities.h"
 #import "SMVisualEffectView.h"
 #import "PostEventView.h"
+#import "RequestManager.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 

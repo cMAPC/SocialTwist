@@ -102,13 +102,15 @@
     
     UINavigationController* containerNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"ContainerNavigationControllerID"];
     
-    UINavigationController* notificationsNavigationControllerID = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsNavigationControllerID"];
+    UINavigationController* notificationsNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"NotificationsNavigationControllerID"];
+    
+    UINavigationController* friendListNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FriendListNavigationControllerID"];
     
     switch (indexPath.row) {
         case 1:
             break;
         case 3:
-            [mainViewController setRootViewController:notificationsNavigationControllerID];
+            [mainViewController setRootViewController:notificationsNavigationController];
             [mainViewController setLeftViewController:leftViewController];
             [self presentViewController:mainViewController animated:YES completion:nil];
             break;
@@ -120,6 +122,9 @@
         case 5:
             break;
         case 6:
+            [mainViewController setRootViewController:friendListNavigationController];
+            [mainViewController setLeftViewController:leftViewController];
+            [self presentViewController:mainViewController animated:YES completion:nil];
             break;
         case 7:
             break;

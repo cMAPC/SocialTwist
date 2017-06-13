@@ -9,8 +9,8 @@
 #import "NotificationsViewController.h"
 
 @interface NotificationsViewController () {
-    NSMutableArray* requestIdArray;
-    NSMutableArray* userIdArray;
+    NSMutableArray* requestIDArray;
+    NSMutableArray* userIDArray;
     NSMutableArray* userContentArray;
 }
 
@@ -23,28 +23,13 @@
     [self initTableWithCustomCell];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     [self.tableView setEstimatedRowHeight:120];
-//    userIdArray = [[NSMutableArray alloc] init];
     
-    [[RequestManager sharedManager] getFriendsRequestOnSuccess:^(id responseObject) {
-                NSLog(@"response object get friend : %@", responseObject);
-//        userIdArray = (NSMutableArray *)[responseObject valueForKey:@"sender_id"];
-        userIdArray = [[NSMutableArray alloc] initWithArray:[responseObject valueForKey:@"sender_id"]];
-        requestIdArray = [[NSMutableArray alloc] initWithArray:[responseObject valueForKey:@"id"]];
-//        userId = [[responseObject objectAtIndex:0] valueForKey:@"sender_id"];
-        [self.tableView reloadData];
-        
-        
-    } fail:^(NSError *error, NSInteger statusCode) {
-        
-    }];
+    requestIDArray = [[[RequestManager sharedManager] getFriendRequests] valueForKey:@"id"];
+    userIDArray = [[[RequestManager sharedManager] getFriendRequests] valueForKey:@"sender_id"];
+    userContentArray = [[RequestManager sharedManager] getUsersWithID:userIDArray];
     
-    
-    
-    [[RequestManager sharedManager] getFriendsOnSuccess:^(id responseObject) {
-        NSLog(@"Friend list : %@", responseObject);
-    } fail:^(NSError *error, NSInteger statusCode) {
-        
-    }];
+    NSLog(@"Request array - %@", userIDArray);
+    NSLog(@"User content - %@", userContentArray);
 }
 
 -(void)initTableWithCustomCell {
@@ -52,17 +37,16 @@
 }
 
 -(void)confirmRequestAction:(UIButton *)sender {
-    NSLog(@"este");
-    NSLog(@"sender tag %@", userIdArray[sender.tag]);
-    [[RequestManager sharedManager] acceptUserFriendRequestWithId:requestIdArray[sender.tag]
+    [[RequestManager sharedManager] acceptUserFriendRequestWithID:requestIDArray[sender.tag]
                                                           success:^(id responseObject) {
                                                               NSLog(@"Accept friend response : %@", responseObject);
                                                               
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
                                                               [self.tableView beginUpdates];
                                                               [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:sender.tag inSection:0]] withRowAnimation:YES];
-                                                              [userIdArray removeObjectAtIndex:sender.tag];
-                                                              [requestIdArray removeObjectAtIndex:sender.tag];
+                                                              [userContentArray removeObjectAtIndex:sender.tag];
                                                               [self.tableView endUpdates];
+                                                              });
                                                               
                                                           } fail:^(NSError *error, NSInteger statusCode) {
                                                               
@@ -73,15 +57,16 @@
 }
 
 -(void)rejectRequestAction:(UIButton *)sender {
-    [[RequestManager sharedManager] rejectFriendRequestWithId:requestIdArray[sender.tag]
+    [[RequestManager sharedManager] rejectFriendRequestWithID:requestIDArray[sender.tag]
                                                       success:^(id responseObject) {
                                                           NSLog(@"Reject friend response : %@", responseObject);
-                                                          
-                                                          [self.tableView beginUpdates];
-                                                          [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:sender.tag inSection:0]] withRowAnimation:YES];
-                                                          [userIdArray removeObjectAtIndex:sender.tag];
-                                                          [requestIdArray removeObjectAtIndex:sender.tag];
-                                                          [self.tableView endUpdates];
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                              [self.tableView beginUpdates];
+                                                              [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:sender.tag inSection:0]] withRowAnimation:YES];
+                                                              [userContentArray removeObjectAtIndex:sender.tag];
+                                                              [self.tableView endUpdates];
+                                                          });
+                                                         
                                                       } fail:^(NSError *error, NSInteger statusCode) {
                                                           
                                                       }];
@@ -89,14 +74,17 @@
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [userIdArray count];//[responesObject count] + 1;
+    return [userContentArray count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendRequestCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FriendRequestCell"];
     
-    cell.name.text = [NSString stringWithFormat:@"Friend request from id %@", userIdArray[indexPath.row]];
+    cell.name.text = [NSString stringWithFormat:@"%@ %@",
+                      [[userContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
+                      [[userContentArray objectAtIndex:indexPath.row] valueForKey:@"lastName"]
+                      ];
     
     cell.confirmRequestButton.tag = indexPath.row;
     cell.rejectRequestButton.tag = indexPath.row;
@@ -123,39 +111,13 @@
 
 #pragma mark - UITableViewDelegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
-
-//    userContentArray = [[NSMutableArray alloc] init];
-//    
-//    for (NSString* userId in userIdArray) {
-//        [[RequestManager sharedManager] getUserWithId:userId
-//                                              success:^(id responseObject) {
-//                                                  
-//                                                  SearchContent* obj = [[SearchContent alloc] init];
-//                                                  obj.userId = [[responseObject valueForKey:@"id"] integerValue];
-//                                                  obj.firstName = [responseObject valueForKey:@"first_name"];
-//                                                  obj.lastName = [responseObject valueForKey:@"last_name"];
-//                                                  obj.sex = [responseObject valueForKey:@"sex"];
-//                                                  [userContentArray addObject:obj];
-//                                                  
-//                                                  NSLog(@"ARRAY %ld", (long)[userContentArray count]);
-//                                                  
-//                                                  
-//                                                  UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-//                                                  [cell.textLabel setText:[NSString stringWithFormat:@"%@", [userContentArray[0] valueForKey:@"firstName"]]];
-//                                                  
-//                                                  [self.tableView reloadData];
-//                                                  
-//                                              } fail:^(NSError *error, NSInteger statusCode) {
-//                                                  
-//                                              }];
-//    }
     
-    [[RequestManager sharedManager] getFriendsOnSuccess:^(id responseObject) {
-        NSLog(@"Friend list : %@", responseObject);
-    } fail:^(NSError *error, NSInteger statusCode) {
-        
-    }];
+//    [[RequestManager sharedManager] getFriendsOnSuccess:^(id responseObject) {
+//        NSLog(@"Friend list : %@", responseObject);
+//        
+//    } fail:^(NSError *error, NSInteger statusCode) {
+//        
+//    }];
 }
 
 @end

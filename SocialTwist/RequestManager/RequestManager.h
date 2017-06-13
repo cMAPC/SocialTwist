@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <AFNetworking.h>
+#import <AFHTTPSessionManager+Synchronous.h>
 
 #import "TokenManager.h"
+#import "UserData.h"
+#import "FriendsData.h"
+
+#import <CoreLocation/CoreLocation.h>
 
 typedef void(^successBlock)(id responseObject);
 typedef void(^failBlock)(NSError* error, NSInteger statusCode);
@@ -33,10 +38,15 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 
 -(void)searchForName:(NSString *)name success:(successBlock)success fail:(failBlock)fail;
 -(void)addFriendWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
--(void)getFriendsRequestOnSuccess:(successBlock)success fail:(failBlock)fail; // ???????????????????????????
--(void)getUserWithId:(NSString *)id success:(successBlock)success fail:(failBlock)fail;
--(void)acceptUserFriendRequestWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
+
+-(id)getFriendRequests;
+-(id)getUsersWithID:(NSArray *)userIDArray;
+
+-(void)acceptUserFriendRequestWithID:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 -(void)getFriendsOnSuccess:(successBlock)success fail:(failBlock)fail; //??????????????????????????
--(void)rejectFriendRequestWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
+-(void)rejectFriendRequestWithID:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
+-(void)deleteFriendWithID:(NSString *)userID success:(successBlock)success fail:(failBlock)fail;
+
+-(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates withRadius:(NSUInteger)radius success:(successBlock)success fail:(failBlock)fail;
 
 @end
