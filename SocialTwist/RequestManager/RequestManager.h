@@ -13,6 +13,7 @@
 #import "TokenManager.h"
 #import "UserData.h"
 #import "FriendsData.h"
+#import "EventData.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -47,6 +48,20 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(void)rejectFriendRequestWithID:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 -(void)deleteFriendWithID:(NSString *)userID success:(successBlock)success fail:(failBlock)fail;
 
--(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates withRadius:(NSUInteger)radius success:(successBlock)success fail:(failBlock)fail;
+//-(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates withRadius:(NSUInteger)radius success:(successBlock)success fail:(failBlock)fail;
+
+-(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
+                     withRadius:(NSUInteger)radius
+           filteredByCategories:(NSArray *)categoriesArray
+                        success:(successBlock)success
+                           fail:(failBlock)fail;
+
+-(void)postEventWithTitle:(NSString *)title
+                 subtitle:(NSString *)subtitle
+                    image:(UIImage *)image
+                 category:(NSString *)category
+              coordinates:(CLLocationCoordinate2D)coordinate
+                  success:(successBlock)success
+                     fail:(failBlock)fail;
 
 @end

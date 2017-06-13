@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Mantle.h>
+#import <Mantle/Mantle.h>
 
 @interface UserData : MTLModel <MTLJSONSerializing>
 

@@ -11,7 +11,7 @@
 
 @interface CustomAnnotation : NSObject <MKAnnotation>
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (assign, nonatomic) CLLocationCoordinate2D coordinate;
 @property (copy, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* image;
 @property (assign, nonatomic) NSInteger eventCategory;

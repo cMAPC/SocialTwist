@@ -63,7 +63,9 @@
 //    [KeyboardAvoiding avoidKeyboardForViewController:self];
     
     self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
-    self.selectedCategories = [[NSMutableArray alloc] init];
+//    self.selectedCategories = [[NSMutableArray alloc] init];
+    self.selectedCategories = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
+
     
     pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
 }
@@ -283,6 +285,25 @@
 //        [annotationDescriptionView removeFromSuperview];
         
         // varianta cu sortare
+        
+        
+        
+        
+        
+        [[RequestManager sharedManager] postEventWithTitle:postEventView.titleTextField.text
+                                                  subtitle:postEventView.subtitleTextView.text
+                                                     image:postEventView.eventImageView.image
+                                                  category:[[_eventCategoryKeyboard selectedIndex] stringValue]
+                                               coordinates:touchCoordinate
+                                                   success:^(id responseObject) {
+                                                       
+                                                   } fail:^(NSError *error, NSInteger statusCode) {
+                                                       
+                                                   }];
+        
+        
+        
+        
         CustomAnnotation* customAnnotation = [[CustomAnnotation alloc] initWithTitle:@"Title" location:touchCoordinate];
         eventCategoryIndex = [[_eventCategoryKeyboard selectedIndex] integerValue];
         customAnnotation.image = [NSString stringWithFormat:@"mapPinIcons/%@",
@@ -342,18 +363,78 @@
     }
 }
 
-#pragma mark - BottomBarButton's Action
-- (IBAction)cameraButtonAction:(UIButton *)sender {
-    NSLog(@"Camera button pressed");
-    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude, locationManager.location.coordinate.longitude);
-    NSLog(@"%f", locationManager.location.coordinate.latitude);
+#pragma mark - server try
+-(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
+                                                                    mapView.centerCoordinate.longitude);
+        
     [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
                                                   withRadius:1
+                                        filteredByCategories:self.selectedCategories
                                                      success:^(id responseObject) {
-                                                         NSLog(@"%@", responseObject);
+                                                         
+                                                         for (EventData* event in responseObject) {
+                                                             CustomAnnotation* annotation = [[CustomAnnotation alloc] init];
+                                                             [annotation setTitle:event.title];
+                                                             [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
+                                                             
+                                                             //concate category image with event image
+                                                             NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
+                                                             [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
+                                                             
+                                                             
+                                                             NSLog(@"event picture %@", event.picture);
+                                                             NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
+                                                             UIImage * result = [UIImage imageWithData:data];
+                                                             
+                                                             
+//                                                             NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.creator.userPicture]];
+////
+//
+//                                                             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//                                                             NSString *documentsDirectory = [paths objectAtIndex:0];
+//                                                             NSString *localFilePath = [documentsDirectory stringByAppendingPathComponent:@"pkm.png"];
+//                                                             NSData *thedata = NULL;
+//                                                             [data writeToFile:localFilePath atomically:YES];
+//                                                             
+//                                                             UIImage *img = [[UIImage alloc] initWithData:data];
+                                                             
+                                                             pinView.profileImageView.image = result;
+                                                             
+                                                             annotation.pinImage = [Utilities imageFromView:pinView];
+                                                             [self.mapView addAnnotation:annotation];
+                                                         }
+                                                         
                                                      } fail:^(NSError *error, NSInteger statusCode) {
                                                          
                                                      }];
+    
+    // background process
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+        
+            
+        });
+    
+
+    });
+    
+}
+
+-(CLLocationCoordinate2D)convertParsedCoordinates:(NSString *)coordinates {
+    NSCharacterSet *delimiters = [NSCharacterSet characterSetWithCharactersInString:@"()"];
+    NSArray *splitString = [coordinates componentsSeparatedByCharactersInSet:delimiters];
+    delimiters = [NSCharacterSet characterSetWithCharactersInString:@" "];
+    splitString = [[splitString objectAtIndex:1] componentsSeparatedByCharactersInSet:delimiters];
+    NSString *latitudeString = [splitString objectAtIndex:0];
+    NSString *longitudeString = [splitString objectAtIndex:1];
+    return CLLocationCoordinate2DMake([latitudeString floatValue], [longitudeString floatValue]);
+}
+
+#pragma mark - Bottom Bar Actions
+- (IBAction)cameraButtonAction:(UIButton *)sender {
+    NSLog(@"Camera button pressed");
 }
 
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender {

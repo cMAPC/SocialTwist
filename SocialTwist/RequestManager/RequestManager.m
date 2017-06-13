@@ -578,7 +578,12 @@ typedef void(^always)(void);
                         }];
 }
 
--(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates withRadius:(NSUInteger)radius success:(successBlock)success fail:(failBlock)fail {
+-(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
+                     withRadius:(NSUInteger)radius
+           filteredByCategories:(NSArray *)categoriesArray
+                        success:(successBlock)success
+                           fail:(failBlock)fail
+{
     [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
     [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
     [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
@@ -586,7 +591,8 @@ typedef void(^always)(void);
     NSDictionary* parameters = @{
                                  @"lat" : [[NSNumber numberWithDouble:coordinates.latitude] stringValue],
                                  @"lon" : [[NSNumber numberWithDouble:coordinates.longitude] stringValue],
-                                 @"radius" : [[NSNumber numberWithInteger:radius] stringValue]
+                                 @"radius" : [[NSNumber numberWithInteger:radius] stringValue],
+                                 @"categories" : categoriesArray
                                  };
     
     [self.requestManager GET:@"events/"
@@ -594,12 +600,75 @@ typedef void(^always)(void);
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                          NSLog(@"get events response - %@", responseObject);
+                         NSLog(@"selected categories %@", categoriesArray);
+                         
+                         NSError* error;
+                         NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
+                                                                      fromJSONArray:responseObject
+                                                                              error:&error];
+                         if (error) {
+                             NSLog(@"Mantle error %@", error);
+                         }
+                         success(eventContentArray);
+                         
                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          fail(error, 400);
                          [self printError:error task:task];
                      }];
 }
 
+-(void)postEventWithTitle:(NSString *)title
+                 subtitle:(NSString *)subtitle
+                    image:(UIImage *)image
+                 category:(NSString *)category
+              coordinates:(CLLocationCoordinate2D)coordinate
+                  success:(successBlock)success
+                     fail:(failBlock)fail
+{
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    NSString* tempCoordinate = [NSString stringWithFormat:@"POINT(%f %f)", coordinate.latitude, coordinate.longitude];
+    
+    NSDateFormatter* dateFormmater = [[NSDateFormatter alloc] init];
+    [dateFormmater setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+    NSString* tempStartTime = [dateFormmater stringFromDate:[NSDate date]];
+    
+    NSDictionary* parameters = @{
+                                 @"title": title,
+                                 @"coordinates": tempCoordinate,
+                                 @"start_time": tempStartTime,
+                                 @"type": category,
+                                 @"dislikes": @0,
+                                 @"likes": @0,
+                                 @"location": @"nil",
+                                 @"is_private": @NO,
+                                 @"description": subtitle
+                                 };
+    
+    
+//    UIImage *image1 = [UIImage imageNamed:@"image5.png"];
+//    NSData *imageData =  UIImagePNGRepresentation(image, 0.2);
+    NSData* imageData = UIImageJPEGRepresentation(image, 0.2);
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"events/"];
+    
+    
+    [self.requestManager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {  // POST DATA USING MULTIPART CONTENT TYPE
+        [formData appendPartWithFileData:imageData
+                                    name:@"picture"
+                                fileName:@"image.jpg" mimeType:@"image/jpeg"];  
+        
+    } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"Response: %@", responseObject);
+        
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+}
 @end
 
 

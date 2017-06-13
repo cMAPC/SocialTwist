@@ -106,6 +106,7 @@
 		1FE791821EE8141D00090B42 /* SearchContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE791811EE8141D00090B42 /* SearchContent.m */; };
 		1FF74CFD1EE99F21004339FC /* FriendRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF74CFB1EE99F21004339FC /* FriendRequestCell.m */; };
 		1FF74CFE1EE99F21004339FC /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */; };
+		1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC89311EF02D5400B40BC1 /* EventData.m */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
 /* End PBXBuildFile section */
 
@@ -248,6 +249,8 @@
 		1FF74CFA1EE99F21004339FC /* FriendRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequestCell.h; sourceTree = "<group>"; };
 		1FF74CFB1EE99F21004339FC /* FriendRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequestCell.m; sourceTree = "<group>"; };
 		1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
+		1FFC89301EF02D5400B40BC1 /* EventData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventData.h; sourceTree = "<group>"; };
+		1FFC89311EF02D5400B40BC1 /* EventData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventData.m; sourceTree = "<group>"; };
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
@@ -630,6 +633,7 @@
 		1F4384211EEE8CB100999667 /* ObjectsData */ = {
 			isa = PBXGroup;
 			children = (
+				1FFC892F1EF02D4400B40BC1 /* EventData */,
 				1FB23C9C1EEF223100148967 /* FriendsData */,
 				1F4384221EEE8CB100999667 /* UserData */,
 			);
@@ -754,6 +758,15 @@
 				1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */,
 			);
 			path = FriendRequestCell;
+			sourceTree = "<group>";
+		};
+		1FFC892F1EF02D4400B40BC1 /* EventData */ = {
+			isa = PBXGroup;
+			children = (
+				1FFC89301EF02D5400B40BC1 /* EventData.h */,
+				1FFC89311EF02D5400B40BC1 /* EventData.m */,
+			);
+			path = EventData;
 			sourceTree = "<group>";
 		};
 		2D735A0FD5CEB821D6C22CD3 /* Pods */ = {
@@ -973,6 +986,7 @@
 				1F4728671EE5B2BF002ABF68 /* TokenManager.m in Sources */,
 				1FB23C9F1EEF225300148967 /* FriendsData.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
+				1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */,
 				1F4728631EE5A660002ABF68 /* RequestManager.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,
 				1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */,

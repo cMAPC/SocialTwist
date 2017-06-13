@@ -29,7 +29,7 @@
     [self.navigationItem setRightBarButtonItem:validateRightBarButton];
     
     for (UISwitch* switchControl in self.switchCollection) {
-        if ([self.eventCategories containsObject:[NSNumber numberWithInteger:switchControl.tag]])
+        if ([self.eventCategories containsObject:[NSNumber numberWithInteger:switchControl.tag].stringValue])
             [switchControl setOn:YES animated:YES];
     }
 }
@@ -61,6 +61,7 @@
 - (IBAction)switchDidChangeState:(id)sender {
     UISwitch* switchControl = (UISwitch *)sender;
     
+    /* number version
     if ([switchControl isOn])
         [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag]];
     
@@ -69,7 +70,14 @@
     
     
     NSLog(@"Event Filter Categories = %@", self.eventCategories);
+    */
     
+    if ([switchControl isOn])
+        [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+    
+    else
+        [self.eventCategories removeObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+    NSLog(@"Event Filter Categories = %@", self.eventCategories);
     /* withoutTag
     UISwitch* switchControl = (UISwitch *)sender;
     CGPoint switchControlsPositionPoint = [switchControl convertPoint:switchControl.bounds.origin toView:self.tableView];
