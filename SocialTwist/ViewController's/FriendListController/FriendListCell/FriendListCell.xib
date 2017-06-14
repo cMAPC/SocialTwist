@@ -42,9 +42,19 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ua-bK-F0M">
+                                <rect key="frame" x="310" y="30" width="33" height="26"/>
+                                <color key="backgroundColor" red="0.15524642958382218" green="1" blue="0.44688701642529771" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="AWA-4Y-RA7"/>
+                                    <constraint firstAttribute="width" constant="33" id="LZn-b1-YKh"/>
+                                </constraints>
+                                <state key="normal" image="messageButton"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.19820041847460856" blue="0.28634712416005292" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="8ua-bK-F0M" secondAttribute="trailing" constant="10" id="8O2-Za-Ewd"/>
                             <constraint firstItem="T2q-cw-j9a" firstAttribute="centerY" secondItem="X2O-QU-gOt" secondAttribute="centerY" id="C4Q-z1-zpM"/>
                             <constraint firstItem="oPh-Ai-04j" firstAttribute="leading" secondItem="T2q-cw-j9a" secondAttribute="trailing" constant="10" id="EVz-KH-gx1"/>
                             <constraint firstAttribute="height" constant="66" id="LOy-J2-Jfs"/>
@@ -52,6 +62,7 @@
                             <constraint firstItem="T2q-cw-j9a" firstAttribute="leading" secondItem="X2O-QU-gOt" secondAttribute="leading" constant="8" id="W3S-Zq-ipa"/>
                             <constraint firstItem="oPh-Ai-04j" firstAttribute="top" secondItem="X2O-QU-gOt" secondAttribute="top" constant="16" id="bDN-xh-vq8"/>
                             <constraint firstAttribute="bottom" secondItem="cTC-GO-2sr" secondAttribute="bottom" constant="16" id="fEv-iX-j3g"/>
+                            <constraint firstAttribute="bottom" secondItem="8ua-bK-F0M" secondAttribute="bottom" constant="10" id="s2t-fr-Uwb"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
@@ -70,6 +81,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="ageLabel" destination="cTC-GO-2sr" id="saj-Vc-wkg"/>
+                <outlet property="messageButton" destination="8ua-bK-F0M" id="0BW-Nk-YJN"/>
                 <outlet property="nameLabel" destination="oPh-Ai-04j" id="hMd-Z7-05F"/>
                 <outlet property="userImageView" destination="T2q-cw-j9a" id="4Io-O2-ckf"/>
             </connections>
@@ -78,5 +90,6 @@
     </objects>
     <resources>
         <image name="imageLeft.png" width="1024" height="1024"/>
+        <image name="messageButton" width="16" height="11"/>
     </resources>
 </document>

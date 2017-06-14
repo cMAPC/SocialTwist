@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FriendListCell.h"
 #import "RequestManager.h"
+#import "UserProfileViewController.h"
 
 @interface FriendListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 

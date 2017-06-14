@@ -24,6 +24,7 @@
     [self.tableView setEstimatedRowHeight:200];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     
+    
     [[RequestManager sharedManager] getFriendsOnSuccess:^(id responseObject) {
         friendContentArray = responseObject;
         [self.tableView reloadData];
@@ -43,19 +44,25 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FriendListCell"];
+    
     cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                            [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
                            [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"lastName"]
                            ];
     
-    cell.ageLabel.text = [NSString stringWithFormat:@"%@, %@",
-                          [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"],
-                          [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"location"]
+    cell.ageLabel.text = [NSString stringWithFormat:@"%ld, %@ %@",
+                          [self getAgeFromDate:[[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"birthday"]],
+                          [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"location"],
+                          [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]
                           ];
+    
+    [cell.messageButton setTag:indexPath.row];
+    [cell.messageButton addTarget:self action:@selector(sendMessage:) forControlEvents:UIControlEventTouchUpInside];
     
     return cell;
 }
 
+#pragma mark - UITableView Delegate
 -(NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction* deleteAction;
     
@@ -76,6 +83,44 @@
                                                         [tableView reloadData];
                                                     }];
     return @[deleteAction];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UserProfileViewController* userProfileController = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
+    
+    [userProfileController setName:[NSString stringWithFormat:@"%@ %@",
+                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
+                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]
+                                    ]];
+    
+    [self.navigationController pushViewController:userProfileController animated:YES];
+}
+#pragma mark - Actions
+-(void)sendMessage:(UIButton *)sender {
+    NSLog(@"Message button pressed");
+}
+-(NSInteger)getAgeFromDate:(NSString *)date {
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    
+    NSString* birthdayString = date;
+    NSDate* birthday = [dateFormatter dateFromString:birthdayString];
+    NSDate* currentDate = [NSDate date];
+    
+    NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
+                                       components:NSCalendarUnitYear
+                                       fromDate:birthday
+                                       toDate:currentDate
+                                       options:0];
+    
+    NSInteger age = [ageComponents year];
+    
+    NSLog(@"birthday - %@", [dateFormatter stringFromDate:currentDate]);
+    NSLog(@"current date - %@", [dateFormatter stringFromDate:birthday]);
+    NSLog(@"User age is - %ld", (long)age);
+    
+    return age;
 }
 
 @end

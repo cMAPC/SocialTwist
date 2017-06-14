@@ -77,7 +77,11 @@
                   parameters:nil
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                         success(responseObject);
+                         NSError* error;
+                         NSArray* searchResultArray = [MTLJSONAdapter modelsOfClass:[UserData class]
+                                                                      fromJSONArray:responseObject
+                                                                              error:&error];
+                         success(searchResultArray);
                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                          fail(error, 400);
                          [self printError:error task:task];

@@ -13,6 +13,11 @@
     CGFloat postCellHeight;
     
     BOOL isPosting;
+    
+    
+    CLLocationManager* locationManager;
+    NSMutableArray* selectedCategories;
+    NSMutableArray* eventContentArray;
 }
 
 @end
@@ -34,6 +39,27 @@
     [[EventContent sharedEventContent] getEvents];
 //    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
     self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    locationManager = [[CLLocationManager alloc] init];
+    selectedCategories = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
+    
+        CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                        locationManager.location.coordinate.longitude);
+        
+        [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
+                                                      withRadius:1
+                                            filteredByCategories:selectedCategories
+                                                         success:^(id responseObject) {
+                                                             
+                                                             eventContentArray = responseObject;
+                                                             [self.tableView reloadData];
+                                                             
+                                                         } fail:^(NSError *error, NSInteger statusCode) {
+                                                             
+                                                         }];
+
 }
 
 -(void)viewWillLayoutSubviews{
@@ -48,7 +74,8 @@
 
 #pragma mark - UITableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [EventContent sharedEventContent].eventsArray.count + 1;
+//    return [EventContent sharedEventContent].eventsArray.count + 1;
+    return eventContentArray.count + 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,9 +99,22 @@
     TimelineCellController* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
     //    [cell.cellImage setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    cell.cellImage.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] eventImage];
-    cell.profileImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
-    cell.label.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
+//    cell.cellImage.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] eventImage];
+//    cell.profileImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
+//    cell.label.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
+    
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    NSString* imageURL = [[eventContentArray objectAtIndex:indexPath.row - 1] valueForKey:@"picture"];
+    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    UIImage * result = [UIImage imageWithData:data];
+    
+//    UIImage* tempImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]]];
+    
+    cell.cellImage.image = result;
+    cell.profileImageView.image = result;
+    cell.label.text = [NSString stringWithFormat:@"\r%@\r", [[eventContentArray objectAtIndex:indexPath.row-1] valueForKey:@"subtitle"]];
+    cell.statusLabel.text = [[[eventContentArray objectAtIndex:indexPath.row-1] valueForKey:@"creator"] valueForKey:@"firstName"];
+    
     
     // like/dislike
     cell.likeButton.tag = indexPath.row;
@@ -351,7 +391,7 @@
 
 -(void)adjustStringFormat:(TimelineCellController *) cell {
         
-        NSString* name = @"Spinu Marcel";
+        NSString* name = cell.statusLabel.text;
         NSString* at = @"at";
         NSString* place = @"Chisinau";
     

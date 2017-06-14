@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 #import "RequestManager.h"
-#import "SearchContent.h"
 #import "FriendRequestCell.h"
 
 #import "UserData.h"

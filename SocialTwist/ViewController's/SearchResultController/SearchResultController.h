@@ -4,6 +4,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchResultCell.h"
 #import "UserProfileViewController.h"
 
 @interface SearchResultController : UITableViewController

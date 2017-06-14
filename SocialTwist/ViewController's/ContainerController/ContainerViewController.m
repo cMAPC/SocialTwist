@@ -12,7 +12,7 @@
     SearchResultController* searchResultController;
     
     NSArray* nameArray;
-    NSMutableArray* searchResultArray;
+    NSArray* searchResultArray;
 }
 
 @end
@@ -261,27 +261,10 @@
     
     [[RequestManager sharedManager] searchForName:searchText
                                           success:^(id responseObject) {
-                                              
-//                                              NSMutableArray* searchResult = responseObject;
-//                                              NSLog(@"count %@",searchResult);
-//                                              searchResultArray = [searchResult valueForKey:@"first_name"];
-                                            
-                                              searchResultArray = [[NSMutableArray alloc] init];
-                                              
-                                              for (int i = 0; i < [responseObject count]; i ++) {
-                                                  SearchContent* obj = [[SearchContent alloc] init];
-                                                  obj.firstName = [responseObject[i] valueForKey:@"first_name"];
-                                                  obj.lastName = [responseObject[i] valueForKey:@"last_name"];
-                                                  obj.userId = [[responseObject[i] valueForKey:@"id"] integerValue];
-                                                  obj.sex = [responseObject[i] valueForKey:@"sex"];
-                                                  
-                                                  [searchResultArray addObject:obj];
-                                              }
-                                              
+                                              searchResultArray = responseObject;
                                           } fail:^(NSError *error, NSInteger statusCode) {
                                               
                                           }];
-    
     
 //    NSPredicate* resultPredicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", searchText];
 //    searchResultArray = [nameArray filteredArrayUsingPredicate:resultPredicate];

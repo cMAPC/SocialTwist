@@ -10,7 +10,7 @@
 #import "TimelineTableController.h"
 
 #import "RequestManager.h"
-#import "SearchContent.h"
+
 
 @interface ContainerViewController : UIViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 
