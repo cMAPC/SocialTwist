@@ -45,19 +45,28 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendListCell* cell = [tableView dequeueReusableCellWithIdentifier:@"FriendListCell"];
     
+    [cell.messageButton setTag:indexPath.row];
+    [cell.messageButton addTarget:self action:@selector(sendMessage:) forControlEvents:UIControlEventTouchUpInside];
+    
     cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                            [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
                            [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"lastName"]
                            ];
     
-    cell.ageLabel.text = [NSString stringWithFormat:@"%ld, %@ %@",
+    cell.ageLabel.text = [NSString stringWithFormat:@"%ld years, %@ %@",
                           [self getAgeFromDate:[[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"birthday"]],
                           [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"location"],
                           [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]
                           ];
     
-    [cell.messageButton setTag:indexPath.row];
-    [cell.messageButton addTarget:self action:@selector(sendMessage:) forControlEvents:UIControlEventTouchUpInside];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString* userImageURL = [[friendContentArray objectAtIndex:indexPath.row] picture];
+        UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [cell.userImageView setImage:userImage];
+        });
+    });
     
     return cell;
 }
@@ -100,6 +109,7 @@
 -(void)sendMessage:(UIButton *)sender {
     NSLog(@"Message button pressed");
 }
+
 -(NSInteger)getAgeFromDate:(NSString *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];

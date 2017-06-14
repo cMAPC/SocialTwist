@@ -18,7 +18,7 @@
              @"lastName" : @"last_name",
              @"location" : @"location",
              @"phoneNumber" : @"phone_number",
-             @"userPicture" : @"picture",
+             @"picture" : @"picture",
              @"sex" : @"sex"
              };
 }

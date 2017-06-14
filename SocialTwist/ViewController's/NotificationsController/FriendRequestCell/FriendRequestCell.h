@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface FriendRequestCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *name;
-@property (weak, nonatomic) IBOutlet UIButton *confirmRequestButton;
-@property (weak, nonatomic) IBOutlet UIButton *rejectRequestButton;
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *pictureImageView;
 
 @end
