@@ -178,304 +178,9 @@
                                                 error:&error];
     
     return friendRequestArray;
-    
-//    __block NSMutableArray* userIdArray;
-//    __block NSMutableArray* userContentArray = [[NSMutableArray alloc]init];
-//    __block int i = 0;
-////    dispatch_group_t group = dispatch_group_create();
-////    
-////    dispatch_group_enter(group);
-//    [self.requestManager GET:@"friends/requests/"
-//                  parameters:nil
-//                    progress:nil
-//                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                         
-//                         userIdArray = [[NSMutableArray alloc] initWithArray:[responseObject valueForKey:@"sender_id"]];
-//                         
-//                         NSLog(@"finished 1");
-//                         
-////                         dispatch_group_enter(group);
-////                         dispatch_async(dispatch_get_main_queue(), ^{
-//                             for (NSString* userID in userIdArray) {
-//                                 
-//                                 [self.requestManager GET:[NSString stringWithFormat:@"users/%@/", userID]
-//                                               parameters:nil
-//                                                 progress:nil
-//                                                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                                                      
-//                                                      NSError* error;
-//                                                      UserData* dict = [MTLJSONAdapter modelOfClass:[UserData class]
-//                                                                                 fromJSONDictionary:responseObject
-//                                                                                              error:&error];
-//                                                      
-//                                                      [userContentArray addObject:dict];
-//                                                      
-//                                                      //                                              success(userContentArray);
-//                                                      
-//                                                      NSLog(@"fcon %@", userContentArray);
-////                                                      if (1) {
-////                                                          dispatch_group_leave(group);
-////                                                      }
-//                                                      
-//                                                      
-//                                                  } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                                                      fail(error, 400);
-//                                                      [self printError:error task:task];
-//                                                      
-//                                                      //                                              dispatch_group_leave(group);
-//                                                  }];
-//                                 i++;
-//                                 
-//                             }
-////                         if (i == 0) {
-//                             NSLog(@"fconn %@", userContentArray);
-//                             success(userContentArray);
-////                         }
-//                         
-////                         });
-//                         
-////                         dispatch_group_leave(group);
-//                         
-//                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                         fail(error, 400);
-//                         [self printError:error task:task];
-//                         
-////                         dispatch_group_leave(group);
-//                     }];
-    
-    
-    
-    
-//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-//        NSLog(@"All done");
-//        NSLog(@"sender array %@", userContentArray);
-//        success(userContentArray);
-//    });
-
-    
-
-    
-    
-//    dispatch_group_t group = dispatch_group_create();
-//    
-//    dispatch_group_async(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-//        // block1
-//        
-//        [self.requestManager GET:@"friends/requests/"
-//                      parameters:nil
-//                        progress:nil
-//                         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                             
-//                             userIdArray = [[NSMutableArray alloc] initWithArray:[responseObject valueForKey:@"sender_id"]];
-//                             
-//                             NSLog(@"finished 1");
-//                             
-//                             
-//                         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                             fail(error, 400);
-//                             [self printError:error task:task];
-//                             
-//                             
-//                         }];
-//
-//        
-//        NSLog(@"Block1");
-//        NSLog(@"Block1 End");
-//    });
-//    
-//    
-//    dispatch_group_async(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-//        // block2
-//          [NSThread sleepForTimeInterval:5.0];
-//        for (NSString* userID in userIdArray) {
-//        NSLog(@"sender id 0 %@", userIdArray[0]);
-//        [self.requestManager GET:[NSString stringWithFormat:@"users/%@/", userID]
-//                      parameters:nil
-//                        progress:nil
-//                         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                             
-//                             NSError* error;
-//                             UserData* dict = [MTLJSONAdapter modelOfClass:[UserData class]
-//                                                        fromJSONDictionary:responseObject
-//                                                                     error:&error];
-//                             
-//                             [userContentArray addObject:dict];
-//                             
-//                             success(userContentArray);
-//                             
-//                             NSLog(@"finished 2");
-//                             
-//                             
-//                         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                             fail(error, 400);
-//                             [self printError:error task:task];
-//                             
-//                             
-//                         }];
-//
-//        }
-//        
-//        NSLog(@"Block2");
-//        
-//        NSLog(@"Block2 End");
-//    });
-//    
-//    dispatch_group_notify(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-//        NSLog(@"user content %@ ", userContentArray);
-//        success(userContentArray);
-//        NSLog(@"Block3");
-//    });
-    
-    
-
 }
 
 
-
-/*
--(void)getFriendsRequestOnSuccess:(successBlock)success fail:(failBlock)fail {  // ???????????????????????????
-    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
-    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
-    __block NSMutableArray* userContentArray = [[NSMutableArray alloc]init];
-    [self.requestManager GET:@"friends/requests/"
-                  parameters:nil
-                    progress:nil
-                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                         
-
-                         //CAM ASTA E? da multumes c
-                        mult/
-                         //DAR ANALIZEAZA CODUL SI FA CURAT IN EL
-                         //EU AM FACUT REPEDE
-                         //REDENUMESTE CE AI DE REDENUMIT CA SA FIE OK
-                         // ;) ok thanks
-                         NSMutableArray* userIdArray = [[NSMutableArray alloc] initWithArray:[responseObject valueForKey:@"sender_id"]];
-                         
-                         [self getUsersDataFrom:userIdArray done:^(id object) {
-                            
-                             NSLog(@"YOUR RESULT - %@",object);
-                             success(object);
-                             
-                             
-                             //EU DE UN AN SCRIUN IN SWIFT
-                             //SII CAM COMPLICAT DE INTORS LA OBJC :)
-                             
-                         }];
-                         
-                         
-//                         for (NSString* userId in userIdArray) {
-//                             
-//
-//                             [[RequestManager sharedManager] getUserWithId:userId
-//                                                                   success:^(id responseObject) {
-//                                                                       
-//                                                                       NSLog(@"Success for %@",userId);
-//                                                                       
-//                                                                       //SUCCESS NUMAI AICI POATE SA FIE
-//                                                                      // success(userContentArray);
-//                                                                       
-//                                                                       NSError* error;
-//                                                                       UserData* dict = [MTLJSONAdapter modelOfClass:[UserData class] fromJSONDictionary:responseObject error:&error];
-//                                                                       
-//                                                                       [userContentArray addObject:dict];
-//                                                                       
-//                                                                       if (error) {
-//                                                                           NSLog(@"error %@", error);
-//                                                                       }
-//                                                                       NSLog(@"user content array 1 %@", userContentArray);
-//                                                                       
-//                                                                   } fail:^(NSError *error, NSInteger statusCode) {
-//                                                                       
-//                                                                   }];
-//                             
-//                         }
-//                         
-//                         //aici in mod normal trebuie sa ai un serviciu carui ii dai aceste IDURI
-//                         //SI FACI NUMAI UN SINGUR REQUEST
-//                         
-//                         NSLog(@"%@",userContentArray);//aici este null
-//                         
-//                         //AICI E PREA DEVREME, SAU DACA AI AICI TREBUIE SA FACI CANCEL LA REQUEST intelegi ca
-//                         // server sidul pentru a obtine friend requesturie da un serviciu care returenreaz id persoanei care mia trimis
-//                         //cerere de prietenie, iar eu ca sa populez tabela mea cu date am nevoi de numele si prenumele perosanei, care deja il obtin prin alt serviciu - getUserWithId, nu pot sa fac intrun singur request
-//                         //OK
-//                         //INSEAMNA CA SI TU TREBUIE SA LUCREZI ASYCRON :)
-//            //ACUS
-                         
-                         //success(userContentArray);
-                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                         fail(error, 400);
-                         [self printError:error task:task];
-                     }];
-}
-
-
-
-
-typedef void(^doneBlock)(id object);
-typedef void(^always)(void);
-
--(void)processGetUserByID:(NSString*)userID done:(doneBlock)done fail:(failBlock)fail always:(always)always {
-    
-    [[RequestManager sharedManager] getUserWithId:userID
-                                          success:^(id responseObject) {
-                                              
-                                              NSError* error;
-                                              UserData* dict = [MTLJSONAdapter modelOfClass:[UserData class] fromJSONDictionary:responseObject error:&error];
-                                              
-                                              if (error) {
-                                                  
-                                                  //treb fixat
-                                                  fail(error,0);
-                                                  
-                                                  NSLog(@"error %@", error);
-                                              } else {
-                                                  done(dict);
-                                              }
-                                              
-                                              always();
-                                              
-                                          } fail:^(NSError *error, NSInteger statusCode) {
-                                              
-                                              fail(error,statusCode);
-                                              always();
-                                              
-                                          }];
-    
-}
-
--(void)getUsersDataFrom:(NSArray*)usersID done:(doneBlock)done {
-    
-    NSMutableArray* userContentArray = [[NSMutableArray alloc] init];
-    __block int operations = usersID.count;
-    __block int doneOperations = 0;
-    //nui nici un nslog de asta nu afiseaza nimic
-    for (NSString* userId in usersID) {
-        
-        [self processGetUserByID:userId done:^(UserData *user) {
-            
-            [userContentArray addObject:user];
-            
-        } fail:^(NSError *error, NSInteger statusCode) {
-            
-            //do something
-            
-        } always:^{
-            
-            doneOperations++; //indiferent daca a fost cu succes sau fail
-            //de asta am adaugat acest block aditional
-            
-            if (operations == doneOperations) {
-                done(userContentArray);
-            }
-            
-        }];
-    }
-    
-}
-
-*/
 
 -(id)getUsersWithID:(NSArray *)userIDArray {
     [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
@@ -673,6 +378,40 @@ typedef void(^always)(void);
         NSLog(@"Error: %@", error);
     }];
 }
+
+
+///////////////////////////////////// test
+-(id)getSyncEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
+                       withRadius:(NSUInteger)radius
+             filteredByCategories:(NSArray *)categoriesArray
+{
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary* parameters = @{
+                                 @"lat" : [[NSNumber numberWithDouble:coordinates.latitude] stringValue],
+                                 @"lon" : [[NSNumber numberWithDouble:coordinates.longitude] stringValue],
+                                 @"radius" : [[NSNumber numberWithInteger:radius] stringValue],
+                                 @"categories" : categoriesArray
+                                 };
+    
+    NSError* error = nil;
+    
+    [self.requestManager setCompletionQueue:dispatch_queue_create("AFNetworking+Synchronous", NULL)];
+    
+        NSArray* temp = [self.requestManager syncGET:@"events/"
+                                               parameters:parameters
+                                                     task:NULL
+                                                    error:&error];
+        
+    NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
+                                                 fromJSONArray:temp
+                                                         error:&error];
+    
+    return eventContentArray;
+}
+
 @end
 
 

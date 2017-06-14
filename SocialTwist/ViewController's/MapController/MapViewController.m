@@ -365,11 +365,100 @@
 
 #pragma mark - server try
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    NSMutableArray* annotat;
+    annotat = nil;
+    annotat = [[NSMutableArray alloc] init];
     
+    dispatch_group_t serviceGroup = dispatch_group_create();
+    dispatch_group_enter(serviceGroup);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+     
+        CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
+                                                                        mapView.centerCoordinate.longitude);
+        
+        
+        NSArray* eventContentArray = [[RequestManager sharedManager] getSyncEventsFromCoordinates:coordinates
+                                                                                       withRadius:1
+                                                                             filteredByCategories:self.selectedCategories];
+//        NSMutableArray* annotat = [[NSMutableArray alloc] init];
+        CustomAnnotation* annotation;
+        for (EventData* event in eventContentArray) {
+            
+            annotation = [[CustomAnnotation alloc] init];
+            [annotation setTitle:event.title];
+            [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
+            
+            //concate category image with event image
+            NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
+            [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
+            
+            
+            NSLog(@"event picture %@", event.picture);
+            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
+            UIImage * result = [UIImage imageWithData:data];
+            
+            pinView.profileImageView.image = result;
+            
+            annotation.pinImage = [Utilities imageFromView:pinView];
+            
+            [annotat addObject:annotation];
+        }
+        NSLog(@"finished");
+         dispatch_group_leave(serviceGroup);
+    });
+    
+    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+        NSLog(@"all done");
+        NSArray* arr = annotat;
+            [self.mapView addAnnotations:arr];
+        });
+    
+    /*
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//        NSString* userImageURL = [[friendContentArray objectAtIndex:indexPath.row] picture];
+//        UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
+        CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
+                                                                        mapView.centerCoordinate.longitude);
+
+        
+        NSArray* eventContentArray = [[RequestManager sharedManager] getSyncEventsFromCoordinates:coordinates
+                                                                                       withRadius:1
+                                                                             filteredByCategories:self.selectedCategories];
+        NSMutableArray* annotat = [[NSMutableArray alloc] init];
+        CustomAnnotation* annotation;
+        for (EventData* event in eventContentArray) {
+            annotation = [[CustomAnnotation alloc] init];
+            [annotation setTitle:event.title];
+            [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
+            
+            //concate category image with event image
+            NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
+            [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
+            
+            
+            NSLog(@"event picture %@", event.picture);
+            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
+            UIImage * result = [UIImage imageWithData:data];
+            
+            pinView.profileImageView.image = result;
+            
+            annotation.pinImage = [Utilities imageFromView:pinView];
+            
+            [annotat addObject:annotation];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.mapView addAnnotation:annotation];
+            [self.mapView addAnnotations:annotat];
+        });
+    });
+*/
+    
+    /*
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
                                                                     mapView.centerCoordinate.longitude);
-        
+     
     [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
                                                   withRadius:1
                                         filteredByCategories:self.selectedCategories
@@ -419,7 +508,7 @@
     
 
     });
-    
+    */
 }
 
 -(CLLocationCoordinate2D)convertParsedCoordinates:(NSString *)coordinates {

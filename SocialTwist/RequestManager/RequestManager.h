@@ -48,8 +48,6 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(void)rejectFriendRequestWithID:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 -(void)deleteFriendWithID:(NSString *)userID success:(successBlock)success fail:(failBlock)fail;
 
-//-(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates withRadius:(NSUInteger)radius success:(successBlock)success fail:(failBlock)fail;
-
 -(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
                      withRadius:(NSUInteger)radius
            filteredByCategories:(NSArray *)categoriesArray
@@ -64,4 +62,9 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
                   success:(successBlock)success
                      fail:(failBlock)fail;
 
+
+////////////////////////////////////////////////
+-(id)getSyncEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
+                       withRadius:(NSUInteger)radius
+             filteredByCategories:(NSArray *)categoriesArray;
 @end
