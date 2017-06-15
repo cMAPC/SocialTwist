@@ -22,6 +22,9 @@ PODS:
   - Mantle (2.1.0):
     - Mantle/extobjc (= 2.1.0)
   - Mantle/extobjc (2.1.0)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
@@ -30,6 +33,7 @@ DEPENDENCIES:
   - DXCustomCallout-ObjC
   - LGSideMenuController
   - Mantle
+  - SDWebImage (~> 3.8)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -38,7 +42,8 @@ SPEC CHECKSUMS:
   DXCustomCallout-ObjC: fb223603ee148365de51c2d69bb10443943ff89b
   LGSideMenuController: 3cc82025a53b672926d3ffb3f428f4f3e15e3349
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: ae0b4c72129689fc93e2c71e0ad8fa0884490b74
+PODFILE CHECKSUM: 3bb613d922c73c0d49390e361ee88e13206f6d60
 
 COCOAPODS: 1.2.0

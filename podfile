@@ -5,4 +5,5 @@ target 'SocialTwist' do
    pod 'AFNetworking', '~> 3.0'
    pod 'AFNetworking-Synchronous/3.x'
    pod 'Mantle'
+   pod 'SDWebImage', '~>3.8'
 end

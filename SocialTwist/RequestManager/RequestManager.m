@@ -371,7 +371,7 @@
                                 fileName:@"image.jpg" mimeType:@"image/jpeg"];  
         
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"Response: %@", responseObject);
+//        NSLog(@"Response: %@", responseObject);
         
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

@@ -7,6 +7,7 @@
 
 #import "CustomAnnotation.h"
 #import <QuartzCore/QuartzCore.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MapViewController () {
     CLLocationManager* locationManager;
@@ -364,15 +365,89 @@
 }
 
 #pragma mark - server try
+-(void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
+    NSLog(@"mapViewDidFinishLoadingMap");
+}
+
+-(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    NSLog(@"annotation title - %@", view.annotation.title);
+}
+
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    NSLog(@"mapViewDidFinishRenderingMap");
+   
+}
+
+
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    NSMutableArray* annotat;
-    annotat = nil;
-    annotat = [[NSMutableArray alloc] init];
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
+                                                                    mapView.centerCoordinate.longitude);
+    
+    __block NSMutableArray* array = [[NSMutableArray alloc] init];
+    dispatch_group_t serviceGroup = dispatch_group_create();
+    dispatch_group_enter(serviceGroup);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
+                                                      withRadius:1
+                                            filteredByCategories:self.selectedCategories
+                                                         success:^(id responseObject) {
+                                                             for (EventData* event in responseObject) {
+                                                                 
+                                                                 CustomAnnotation* annotation;
+                                                                 annotation = [[CustomAnnotation alloc] init];
+                                                                 [annotation setTitle:event.title];
+                                                                 [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
+                                                                 
+                                                                 if([[SDImageCache sharedImageCache] diskImageExistsWithKey:event.picture]) {
+                                                                     
+                                                                     // Set cached thumbnail image on imageview
+                                                                     [pinView.profileImageView setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:event.picture]];
+//                                                                     [self.videoThumbnail setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:object.fields[@"Thumbnail_URL"]]];
+                                                                     
+                                                                 } else {
+                                                                     
+                                                                     // Not cached so lets download it
+                                                                     [pinView.profileImageView sd_setImageWithURL:[NSURL URLWithString:event.picture] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                                         
+                                                                     }];
+                                                                 }
+                                                                 
+                                                                 
+                                                                 //concate category image with event image
+                                                                 NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
+                                                                 [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
+                                                                 
+                                                                 
+//                                                                 [pinView.profileImageView sd_setImageWithURL:
+//                                                                  [NSURL URLWithString:event.picture]
+//                                                                                             placeholderImage:nil];
+                                                                 
+                                                                 annotation.pinImage =  [Utilities imageFromView:pinView];
+                                                                 
+//                                                                 [self.mapView addAnnotation:annotation];
+                                                                 [array addObject:annotation];
+                                                             }
+                                                              dispatch_group_leave(serviceGroup);
+                                                             
+                                                         } fail:^(NSError *error, NSInteger statusCode) {
+                                                             
+                                                         }];
+        
+    });
+    
+    dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+        NSLog(@"all done");
+        NSLog(@"Event Array - %@", array);
+                [self.mapView addAnnotations:array];
+    });
+    
+    /*NSMutableArray* annotat = [[NSMutableArray alloc] init];
     
     dispatch_group_t serviceGroup = dispatch_group_create();
     dispatch_group_enter(serviceGroup);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-     
+        
         CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
                                                                         mapView.centerCoordinate.longitude);
         
@@ -380,7 +455,6 @@
         NSArray* eventContentArray = [[RequestManager sharedManager] getSyncEventsFromCoordinates:coordinates
                                                                                        withRadius:1
                                                                              filteredByCategories:self.selectedCategories];
-//        NSMutableArray* annotat = [[NSMutableArray alloc] init];
         CustomAnnotation* annotation;
         for (EventData* event in eventContentArray) {
             
@@ -393,122 +467,32 @@
             [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
             
             
-            NSLog(@"event picture %@", event.picture);
-            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
-            UIImage * result = [UIImage imageWithData:data];
+            //            NSLog(@"event picture %@", event.picture);
+            //            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
+            //            UIImage * result = [UIImage imageWithData:data];
+            //
+            //            pinView.profileImageView.image = result;
+            //
             
-            pinView.profileImageView.image = result;
+            [pinView.profileImageView sd_setImageWithURL:[NSURL URLWithString:event.picture]
+                                        placeholderImage:nil];
             
             annotation.pinImage = [Utilities imageFromView:pinView];
             
             [annotat addObject:annotation];
         }
+        [self.mapView addAnnotations:annotat];
         NSLog(@"finished");
-         dispatch_group_leave(serviceGroup);
+        dispatch_group_leave(serviceGroup);
     });
     
     dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
         NSLog(@"all done");
         NSArray* arr = annotat;
-            [self.mapView addAnnotations:arr];
-        });
-    
-    /*
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-//        NSString* userImageURL = [[friendContentArray objectAtIndex:indexPath.row] picture];
-//        UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
-        CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
-                                                                        mapView.centerCoordinate.longitude);
-
-        
-        NSArray* eventContentArray = [[RequestManager sharedManager] getSyncEventsFromCoordinates:coordinates
-                                                                                       withRadius:1
-                                                                             filteredByCategories:self.selectedCategories];
-        NSMutableArray* annotat = [[NSMutableArray alloc] init];
-        CustomAnnotation* annotation;
-        for (EventData* event in eventContentArray) {
-            annotation = [[CustomAnnotation alloc] init];
-            [annotation setTitle:event.title];
-            [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
-            
-            //concate category image with event image
-            NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
-            [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
-            
-            
-            NSLog(@"event picture %@", event.picture);
-            NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
-            UIImage * result = [UIImage imageWithData:data];
-            
-            pinView.profileImageView.image = result;
-            
-            annotation.pinImage = [Utilities imageFromView:pinView];
-            
-            [annotat addObject:annotation];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.mapView addAnnotation:annotation];
-            [self.mapView addAnnotations:annotat];
-        });
+        [self.mapView addAnnotations:arr];
     });
 */
     
-    /*
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(mapView.centerCoordinate.latitude,
-                                                                    mapView.centerCoordinate.longitude);
-     
-    [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
-                                                  withRadius:1
-                                        filteredByCategories:self.selectedCategories
-                                                     success:^(id responseObject) {
-                                                         
-                                                         for (EventData* event in responseObject) {
-                                                             CustomAnnotation* annotation = [[CustomAnnotation alloc] init];
-                                                             [annotation setTitle:event.title];
-                                                             [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
-                                                             
-                                                             //concate category image with event image
-                                                             NSString* imageName = [NSString stringWithFormat:@"mapPinIcons/%@", [pinImageArray objectAtIndex:event.type.integerValue]];
-                                                             [pinView.categoryImageView setImage:[UIImage imageNamed:imageName]];
-                                                             
-                                                             
-                                                             NSLog(@"event picture %@", event.picture);
-                                                             NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.picture]];
-                                                             UIImage * result = [UIImage imageWithData:data];
-                                                             
-                                                             
-//                                                             NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:event.creator.userPicture]];
-////
-//
-//                                                             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//                                                             NSString *documentsDirectory = [paths objectAtIndex:0];
-//                                                             NSString *localFilePath = [documentsDirectory stringByAppendingPathComponent:@"pkm.png"];
-//                                                             NSData *thedata = NULL;
-//                                                             [data writeToFile:localFilePath atomically:YES];
-//                                                             
-//                                                             UIImage *img = [[UIImage alloc] initWithData:data];
-                                                             
-                                                             pinView.profileImageView.image = result;
-                                                             
-                                                             annotation.pinImage = [Utilities imageFromView:pinView];
-                                                             [self.mapView addAnnotation:annotation];
-                                                         }
-                                                         
-                                                     } fail:^(NSError *error, NSInteger statusCode) {
-                                                         
-                                                     }];
-    
-    // background process
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-        
-            
-        });
-    
-
-    });
-    */
 }
 
 -(CLLocationCoordinate2D)convertParsedCoordinates:(NSString *)coordinates {
