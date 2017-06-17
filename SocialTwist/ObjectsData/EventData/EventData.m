@@ -17,7 +17,7 @@
              @"creator" : @"creator",
              @"subtitle" : @"description",
              @"dislikes" : @"dislikes",
-             @"userID" : @"id",
+             @"eventID" : @"id",
              @"isPrivate" : @"is_private",
              @"likes" : @"likes",
              @"location" : @"location",

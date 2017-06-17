@@ -16,7 +16,7 @@
 @property (strong, nonatomic) UserData* creator;
 @property (strong, nonatomic) NSString* subtitle;
 @property (strong, nonatomic) NSNumber* dislikes;
-@property (strong, nonatomic) NSNumber* userID;
+@property (strong, nonatomic) NSNumber* eventID;
 @property (assign, nonatomic) NSNumber* isPrivate;
 @property (strong, nonatomic) NSNumber* likes;
 @property (strong, nonatomic) NSString* location;

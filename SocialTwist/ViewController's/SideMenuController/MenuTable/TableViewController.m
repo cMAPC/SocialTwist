@@ -77,15 +77,20 @@
         TableViewCell* profileCustomCell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
 //        profileCustomCell.imageView.translatesAutoresizingMaskIntoConstraints = YES;
         
-        profileCustomCell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
-                                            [[NSUserDefaults standardUserDefaults] objectForKey:@"name"],
-                                            [[NSUserDefaults standardUserDefaults] objectForKey:@"lastName"]
-                                            ];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            profileCustomCell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
+                                                [[NSUserDefaults standardUserDefaults] objectForKey:@"name"],
+                                                [[NSUserDefaults standardUserDefaults] objectForKey:@"lastName"]
+                                                ];
+            
+            [[DLImageLoader sharedInstance] imageFromUrl:[[NSUserDefaults standardUserDefaults] objectForKey:@"picture"]
+                                               completed:^(NSError *error, UIImage *image) {
+                                                   [profileCustomCell.pictureImageView setImage:image];
+                                               }];
+            
+        });
         
-        [[DLImageLoader sharedInstance] imageFromUrl:[[NSUserDefaults standardUserDefaults] objectForKey:@"picture"]
-                                           completed:^(NSError *error, UIImage *image) {
-                                               [profileCustomCell.pictureImageView setImage:image];
-                                           }];
         return profileCustomCell;
     }
     

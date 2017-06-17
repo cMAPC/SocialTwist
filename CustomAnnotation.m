@@ -26,7 +26,7 @@
     MKAnnotationView* annotationView = [[MKAnnotationView alloc] initWithAnnotation:self reuseIdentifier:@"MyCustomAnnotation"];
     annotationView.image = nil;
     annotationView.enabled = YES;
-    annotationView.canShowCallout = YES;
+    annotationView.canShowCallout = NO;
 //    annotationView.image = [UIImage imageNamed:self.image];
     
 //    annotationView.image = self.pinImage;

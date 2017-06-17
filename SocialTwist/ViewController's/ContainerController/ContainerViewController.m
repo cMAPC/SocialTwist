@@ -119,19 +119,19 @@
     }
    
     MapViewController * obj1 = (MapViewController *)self.childViewControllers[1];
-    if ([obj1 isPosting]) {
-        [Utilities showAlertControllerWithTitle:@"Error"
-                                        message:@"Cancel or Discard ?"
-                                     buttonType:UIAlertButtonDiscard
-                                  buttonHandler:^{
-                                      [sender setSelectedIndex:0];
-                                      [self showTimelineController];
-                                      [obj1 dismissPostAnnotationView];
-                                  } onViewController:self];
-        
-        [sender setSelectedIndex:1];
-        return;
-    }
+//    if ([obj1 isPosting]) {
+//        [Utilities showAlertControllerWithTitle:@"Error"
+//                                        message:@"Cancel or Discard ?"
+//                                     buttonType:UIAlertButtonDiscard
+//                                  buttonHandler:^{
+//                                      [sender setSelectedIndex:0];
+//                                      [self showTimelineController];
+//                                      [obj1 dismissPostAnnotationView];
+//                                  } onViewController:self];
+//        
+//        [sender setSelectedIndex:1];
+//        return;
+//    }
     
     if (sender.selectedIndexes.firstIndex == 0) {
         [self showTimelineController];

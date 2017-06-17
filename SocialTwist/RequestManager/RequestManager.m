@@ -377,6 +377,29 @@
     return eventContentArray;
 }
 
+-(void)getEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    [self.requestManager GET:[NSString stringWithFormat:@"events/%@/", eventID]
+                  parameters:nil
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         NSError* error;
+                         EventData* eventContent = [MTLJSONAdapter modelOfClass:[EventData class]
+                                                             fromJSONDictionary:responseObject
+                                                                          error:&error];
+                         success(eventContent);
+                         if (error) {
+                             NSLog(@"Mantle error - %@", error);
+                         }
+                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                         fail(error, 400);
+                         [self printError:error task:task];
+                     }];
+}
+
 -(void)postEventWithTitle:(NSString *)title
                  subtitle:(NSString *)subtitle
                     image:(UIImage *)image
