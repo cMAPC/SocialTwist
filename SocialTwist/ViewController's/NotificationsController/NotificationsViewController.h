@@ -12,6 +12,7 @@
 #import "FriendRequestCell.h"
 
 #import "UserData.h"
+#import <DLImageLoader.h>
 
 @interface NotificationsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 

@@ -59,6 +59,12 @@
                                              
                                              [[TokenManager sharedToken] setToken:[response valueForKey:@"access_token"]];
                                              
+                                             [[RequestManager sharedManager] getMyProfile:^(id responseObject) {
+                                                 [[NSUserDefaults standardUserDefaults] setObject:[responseObject firstName]  forKey:@"name"];
+                                                 [[NSUserDefaults standardUserDefaults] setObject:[responseObject lastName]  forKey:@"lastName"];
+                                                 [[NSUserDefaults standardUserDefaults] setObject:[responseObject picture]  forKey:@"picture"];
+                                             } fail:nil];
+                                             
                                          } onFail:^(NSError *error, NSInteger statusCode) {
                                              NSLog(@"Login error %@ with status code %ld", error, (long)statusCode);
                                              

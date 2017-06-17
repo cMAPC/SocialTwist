@@ -10,6 +10,7 @@
 #import "FriendListCell.h"
 #import "RequestManager.h"
 #import "UserProfileViewController.h"
+#import <DLImageLoader.h>
 
 @interface FriendListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 

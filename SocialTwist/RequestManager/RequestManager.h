@@ -37,6 +37,7 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
                 success:(successBlock)success
                    fail:(failBlock)fail;
 
+-(void)getMyProfile:(successBlock)success fail:(failBlock)fail;
 -(void)searchForName:(NSString *)name success:(successBlock)success fail:(failBlock)fail;
 -(void)addFriendWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 

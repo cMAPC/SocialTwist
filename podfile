@@ -6,4 +6,5 @@ target 'SocialTwist' do
    pod 'AFNetworking-Synchronous/3.x'
    pod 'Mantle'
    pod 'SDWebImage', '~>3.8'
+   pod 'DLImageLoader', '~> 2.2.0'
 end

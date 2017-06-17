@@ -52,6 +52,13 @@
                            [[userContentArray objectAtIndex:indexPath.row] valueForKey:@"lastName"]
                            ];
     
+    NSString* userImageURL = [[userContentArray objectAtIndex:indexPath.row] picture];
+    [[DLImageLoader sharedInstance] imageFromUrl:userImageURL
+                                       completed:^(NSError *error, UIImage *image) {
+                                           [cell.pictureImageView setImage:image];
+                                       }];
+
+/* AFNetworking
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSString* userImageURL = [[userContentArray objectAtIndex:indexPath.row] picture];
         UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
@@ -60,7 +67,8 @@
             [cell.pictureImageView setImage:userImage];
         });
     });
-    
+*/
+ 
     return cell;
 }
 

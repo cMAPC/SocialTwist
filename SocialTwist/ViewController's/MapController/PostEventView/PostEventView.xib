@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostEventView">
             <connections>
+                <outlet property="cancelButton" destination="B4M-xV-8r8" id="9cR-sS-yJp"/>
                 <outlet property="eventCameraButton" destination="Flu-QY-QwE" id="IZ5-VQ-ZSi"/>
                 <outlet property="eventCategoryButton" destination="rY1-CK-McU" id="x9I-ml-jbL"/>
                 <outlet property="eventImageView" destination="53h-AN-6mf" id="uYR-2E-fGO"/>
@@ -20,6 +21,7 @@
                 <outlet property="secondView" destination="iN0-l3-epB" id="s2w-g2-f1K"/>
                 <outlet property="subtitleTextView" destination="7H3-j9-Kqv" id="z5I-GF-oM1"/>
                 <outlet property="titleTextField" destination="DfV-IW-2hw" id="WhO-G4-Dpn"/>
+                <outlet property="userImageView" destination="yb7-Fp-y35" id="Uc8-XX-NvJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -191,9 +193,6 @@
                                     <state key="normal" title="Cancel">
                                         <color key="titleColor" red="0.6626325249671936" green="0.66274607181549072" blue="0.66261756420135498" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
-                                    <connections>
-                                        <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="O0w-Fk-cVz"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

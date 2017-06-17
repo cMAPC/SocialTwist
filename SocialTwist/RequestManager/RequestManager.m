@@ -126,6 +126,25 @@
                       }];
 }
 
+-(void)getMyProfile:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    [self.requestManager GET:@"profile/"
+                  parameters:nil
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         NSError* error;
+                         UserData* userData = [MTLJSONAdapter modelOfClass:[UserData class]
+                                                        fromJSONDictionary:responseObject
+                                                                     error:&error];
+                         success(userData);
+                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                         [self printError:error task:task];
+                     }];
+}
+
 -(void)addFriendWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail {
     [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
     [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
@@ -287,6 +306,7 @@
                         }];
 }
 
+#pragma mark - Event Services
 -(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
                      withRadius:(NSUInteger)radius
            filteredByCategories:(NSArray *)categoriesArray
@@ -308,8 +328,8 @@
                   parameters:parameters
                     progress:nil
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                         NSLog(@"get events response - %@", responseObject);
-                         NSLog(@"selected categories %@", categoriesArray);
+//                         NSLog(@"get events response - %@", responseObject);
+//                         NSLog(@"selected categories %@", categoriesArray);
                          
                          NSError* error;
                          NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
@@ -324,6 +344,37 @@
                          fail(error, 400);
                          [self printError:error task:task];
                      }];
+}
+
+-(id)getSyncEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
+                       withRadius:(NSUInteger)radius
+             filteredByCategories:(NSArray *)categoriesArray
+{
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary* parameters = @{
+                                 @"lat" : [[NSNumber numberWithDouble:coordinates.latitude] stringValue],
+                                 @"lon" : [[NSNumber numberWithDouble:coordinates.longitude] stringValue],
+                                 @"radius" : [[NSNumber numberWithInteger:radius] stringValue],
+                                 @"categories" : categoriesArray
+                                 };
+    
+    NSError* error = nil;
+    
+    [self.requestManager setCompletionQueue:dispatch_queue_create("AFNetworking+Synchronous", NULL)];
+    
+    NSArray* temp = [self.requestManager syncGET:@"events/"
+                                      parameters:parameters
+                                            task:NULL
+                                           error:&error];
+    
+    NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
+                                                 fromJSONArray:temp
+                                                         error:&error];
+    
+    return eventContentArray;
 }
 
 -(void)postEventWithTitle:(NSString *)title
@@ -368,49 +419,26 @@
     [self.requestManager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {  // POST DATA USING MULTIPART CONTENT TYPE
         [formData appendPartWithFileData:imageData
                                     name:@"picture"
-                                fileName:@"image.jpg" mimeType:@"image/jpeg"];  
+                                fileName:@"image.jpg" mimeType:@"image/jpeg"];
         
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSLog(@"Response: %@", responseObject);
+        NSLog(@"response object %@", responseObject);
+        NSError* error;
+        EventData* eventContent = [MTLJSONAdapter modelOfClass:[EventData class]
+                                            fromJSONDictionary:responseObject
+                                                         error:&error];
+        success(eventContent);
         
-        
+        if (error) {
+            NSLog(@"Mantle error - %@", error);
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
 }
 
 
-///////////////////////////////////// test
--(id)getSyncEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
-                       withRadius:(NSUInteger)radius
-             filteredByCategories:(NSArray *)categoriesArray
-{
-    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
-    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
-    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
-    
-    NSDictionary* parameters = @{
-                                 @"lat" : [[NSNumber numberWithDouble:coordinates.latitude] stringValue],
-                                 @"lon" : [[NSNumber numberWithDouble:coordinates.longitude] stringValue],
-                                 @"radius" : [[NSNumber numberWithInteger:radius] stringValue],
-                                 @"categories" : categoriesArray
-                                 };
-    
-    NSError* error = nil;
-    
-    [self.requestManager setCompletionQueue:dispatch_queue_create("AFNetworking+Synchronous", NULL)];
-    
-        NSArray* temp = [self.requestManager syncGET:@"events/"
-                                               parameters:parameters
-                                                     task:NULL
-                                                    error:&error];
-        
-    NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
-                                                 fromJSONArray:temp
-                                                         error:&error];
-    
-    return eventContentArray;
-}
+
 
 @end
 

@@ -118,7 +118,7 @@
 
 -(void)adjustStringFormat {
     
-    NSString* name = @"Spinu Marcel";
+    NSString* name = self.name;
     NSString* at = @"at";
     NSString* place = self.placeLabel.text;//@"Chisinau Chisinau Chisinau Chisinau";
     
@@ -208,10 +208,6 @@
 }
 
 #pragma mark - Action's
-- (IBAction)cancelButtonAction:(id)sender {
-    [self removeFromSuperview];
-}
-
 -(void)dealloc {
     [self.placeLabel removeObserver:self forKeyPath:@"text"];
 }

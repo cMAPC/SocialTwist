@@ -41,15 +41,28 @@
                              [[self.searchResult objectAtIndex:indexPath.row] lastName]
                              ]];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     NSString* userImageURL = [[self.searchResult objectAtIndex:indexPath.row] picture];
-    UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
-        
+    [[DLImageLoader sharedInstance] imageFromUrl:userImageURL
+                                       completed:^(NSError *error, UIImage *image) {
+                                           [cell.pictureImageView setImage:image];
+                                       }];
+    
+//    if([[SDImageCache sharedImageCache] diskImageExistsWithKey:userImageURL]) {
+//        [cell.pictureImageView setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userImageURL]];
+//    } else {
+//        [cell.pictureImageView sd_setImageWithURL:[NSURL URLWithString:userImageURL]
+//                                 placeholderImage:[UIImage imageNamed:@"avatar.jpg"]];    }
+
+
+/* AFNetworking parse
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//    NSString* userImageURL = [[self.searchResult objectAtIndex:indexPath.row] picture];
+//    UIImage* userImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:userImageURL]]];
         dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [cell.pictureImageView setImage:userImage];
+//            [cell.pictureImageView setImage:userImage];
         });
     });
-    
+*/
     return cell;
 }
 

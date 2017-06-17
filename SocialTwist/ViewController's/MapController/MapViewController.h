@@ -22,6 +22,9 @@
 #import "SMVisualEffectView.h"
 #import "PostEventView.h"
 #import "RequestManager.h"
+#import <DLImageLoader.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "CustomAnnotation.h"
 
 @interface MapViewController : UIViewController <MKMapViewDelegate>
 
@@ -37,11 +40,5 @@
 - (IBAction)centerCameraOnUserLocationButtonAction:(UIButton *)sender;
 - (IBAction)editButtonAction:(UIButton *)sender;
 - (void)filterEventsByCategories;
-
-- (BOOL)isPosting;
-- (void)dismissPostAnnotationView;
-
-
-
 
 @end

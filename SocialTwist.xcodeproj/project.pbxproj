@@ -83,6 +83,7 @@
 		1F3716971EEF06A0004F4E51 /* FriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3716961EEF06A0004F4E51 /* FriendListViewController.m */; };
 		1F37169B1EEF08A2004F4E51 /* FriendListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F3716991EEF08A2004F4E51 /* FriendListCell.m */; };
 		1F37169C1EEF08A2004F4E51 /* FriendListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F37169A1EEF08A2004F4E51 /* FriendListCell.xib */; };
+		1F3783971EF4886A00A6BC6E /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F3783961EF4886A00A6BC6E /* avatar.jpg */; };
 		1F4384251EEE8CCA00999667 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4384241EEE8CCA00999667 /* UserData.m */; };
 		1F4728631EE5A660002ABF68 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4728621EE5A660002ABF68 /* RequestManager.m */; };
 		1F4728671EE5B2BF002ABF68 /* TokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4728661EE5B2BF002ABF68 /* TokenManager.m */; };
@@ -213,6 +214,7 @@
 		1F3716981EEF08A2004F4E51 /* FriendListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendListCell.h; sourceTree = "<group>"; };
 		1F3716991EEF08A2004F4E51 /* FriendListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendListCell.m; sourceTree = "<group>"; };
 		1F37169A1EEF08A2004F4E51 /* FriendListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendListCell.xib; sourceTree = "<group>"; };
+		1F3783961EF4886A00A6BC6E /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
 		1F4384231EEE8CCA00999667 /* UserData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserData.h; sourceTree = "<group>"; };
 		1F4384241EEE8CCA00999667 /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		1F4728611EE5A660002ABF68 /* RequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestManager.h; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 		1F2E3C931E5C31A7007B698A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1F3783961EF4886A00A6BC6E /* avatar.jpg */,
 				1FD5DAD01E9266A20083DFB2 /* cat.jpg */,
 				1F7B0A291E5C4AC0004D08C8 /* dislike-icon-hightlighted@2x.png */,
 				1F7B0A271E5C4AB7004D08C8 /* like-icon-higtlighted@2x.png */,
@@ -916,6 +919,7 @@
 				1F2E3CC11E5C31A7007B698A /* image1.jpg in Resources */,
 				1F2E3CBE1E5C31A7007B698A /* edit-icon@2x.png in Resources */,
 				1FD5DAD11E9266A20083DFB2 /* cat.jpg in Resources */,
+				1F3783971EF4886A00A6BC6E /* avatar.jpg in Resources */,
 				1F0BE94D1EE058BA0056C71B /* PostEventView.xib in Resources */,
 				1F2C54541E476941006B7F82 /* MenuCell.xib in Resources */,
 				1F20553E1E465C45005AAEA9 /* AnnotationDescriptionView.xib in Resources */,
