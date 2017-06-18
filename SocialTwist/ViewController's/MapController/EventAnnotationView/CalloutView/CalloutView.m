@@ -58,7 +58,7 @@
         }
         else
         {
-            [self setFrame:CGRectMake(x, y, width, calloutViewHeight + correctedHeight)];
+            [self setFrame:CGRectMake(x, (y - calloutViewHeight + correctedHeight)/2, width, calloutViewHeight + correctedHeight)];
             [self.eventImageView addConstraint:[NSLayoutConstraint constraintWithItem:self.eventImageView
                                                                             attribute:NSLayoutAttributeHeight
                                                                             relatedBy:NSLayoutRelationEqual
@@ -69,7 +69,7 @@
         }
     }
     else {
-        [self setFrame:CGRectMake(x, y, width, calloutViewHeight)];
+        [self setFrame:CGRectMake(x, (y + calloutViewHeight)/2, width, calloutViewHeight)];
     }
 }
 
@@ -109,4 +109,8 @@
                                                       constant:0]];
 }
 
+#pragma mark - Actions
+- (IBAction)closeButtonAction:(id)sender {
+    [self removeFromSuperview];
+}
 @end

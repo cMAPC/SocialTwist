@@ -30,16 +30,26 @@
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9gf-fJ-p5N">
                                 <rect key="frame" x="68" y="23" width="42" height="21"/>
-                                <color key="backgroundColor" red="1" green="0.304919568981452" blue="0.15611094217715138" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMb-Iy-RqU" userLabel="DelimiterBottom">
+                                <rect key="frame" x="8" y="65" width="359" height="1"/>
+                                <color key="backgroundColor" red="0.8941463828086853" green="0.89411020278930664" blue="0.89412546157836914" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="YhX-Yh-Ret"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.13958086671002923" green="1" blue="0.23411118635998718" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.92941176470588238" green="0.92549019607843142" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="IMb-Iy-RqU" secondAttribute="bottom" id="4VT-Ov-kMY"/>
                             <constraint firstItem="6Gb-VY-cya" firstAttribute="centerY" secondItem="VMw-lo-wEN" secondAttribute="centerY" id="EHl-qM-DUW"/>
                             <constraint firstItem="9gf-fJ-p5N" firstAttribute="leading" secondItem="6Gb-VY-cya" secondAttribute="trailing" constant="10" id="KUZ-GJ-COc"/>
+                            <constraint firstAttribute="trailing" secondItem="IMb-Iy-RqU" secondAttribute="trailing" constant="8" id="QzF-cc-d5H"/>
+                            <constraint firstItem="IMb-Iy-RqU" firstAttribute="leading" secondItem="VMw-lo-wEN" secondAttribute="leading" constant="8" id="XsK-e7-Lht"/>
                             <constraint firstItem="6Gb-VY-cya" firstAttribute="leading" secondItem="VMw-lo-wEN" secondAttribute="leading" constant="8" id="YAY-qi-lVf"/>
                             <constraint firstAttribute="bottom" secondItem="6Gb-VY-cya" secondAttribute="bottom" constant="8" id="dTW-rj-V20"/>
                             <constraint firstAttribute="height" constant="66" id="iEs-iD-H4K"/>

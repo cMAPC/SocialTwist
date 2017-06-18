@@ -76,41 +76,59 @@
 }
 
 -(void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    CGRect calloutViewFrame = CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, self.mapView.frame.size.height - 40);
+    CGRect calloutViewFrame = CGRectMake(0, 40, [UIScreen mainScreen].bounds.size.width, self.mapView.frame.size.height - 80);
     calloutView = [[CalloutView alloc] initWithFrame:calloutViewFrame];
     
 
-
+    dispatch_group_t serviceGroup = dispatch_group_create();
+    
+    dispatch_group_enter(serviceGroup);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
     [[RequestManager sharedManager] getEventWithID:view.annotation.title
                                            success:^(id responseObject) {
                                                NSLog(@"get event by id response - %@", responseObject);
-                                               EventData* event = responseObject;
-                                               calloutView.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
-                                                                             event.creator.firstName,
-                                                                             event.creator.lastName
-                                                                             ];
                                                
-                                               calloutView.eventContentLabel.text = [NSString stringWithFormat:@"\r %@ \r %@ \r",
-                                                                                     event.title,
-                                                                                     event.subtitle
-                                                                                     ];
+                                                   EventData* event = responseObject;
+                                                   calloutView.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
+                                                                                 event.creator.firstName,
+                                                                                 event.creator.lastName
+                                                                                 ];
+                                                   
+                                                   calloutView.eventContentLabel.text = [NSString stringWithFormat:@"\r %@ \r %@ \r",
+                                                                                         event.title,
+                                                                                         event.subtitle
+                                                                                         ];
+                                                   
+                                                   [[DLImageLoader sharedInstance] imageFromUrl:event.creator.picture
+                                                                                      completed:^(NSError *error, UIImage *image) {
+                                                                                          [calloutView.userImageView setImage:image];
+                                                                                      }];
+                                                   dispatch_group_enter(serviceGroup);
+                                                   [[DLImageLoader sharedInstance] imageFromUrl:event.picture
+                                                                                      completed:^(NSError *error, UIImage *image) {
+                                                                                          [calloutView.eventImageView setImage:image];
+                                                                                           dispatch_group_leave(serviceGroup);
+                                                                                      }];
+                                                   
+                                                   
                                                
-                                               [[DLImageLoader sharedInstance] imageFromUrl:event.creator.picture
-                                                                                  completed:^(NSError *error, UIImage *image) {
-                                                                                      [calloutView.userImageView setImage:image];
-                                                                                  }];
+//                                                       [self.view addSubview:calloutView];
                                                
-                                               [[DLImageLoader sharedInstance] imageFromUrl:event.picture
-                                                                                  completed:^(NSError *error, UIImage *image) {
-                                                                                      [calloutView.eventImageView setImage:image];
-                                                                                  }];
                                                
-                                               [self.view addSubview:calloutView];
+                                               dispatch_group_leave(serviceGroup);
+
+                                               
+                                               
                                            } fail:^(NSError *error, NSInteger statusCode) {
                                                
                                            }];
-    
-    
+        });
+        dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+             [self.view addSubview:calloutView];
+            NSLog(@"All done");
+           
+        });
+
     
 }
 
@@ -228,8 +246,6 @@
                                                        
                                                        CustomAnnotation* annotation = [[CustomAnnotation alloc] init];
                                                        [annotation setTitle:event.eventID.stringValue];
-                                                      
-                                                       
                                                        [annotation setCoordinate:
                                                         [self convertParsedCoordinates:event.coordinates]];
                                                        
@@ -346,6 +362,15 @@
 #pragma mark - Parse/Filter Events Actions
 -(void)filterEventsByCategories {
     [self parseEvents];
+    for (CustomAnnotation* annotation in self.mapView.annotations) {
+        if (![annotation isKindOfClass:[MKUserLocation class]]) {
+            if (![self.selectedCategories containsObject:[NSNumber numberWithInteger:annotation.eventCategory]]
+                && [self.selectedCategories count] != 0)
+                [[self.mapView viewForAnnotation:annotation] setHidden:YES];
+            else
+                [[self.mapView viewForAnnotation:annotation] setHidden:NO];
+        }
+    }
 }
 
 

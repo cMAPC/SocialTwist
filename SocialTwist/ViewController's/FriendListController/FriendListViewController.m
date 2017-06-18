@@ -33,6 +33,11 @@
     }];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    [self.tableView reloadData];
+}
+
 -(void)initTableWithCustomCell {
     [self.tableView registerNib:[UINib nibWithNibName:@"FriendListCell" bundle:nil] forCellReuseIdentifier:@"FriendListCell"];
 }

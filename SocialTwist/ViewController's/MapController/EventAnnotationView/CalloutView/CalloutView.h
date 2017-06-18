@@ -16,6 +16,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventContentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *eventImageView;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *heightEventImageViewConstraint;
+@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
+@property (weak, nonatomic) IBOutlet UIButton *dislikeButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 
 @end
