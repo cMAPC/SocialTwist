@@ -199,9 +199,30 @@
     return friendRequestArray;
 }
 
+-(void)getUserWithID:(NSString *)userID success:(successBlock)success fail:(failBlock)fail
+{
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    
+    [self.requestManager GET:[NSString stringWithFormat:@"users/%@/", userID]
+                  parameters:nil
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         
+                         NSError *error;
+                         UserData* userData = [MTLJSONAdapter modelOfClass:[UserData class]
+                                                        fromJSONDictionary:responseObject
+                                                                     error:&error];
+                         success(userData);
+                         
+                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                         
+                     }];
+}
 
-
--(id)getUsersWithID:(NSArray *)userIDArray {
+-(id)getSyncUsersWithID:(NSArray *)userIDArray {
     [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
     [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
     [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
@@ -310,6 +331,8 @@
 -(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
                      withRadius:(NSUInteger)radius
            filteredByCategories:(NSArray *)categoriesArray
+                         offset:(NSInteger)offset
+                          count:(NSInteger)count
                         success:(successBlock)success
                            fail:(failBlock)fail
 {
@@ -321,7 +344,9 @@
                                  @"lat" : [[NSNumber numberWithDouble:coordinates.latitude] stringValue],
                                  @"lon" : [[NSNumber numberWithDouble:coordinates.longitude] stringValue],
                                  @"radius" : [[NSNumber numberWithInteger:radius] stringValue],
-                                 @"categories" : categoriesArray
+                                 @"categories" : categoriesArray,
+                                 @"limit" : @(count),
+                                 @"offset" : @(offset)
                                  };
     
     [self.requestManager GET:@"events/"
@@ -330,7 +355,6 @@
                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 //                         NSLog(@"get events response - %@", responseObject);
 //                         NSLog(@"selected categories %@", categoriesArray);
-                         
                          NSError* error;
                          NSArray* eventContentArray = [MTLJSONAdapter modelsOfClass:[EventData class]
                                                                       fromJSONArray:responseObject
@@ -433,16 +457,18 @@
     
 //    UIImage *image1 = [UIImage imageNamed:@"image5.png"];
 //    NSData *imageData =  UIImagePNGRepresentation(image, 0.2);
-    NSData* imageData = UIImageJPEGRepresentation(image, 0.2);
     
+    NSData* imageData = UIImageJPEGRepresentation(image, 0.f);
     
-    NSString *urlString = [NSString stringWithFormat:@"events/"];
-    
-    
-    [self.requestManager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {  // POST DATA USING MULTIPART CONTENT TYPE
-        [formData appendPartWithFileData:imageData
-                                    name:@"picture"
-                                fileName:@"image.jpg" mimeType:@"image/jpeg"];
+    [self.requestManager POST:@"events/"
+                   parameters:parameters
+    constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        if (image) {
+            [formData appendPartWithFileData:imageData
+                                        name:@"picture"
+                                    fileName:@"image.jpg" mimeType:@"image/jpeg"];
+            
+        }
         
     } progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"response object %@", responseObject);
@@ -456,12 +482,80 @@
             NSLog(@"Mantle error - %@", error);
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"Error: %@", error);
+        [self printError:error task:task];
     }];
 }
 
+#pragma mark - Event Actions
+-(void)postLikeOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
 
+    
+    [self.requestManager POST:[NSString stringWithFormat:@"events/%@/like/", eventID]
+                   parameters:nil
+                     progress:nil
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                        success(responseObject);
+                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                          [self printError:error task:task];
+                      }];
+}
 
+-(void)postDislikeOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    
+    [self.requestManager POST:[NSString stringWithFormat:@"events/%@/dislike/", eventID]
+                   parameters:nil
+                     progress:nil
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                          success(responseObject);
+                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                          [self printError:error task:task];
+                      }];
+}
+
+-(void)attendOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    [self.requestManager POST:[NSString stringWithFormat:@"events/%@/attend/", eventID]
+                   parameters:nil
+                     progress:nil
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                          success(responseObject);
+                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                          [self printError:error task:task];
+                      }];
+}
+
+-(void)getAttendersForEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    [self.requestManager GET:[NSString stringWithFormat:@"events/%@/attenders/", eventID]
+                  parameters:nil
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         NSError* error;
+                         NSArray* attendersArray = [MTLJSONAdapter modelsOfClass:[UserData class]
+                                                                   fromJSONArray:responseObject
+                                                                           error:&error];
+                         if (error) {
+                             NSLog(@"events/id/attenders/ mantle error - %@", error);
+                         }
+                         success(attendersArray);
+                         
+                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                         [self printError:error task:task];
+                     }];
+}
 
 @end
 

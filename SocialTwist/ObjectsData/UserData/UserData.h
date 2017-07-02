@@ -12,6 +12,7 @@
 @interface UserData : MTLModel <MTLJSONSerializing>
 
 @property (strong, nonatomic) NSString* birthday;
+@property (strong, nonatomic) NSString* thumbnail;
 @property (strong, nonatomic) NSString* firstName;
 @property (strong, nonatomic) NSNumber* userID;
 @property (strong, nonatomic) NSString* lastName;

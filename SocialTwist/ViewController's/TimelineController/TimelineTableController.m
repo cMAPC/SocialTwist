@@ -7,82 +7,285 @@
 #import "TimelineTableController.h"
 
 @interface TimelineTableController () {
-    NSUInteger correctedHeight;
-    
-    PostEventCell* prototypePostCell;
-    CGFloat postCellHeight;
-    
-    BOOL isPosting;
-    
     
     CLLocationManager* locationManager;
-    NSMutableArray* selectedCategories;
-    NSMutableArray* eventContentArray;
+    NSMutableArray* categoriesArray;
+    
+    UIRefreshControl *refreshController;
+    
+    UIView* footerView;
 }
+
+@property (strong, nonatomic) NSMutableArray* eventsArray;
 
 @end
 
+
+
 @implementation TimelineTableController
+
+static NSInteger eventsInRequest = 5;
+static NSInteger eventsInRadius = 1;
+static NSInteger loadingCell = 1;
+static BOOL hasMoredData = YES;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//    [imageCache clearMemory];
+//    [imageCache clearDisk];
     
     [self initTableWithCustomCell];
     
     [self.tableView setContentInset:UIEdgeInsetsMake(-55.0f, 0.f, 44.f, 0.f)];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
-    [self.tableView setEstimatedRowHeight:2500];
+    [self.tableView setEstimatedRowHeight:385];
     
-    postCellHeight = 130;
+    refreshController = [[UIRefreshControl alloc] init];
+    [refreshController addTarget:self
+                          action:@selector(handleRefresh:)
+                forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshController];
 
-    [[EventContent sharedEventContent] getEvents];
-//    self.eventCategoryKeyboard = [[KeyboardViewController alloc] init];
     self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
     
+    locationManager = [[CLLocationManager alloc] init];
     
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    locationManager = [[CLLocationManager alloc] init];
-//    selectedCategories = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
-//    
-//        CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
-//                                                                        locationManager.location.coordinate.longitude);
-//        
-//        [[RequestManager sharedManager] getEventsFromCoordinates:coordinates
-//                                                      withRadius:1
-//                                            filteredByCategories:selectedCategories
-//                                                         success:^(id responseObject) {
-//                                                             
-//                                                             eventContentArray = responseObject;
-//                                                             [self.tableView reloadData];
-//                                                             
-//                                                         } fail:^(NSError *error, NSInteger statusCode) {
-//                                                             
-//                                                         }];
+    NSArray *temp =@[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",@"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",
+                     @"19",@"20",@"21",@"22",@"23"];
+    categoriesArray = [temp copy];
+    
+    self.eventsArray = [NSMutableArray array];
+    [self getEventsFromServerV2];
+    
+//    [self initFooterView];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    [self.tableView reloadData];
+}
+
+/* version 2
+-(void)initFooterView
+{
+    footerView = [[UIView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.origin.x,
+                                                          [UIScreen mainScreen].bounds.origin.y,
+                                                          [UIScreen mainScreen].bounds.size.width,
+                                                          20)];
+    
+    UIActivityIndicatorView * activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    activityIndicator.tag = 10;
+    
+    activityIndicator.frame = CGRectMake([UIScreen mainScreen].bounds.origin.x,
+                                        [UIScreen mainScreen].bounds.origin.y,
+                                        [UIScreen mainScreen].bounds.size.width,
+                                        20);
+    
+    activityIndicator.hidesWhenStopped = YES;
+    
+    [footerView addSubview:activityIndicator];
+    
+//    activityIndicator = nil;
+}
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    BOOL endOfTable = (scrollView.contentOffset.y >= ((self.eventsArray.count + 1  * 380) - scrollView.frame.size.height)); // Here 40 is row height
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self getEventsFromServerV2];
+    });
+
+    if (hasMoredData == YES && endOfTable && !scrollView.dragging && !scrollView.decelerating)
+    {
+        self.tableView.tableFooterView = footerView;
+        
+        [(UIActivityIndicatorView *)[footerView viewWithTag:10] startAnimating];
+            }
+    
+}
+*/
+
+#pragma mark - API
+-(void)refreshEvents {
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                    locationManager.location.coordinate.longitude);
+    
+    [[RequestManager sharedManager]
+     getEventsFromCoordinates:coordinates
+     withRadius:eventsInRadius
+     filteredByCategories:categoriesArray
+     offset:0
+     count:eventsInRequest
+     success:^(id responseObject) {
+         
+         NSMutableArray* newPath = [NSMutableArray array];
+         NSMutableArray* newEvents = [NSMutableArray arrayWithArray:responseObject];
+         for (int i = 0; i < eventsInRequest; i++) {
+             [newPath addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
+             EventData* event = newEvents[i];
+             [self.eventsArray removeObjectAtIndex:i];
+             [self.eventsArray insertObject:event atIndex:i];
+         }
+         
+         [self.tableView beginUpdates];
+         [self.tableView reloadRowsAtIndexPaths:newPath withRowAnimation:UITableViewRowAnimationRight];
+         [self.tableView endUpdates];
+         
+     } fail:^(NSError *error, NSInteger statusCode) {
+         
+     }];
+    
 
 }
 
--(void)viewWillLayoutSubviews{
-//    [self.eventCategoryKeyboard setViewController:self];
+-(void)getEventsFromServer {
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                    locationManager.location.coordinate.longitude);
+    
+    [[RequestManager sharedManager]
+     getEventsFromCoordinates:coordinates
+                   withRadius:eventsInRadius
+         filteredByCategories:categoriesArray
+                       offset:[self.eventsArray count]
+                        count:eventsInRequest
+                      success:^(id responseObject) {
+                          [self.eventsArray addObjectsFromArray:responseObject];
+                          
+                          NSMutableArray* newPaths = [NSMutableArray array];
+                          
+                          for (int i = (int)[self.eventsArray count] - (int)[responseObject count]; i < [self.eventsArray count]; i++) {
+                              [newPaths addObject:[NSIndexPath indexPathForRow:i + 1 inSection:0]];
+                              
+//                              EventData* event = self.eventsArray[i];
+//                              [[DLImageLoader sharedInstance] imageFromUrl:event.picture completed:nil];
+                          }
+                          
+                          [self.tableView beginUpdates];
+                          [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
+                          [self.tableView endUpdates];
+                          
+                          
+                          /*
+                          dispatch_group_t serviceGroup = dispatch_group_create();
+                          dispatch_group_enter(serviceGroup);
+                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                              for (int i = (int)[self.eventsArray count] - (int)[responseObject count]; i < [self.eventsArray count]; i++) {
+                                  [newPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                                  
+                                  EventData* event = self.eventsArray[i];
+                                  dispatch_group_enter(serviceGroup);
+                                  [[DLImageLoader sharedInstance] imageFromUrl:event.picture completed:^(NSError *error, UIImage *image) {
+                                      dispatch_group_leave(serviceGroup);
+                                  }];
+                              }
+                              NSLog(@"Finish");
+                               dispatch_group_leave(serviceGroup);
+                          });
+                          
+                          
+                         
+                          
+                          dispatch_group_notify(serviceGroup,dispatch_get_main_queue(),^{
+                              NSLog(@"All done");
+                              [self.tableView beginUpdates];
+                              [self.tableView insertRowsAtIndexPaths:newPaths withRowAnimation:UITableViewRowAnimationTop];
+                              [self.tableView endUpdates];
+                          });
+                          */
+                          
+                      } fail:^(NSError *error, NSInteger statusCode) {
+                          
+                      }];
+
+}
+
+-(void)getEventsFromServerV2 {
+    
+    NSUInteger oldCount = [self.eventsArray count];
+    
+    CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                    locationManager.location.coordinate.longitude);
+    
+    [[RequestManager sharedManager]
+     getEventsFromCoordinates:coordinates
+     withRadius:eventsInRadius
+     filteredByCategories:categoriesArray
+     offset:[self.eventsArray count]
+     count:eventsInRequest
+     success:^(id responseObject) {
+         [self.eventsArray addObjectsFromArray:responseObject];
+         
+         [self.tableView reloadData];
+         
+         for (int i = (int)[self.eventsArray count] - (int)[responseObject count]; i < [self.eventsArray count]; i++) {
+             EventData* event = self.eventsArray[i];
+             
+             // Version 1
+//             [[DLImageLoader sharedInstance] imageFromUrl:event.picture completed:^(NSError *error, UIImage *image) {
+//                 [self.tableView beginUpdates];
+//                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i + 1 inSection:0]]
+//                                       withRowAnimation:UITableViewRowAnimationFade];
+//                 [self.tableView endUpdates];
+//             }];
+             
+             // Version 2
+//             [[UIImageView new] sd_setImageWithURL:[NSURL URLWithString:event.picture] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+////                 dispatch_async(dispatch_get_main_queue(), ^{
+//                     [self.tableView beginUpdates];
+//                     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i + 1 inSection:0]]
+//                                           withRowAnimation:UITableViewRowAnimationFade];
+//                     [self.tableView endUpdates];
+////                 });
+//                
+//             }];
+            
+             
+         }
+         if (oldCount != [self.eventsArray count]) {
+             hasMoredData = YES;
+         }
+         else {
+             hasMoredData = NO;
+             loadingCell = 0;
+             [self.tableView reloadData];
+         }
+         
+     } fail:^(NSError *error, NSInteger statusCode) {
+         
+     }];
+
+    /*
+     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     dispatch_async(dispatch_get_main_queue(), ^{
+     
+     });
+     });
+     */
+}
+
+-(void)handleRefresh:(id)sender {
+    [self refreshEvents];
+    [refreshController endRefreshing];
 }
 
 -(void)initTableWithCustomCell {
-    [self.tableView registerNib:[UINib nibWithNibName:@"TimelineViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"PostEventCell" bundle:nil] forCellReuseIdentifier:@"PostCellIndetifier"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"EventCell" bundle:nil] forCellReuseIdentifier:@"EventCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"PostEventCell" bundle:nil] forCellReuseIdentifier:@"PostEventCell"];
 }
-
 
 #pragma mark - UITableView DataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return [EventContent sharedEventContent].eventsArray.count + 1;
-    return eventContentArray.count + 1;
+    return [self.eventsArray count] + loadingCell + 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.row == 0) {
-        PostEventCell* postEventCell = [tableView dequeueReusableCellWithIdentifier:@"PostCellIndetifier"];
-        postEventCell.subtitleTextView.delegate = self;
+        PostEventCell* postEventCell = [tableView dequeueReusableCellWithIdentifier:@"PostEventCell"];
+       
         [postEventCell.postButton addTarget:self
                                      action:@selector(postNewEventAction)
                            forControlEvents:UIControlEventTouchUpInside];
@@ -92,55 +295,340 @@
         [postEventCell.eventCameraButton addTarget:self
                                             action:@selector(selectEventImageAction)
                                   forControlEvents:UIControlEventTouchUpInside];
-        prototypePostCell = postEventCell;
+        
+        postEventCell.tableView = tableView;
+        self.eventCategoryKeyboard.delegate = postEventCell;
+        
         return postEventCell;
     }
     
-    TimelineCellController* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
-    //    [cell.cellImage setTranslatesAutoresizingMaskIntoConstraints:NO];
     
-    cell.cellImage.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] eventImage];
-    cell.profileImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
-    cell.label.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
+    EventCell* cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell" forIndexPath:indexPath];
     
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//    NSString* imageURL = [[eventContentArray objectAtIndex:indexPath.row - 1] valueForKey:@"picture"];
-//    NSData * data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
-//    UIImage * result = [UIImage imageWithData:data];
-//    
-////    UIImage* tempImage = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]]];
-//    
-//    cell.cellImage.image = result;
-//    cell.profileImageView.image = result;
-//    cell.label.text = [NSString stringWithFormat:@"\r%@\r", [[eventContentArray objectAtIndex:indexPath.row-1] valueForKey:@"subtitle"]];
-//    cell.statusLabel.text = [[[eventContentArray objectAtIndex:indexPath.row-1] valueForKey:@"creator"] valueForKey:@"firstName"];
-//    
+    [cell.commentButton setTag:indexPath.row];
+    [cell.commentButton addTarget:self
+                           action:@selector(commentAction:)
+                 forControlEvents:UIControlEventTouchUpInside];
     
-    // like/dislike
-    cell.likeButton.tag = indexPath.row;
-    [cell.likeButton addTarget:self action:@selector(likeButtonAction:onCell:) forControlEvents:UIControlEventTouchUpInside];
-    [cell.dislikeButton setTitle:[NSString stringWithFormat:@"%d Dislikes", 12] forState:UIControlStateNormal];
-    [cell.likeButton setTitle:[NSString stringWithFormat:@"%ld Likes", (long)cell.likeCount] forState:UIControlStateNormal];
+    [cell.likeButton setTag:indexPath.row];
+    [cell.likeButton addTarget:self
+                        action:@selector(likeAction:)
+              forControlEvents:UIControlEventTouchUpInside];
     
-    [self adjustImageHeightForCell:cell];
-    [self adjustStringFormat:cell];
+    [cell.dislikeButton setTag:indexPath.row];
+    [cell.dislikeButton addTarget:self
+                           action:@selector(dislikeAction:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    
+    if (indexPath.row == [self.eventsArray count] + 1) {
+        if (hasMoredData) {
+            LoadingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LoadingCell" forIndexPath:indexPath];
+            [cell.activityIndicatorView startAnimating];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self getEventsFromServerV2];
+            });
+            
+            return cell;
+            
+        }
+    }
+    else
+    {
+        EventData* event = [self.eventsArray objectAtIndex:indexPath.row - 1];
+
+        if (event.likes.intValue != 0) {
+            [cell adjustLikeButtonStringFormat];
+            [cell.likeButton setTitle:event.likes.stringValue forState:UIControlStateNormal];
+        }
+        else
+            [cell adjustLikeButtonDefaultStringFormat];
+            
+        if (event.dislikes.intValue != 0) {
+            [cell adjustDislikeButtonStringFormat];
+            [cell.dislikeButton setTitle:event.dislikes.stringValue forState:UIControlStateNormal];
+        }
+        else
+            [cell adjustDislikeButtonDefaultStringFormat];
+        
+        cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", event.creator.firstName, event.creator.lastName];
+        cell.eventContentLabel.text = [NSString stringWithFormat:@"\r %@  %ld\r", event.subtitle, (long)indexPath.row];
+        
+        NSString* userImageURL = event.creator.thumbnail;
+        NSString* eventImageURL = event.picture;
+    
+//    [[DLImageLoader sharedInstance] imageFromUrl:userImageURL
+//                                       completed:^(NSError *error, UIImage *image) {
+//                                           [cell.userImageView setImage:image];
+//                                           [cell layoutSubviews];
+//                                           [cell layoutIfNeeded];
+//                                       }];
+    
+//    [[DLImageLoader sharedInstance] imageFromUrl:eventImageURL
+//                                       completed:^(NSError *error, UIImage *image) {
+//                                           [cell.eventImageView setImage:image];
+//                                           [cell layoutSubviews];
+//                                           [cell layoutIfNeeded];
+//                                       }];
+        
+//        [[DLImageLoader sharedInstance] imageFromUrl:eventImageURL imageView:cell.eventImageView];
+        
+
+//        UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:eventImageURL];
+//        [cell.eventImageView setImage:image];
+        
+    
+        // Version 2
+        if ([[SDImageCache sharedImageCache] diskImageExistsWithKey:userImageURL]) {
+            [cell.userImageView setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userImageURL]];
+        }
+        else
+        {
+            [cell.userImageView sd_setImageWithURL:[NSURL URLWithString:userImageURL]
+                                  placeholderImage:[UIImage imageNamed:@"avatar.jpg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                             if (!image) {
+                                                 [cell.userImageView setImage:[UIImage imageNamed:@"avatar.jpg"]];
+                                             }
+                                             [cell layoutSubviews];
+                                             [cell layoutIfNeeded];
+                                             [cell setNeedsLayout];
+                                         }];
+        }
+        
+        cell.eventImageView.image = nil;
+        
+        if (eventImageURL.length > 0) {
+            if([[SDImageCache sharedImageCache] diskImageExistsWithKey:eventImageURL]) {
+                [cell.eventImageView setImage:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:eventImageURL]];
+                [cell layoutSubviews];
+                [cell layoutIfNeeded];
+                [cell setNeedsLayout];
+            } else {
+                [cell.eventImageView sd_setImageWithURL:[NSURL URLWithString:eventImageURL]
+                                       placeholderImage:[UIImage imageNamed:@"avatar.jpg"]];
+                [cell layoutSubviews];
+                [cell layoutIfNeeded];
+                [cell setNeedsLayout];
+            }
+            
+        }
+        
+    }
     
     return cell;
 }
 
+
+
 #pragma mark - UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        return postCellHeight;
+        PostEventCell* cell = (PostEventCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+        return cell.height + UITableViewAutomaticDimension;
     }
     return UITableViewAutomaticDimension;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EventViewController* eventViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventViewControllerID"];
+    
+    EventData* event = [self.eventsArray objectAtIndex:indexPath.row - 1];
+    eventViewController.event = event;
+    
+    [self.navigationController pushViewController:eventViewController animated:YES];
+}
+
+
+
+
+/*
+#pragma mark - ServerSide
+-(void)getEvents {
+    
+    //    trash = 0;
+    //    offset = 0;
+    //    [self.tableView reloadData];
+ 
+    CLLocationCoordinate2D currentCoordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                           locationManager.location.coordinate.longitude);
+    NSLog (@"Pull To Refresh Method Called");
+    [[RequestManager sharedManager] getEventsFromCoordinates:currentCoordinates
+                                                  withRadius:1
+                                        filteredByCategories:selectedCategories
+                                                      offset:offset
+                                                       limit:limit
+                                                     success:^(id responseObject) {
+                                                         eventContentArray = [NSMutableArray arrayWithArray:responseObject];
+                                                         
+                                                         //                                                         for(int i = 0; i < 10; i ++) {
+                                                         //                                                             [eventContentArray insertObject:[responseObject objectAtIndex:i] atIndex:i];
+                                                         //                                                         }
+                                                         
+                                                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                                             for (int i = 0; i < eventContentArray.count; i++) {
+                                                                 EventData* event = eventContentArray[i];
+                                                                 [[DLImageLoader sharedInstance] imageFromUrl:event.picture
+                                                                                                    completed:^(NSError *error, UIImage *image) {
+                                                                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                            //                                                   NSIndexPath *index = [NSIndexPath indexPathForRow:i + 1 inSection:0];
+                                                                                                            [self.tableView beginUpdates];
+                                                                                                            
+                                                                                                            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i+1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                                                                                                            [self.tableView endUpdates];
+                                                                                                            
+                                                                                                        });
+                                                                                                    }];
+                                                                 
+                                                             }
+                                                         });
+                                                         
+                                                         
+                                                         NSLog(@"Response timeline count %ld", (long)[responseObject count]);
+                                                     } fail:^(NSError *error, NSInteger statusCode) {
+                                                         
+                                                     }];
+    
+    
+}
+
+
+-(void)insertNext {
+    CLLocationCoordinate2D currentCoordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                           locationManager.location.coordinate.longitude);
+    NSLog (@"Pull To Refresh Method Called");
+    [[RequestManager sharedManager] getEventsFromCoordinates:currentCoordinates
+                                                  withRadius:1
+                                        filteredByCategories:selectedCategories
+                                                      offset:trash+=10
+                                                       limit:limit
+                                                     success:^(id responseObject) {
+//                                                         eventContentArray = responseObject;
+                                                         
+                                                         [eventContentArray addObjectsFromArray:responseObject];
+                                                         NSLog(@"Event count %ld", eventContentArray.count);
+//
+                                                         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                                                            
+                                                             for (long int i = eventContentArray.count - [responseObject count] ; i < eventContentArray.count; i++) {
+                                                                 
+                                                                 EventData* event = eventContentArray[i];
+                                                                 [[DLImageLoader sharedInstance] imageFromUrl:event.picture
+                                                                                                    completed:^(NSError *error, UIImage *image) {
+                                                                                                                                                                                                          }];
+                                                                 
+                                                                 dispatch_async(dispatch_get_main_queue(), ^{
+                                                                     offset+=1;
+                                                                     [self.tableView beginUpdates];
+                                                                     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                                                                     [self.tableView endUpdates];
+                                                                     
+                                                                 });
+
+                                                                 
+                                                             }
+                                                         });
+                                                         
+                                                         
+                                                         NSLog(@"Response timeline count %ld", (long)[responseObject count]);
+                                                     } fail:^(NSError *error, NSInteger statusCode) {
+                                                         
+                                                     }];
+    
+
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark - EventCell Action
+-(void)likeAction:(UIButton *)sender {
+    EventData* event = self.eventsArray[sender.tag - 1];
+    [[RequestManager sharedManager] postLikeOnEventWithID:event.eventID.stringValue
+                                                  success:^(id responseObject) {
+                                                      NSLog(@"Post Like response object %@", responseObject);
+                                                  } fail:^(NSError *error, NSInteger statusCode) {
+                                                      
+                                                  }];
+}
+
+-(void)dislikeAction:(UIButton *)sender {
+    EventData* event = self.eventsArray[sender.tag - 1];
+    [[RequestManager sharedManager] postDislikeOnEventWithID:event.eventID.stringValue
+                                                     success:^(id responseObject) {
+                                                         NSLog(@"Post Dislike response object %@", responseObject);
+                                                     } fail:^(NSError *error, NSInteger statusCode) {
+                                                         
+                                                     }];
+}
+
+-(void)commentAction:(UIButton *)sender {
+    EventViewController* eventViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventViewControllerID"];
+    
+    EventData* event = [self.eventsArray objectAtIndex:[sender tag] - 1];
+    eventViewController.event = event;
+    
+    [self.navigationController pushViewController:eventViewController animated:YES];
+}
+
+
 
 #pragma mark - PostEventCell Action
+-(void)selectEventCategoryAction{
+    if ([self.eventCategoryKeyboard isHidden])
+        [self.eventCategoryKeyboard showAnimated:YES];
+    else
+        [self.eventCategoryKeyboard hideAnimated:YES];
+}
+
+-(void)selectEventImageAction{
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController.delegate = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:nil]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Take a photo"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                          imagePickerController.sourceType =  UIImagePickerControllerSourceTypeCamera;
+                                                          [self presentViewController:imagePickerController animated:YES completion:nil];
+                                                      }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Choose from Gallery"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
+                                                          
+                                                          imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
+                                                          [self presentViewController:imagePickerController animated:YES completion:nil];
+                                                          
+                                                      }]];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
 -(void)postNewEventAction{
+    PostEventCell* cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     NSCharacterSet *charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-    NSString *trimmedString = [prototypePostCell.subtitleTextView.text stringByTrimmingCharactersInSet:charSet];
+    NSString *trimmedString = [cell.subtitleTextView.text stringByTrimmingCharactersInSet:charSet];
     
 //    if (prototypePostCell.eventImag.image != nil ||
 //        (![prototypePostCell.subtitleTextView.text isEqualToString:@"What's new?"] && ![trimmedString isEqualToString:@""])
@@ -152,296 +640,69 @@
 //        [Utilities showAlertControllerWithTitle:@"Invalid input" message:@"You have entered an invalid event description or image" onViewController:self];
 //    }
     
-    if (prototypePostCell.eventImag.image == nil &&
-        ([prototypePostCell.subtitleTextView.text isEqualToString:@"What's new?"] || [trimmedString isEqualToString:@""])
+    if (cell.eventImageView.image == nil &&
+        ([cell.subtitleTextView.text isEqualToString:@"What's new?"] || [trimmedString isEqualToString:@""])
         ){
         [Utilities showAlertControllerWithTitle:@"Invalid input" message:@"You have entered an invalid event description or image" cancelAction:NO onViewController:self];
     }
-    else if (([prototypePostCell.eventCategoryButton.currentImage isEqual:[UIImage imageNamed:@"marker"]])){
+    else if (([cell.eventCategoryButton.currentImage isEqual:[UIImage imageNamed:@"marker"]])){
         [Utilities showAlertControllerWithTitle:@"Invalid category" message:@"You must enter event category" cancelAction:NO onViewController:self];
     }
     else
     {
-        [[EventContent sharedEventContent] addNewEventWithTitle:@""
-                                                       subtitle:prototypePostCell.subtitleTextView.text
-                                                    coordinates:CLLocationCoordinate2DMake(0, 0)
-                                                  eventCategory:[self.eventCategoryKeyboard selectedIndex].integerValue
-                                                   profileImage:[UIImage imageNamed:@"imageRight"]
-                                                     eventImage:prototypePostCell.eventImag.image];
+//        [[EventContent sharedEventContent] addNewEventWithTitle:@""
+//                                                       subtitle:cell.subtitleTextView.text
+//                                                    coordinates:CLLocationCoordinate2DMake(0, 0)
+//                                                  eventCategory:[self.eventCategoryKeyboard selectedIndex].integerValue
+//                                                   profileImage:[UIImage imageNamed:@"imageRight"]
+//                                                     eventImage:cell.eventImageView.image];
         
-        [self.tableView beginUpdates];
-        [self restoreEmptyPostCell];
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]]
-                              withRowAnimation:UITableViewRowAnimationFade];
+        CLLocationCoordinate2D currentCoordinates = CLLocationCoordinate2DMake(locationManager.location.coordinate.latitude,
+                                                                               locationManager.location.coordinate.longitude);
+
         
-        [self.tableView endUpdates];
+        [[RequestManager sharedManager] postEventWithTitle:@"Title"
+                                                  subtitle:cell.subtitleTextView.text
+                                                     image:cell.eventImageView.image
+                                                  category:[self.eventCategoryKeyboard selectedIndex].stringValue
+                                               coordinates:currentCoordinates
+                                                   success:^(id responseObject) {
+                                                       EventData* event = responseObject;
+                                                       
+                                                       NSMutableArray* temp = [NSMutableArray array];
+                                                       [temp insertObject:event atIndex:0];
+                                                       [temp addObjectsFromArray:self.eventsArray];
+                                                       self.eventsArray = [NSMutableArray arrayWithArray:temp];
+                                                       
+//                                                       [self.eventsArray addObject:event];
+//                                                       EventData* lastEvent = [self.eventsArray lastObject];
+//                                                       [self.eventsArray replaceObjectAtIndex:0 withObject:lastEvent];
+//                                                       [self.tableView reloadData];
+                                                       
+                                                       [self.tableView beginUpdates];
+                                                       [cell setEmpty];
+                                                       NSIndexPath* indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+                                                       [self.tableView insertRowsAtIndexPaths:@[indexPath]
+                                                                             withRowAnimation:UITableViewRowAnimationFade];
+                                                       [self.tableView endUpdates];
+                                                       
+                                                   } fail:^(NSError *error, NSInteger statusCode) {
+                                                       
+                                                   }];
+
+        
+        
+        
+        
     }
     
-    isPosting = NO;
+    [cell setIsEmpty:YES];
 }
 
--(BOOL)isPosting {
-    return isPosting;
-}
-
--(void)selectEventCategoryAction{
-    if ([self.eventCategoryKeyboard isHidden]) {
-        [self.eventCategoryKeyboard showAnimated:YES];
-    }
-    else {
-        [self.eventCategoryKeyboard hideAnimated:YES];
-    }
-}
-
--(void)selectEventImageAction{
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
-    imagePickerController.delegate = self;
-    
-    UIAlertController* alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Take a photo" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        imagePickerController.sourceType =  UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Choose from Gallery" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-    
-        imagePickerController.sourceType =  UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
-        
-    }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
-
-#pragma mark - UIImagePickerControllerDelegate
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 60;
-    postCellHeight = 180;
-    prototypePostCell.eventImag.image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    [self adjustHeightForPostEventCell];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
-    isPosting = YES;
-}
 
 #pragma mark - Custom Keyboard KVO
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    NSLog(@"Observer");
-    if ([keyPath isEqualToString:@"selectedIndex"]) {
-        [prototypePostCell.eventCategoryButton setImage:[self.eventCategoryKeyboard selectedIndexImage]
-                                                           forState:UIControlStateNormal];
-        isPosting = YES;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.eventCategoryKeyboard hideAnimated:YES];
-        });
-        
-    }
+
 }
-
--(void)restoreEmptyPostCell {
-//    [prototypePostCell.eventCategoryButton setImage:[UIImage imageNamed:@"marker"] forState:UIControlStateNormal];
-//    [prototypePostCell.eventImag setImage:nil];
-//    prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 2;
-    
-//    [self setPlaceholderOnTextView:prototypePostCell.subtitleTextView];
-    
-//    [self adjustHeightForPostEventCell];
-//    [prototypePostCell.subtitleTextView resignFirstResponder];
-    
-//    [KeyboardViewController hideAnimated:YES];
-//    isPosting = NO;
-    
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        //Do background work
-        isPosting = NO;
-//        dispatch_async(dispatch_get_main_queue(), ^{
-            //Update UI
-//            [prototypePostCell.subtitleTextView resignFirstResponder];
-            [self.view endEditing:YES];
-            [self.eventCategoryKeyboard hideAnimated:YES];
-    
-            [prototypePostCell.eventCategoryButton setImage:[UIImage imageNamed:@"marker"] forState:UIControlStateNormal];
-            [prototypePostCell.eventImag setImage:nil];
-            prototypePostCell.eventImageViewHeighLayoutConstraint.constant = 2;
-            [self setPlaceholderOnTextView:prototypePostCell.subtitleTextView];
-            [self adjustHeightForPostEventCell];
-}
-
--(void)setPlaceholderOnTextView:(UITextView *)textView {
-    [textView setText:@"What's new?"];
-    [textView setTextColor:[UIColor colorWithRed:169/255.0
-                                           green:169/255.0
-                                            blue:169/255.0
-                                           alpha:1]];
-}
-
-#pragma mark - EventCell Action's
--(void)likeButtonAction:(UIButton *) sender onCell:(TimelineCellController *) cell{
-    
-    CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPosition];
-    
-    TimelineCellController* celll = [self.tableView cellForRowAtIndexPath:indexPath];
-    
-    celll.likeCount ++;
-    celll.dislikeCount++;
-    
-    [self adjustButtonContentFormatForCell:celll];
-    [self.tableView reloadData];
-    NSLog(@"button clicked %ld %@", (long)sender.tag, celll.statusLabel);
-}
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - UITextViewDelegate
-//-(BOOL)textView:(UITextView *)_textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    [self adjustTextViewFrameForPostCell];
-//    return YES;
-//}
-
-- (void)textViewDidChange:(UITextView *)textView {
-    [self adjustTextViewFrameForPostCell];
-    [self adjustHeightForPostEventCell];
-    [prototypePostCell.subtitleTextView scrollRangeToVisible:NSMakeRange(0, 0)];
-    
-    isPosting = YES;
-}
-
--(void)textViewDidBeginEditing:(UITextView *)textView {
-    if ([textView.text isEqualToString:@"What's new?"]) {
-        [textView setText:@""];
-        [textView setTextColor:[UIColor blackColor]];
-    }
-    [textView becomeFirstResponder];
-}
--(void)textViewDidEndEditing:(UITextView *)textView {
-    if ([textView.text isEqualToString:@""]) {
-        [self setPlaceholderOnTextView:textView];
-    }
-    [textView resignFirstResponder];
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-#pragma mark - Adjustments
--(void)adjustTextViewFrameForPostCell {
-    CGRect textFrame = prototypePostCell.subtitleTextView.frame;
-    textFrame.size.height = prototypePostCell.subtitleTextView.contentSize.height;
-    prototypePostCell.subtitleTextView.frame = textFrame;
-}
--(void)adjustHeightForPostEventCell {
-    [self.tableView beginUpdates];
-    CGFloat paddingForTextView;
-    if (prototypePostCell.eventImag.image != nil) {
-        paddingForTextView = 155;
-    }
-    else {
-        paddingForTextView = 95; //Padding varies depending on your cell design
-    }
-    postCellHeight = prototypePostCell.subtitleTextView.contentSize.height + paddingForTextView;
-    [self.tableView endUpdates];
-}
-
--(void)adjustButtonContentFormatForCell:(TimelineCellController *) cell {
-    [cell.dislikeButton setImage:[UIImage imageNamed:@"dislike-icon-hightlighted"] forState:UIControlStateNormal];
-    [cell.dislikeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    
-    [cell.likeButton setImage:[UIImage imageNamed:@"like-icon-higtlighted"] forState:UIControlStateNormal];
-    [cell.likeButton setTitleColor:[UIColor colorWithRed:(155/255.0) green:186/255.0 blue:205/255.0 alpha:1.0]
-                          forState:UIControlStateNormal];
-}
-
--(void)adjustImageHeightForCell:(TimelineCellController *) cell {
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    [cell.cellImage removeConstraint: cell.cellImage.constraints.lastObject];
-    if (cell.cellImage.image != nil) {
-        if(cell.cellImage.image.size.width >= width) {
-            correctedHeight = (width - 40)/ cell.cellImage.image.size.width * cell.cellImage.image.size.height;
-            //            [cell.cellImage setTranslatesAutoresizingMaskIntoConstraints:NO];
-            //            [cell.cellImage removeConstraint: cell.cellImage.constraints.lastObject];
-            [cell.cellImage addConstraint:[NSLayoutConstraint constraintWithItem:cell.cellImage
-                                                                       attribute:NSLayoutAttributeHeight
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:nil
-                                                                       attribute:NSLayoutAttributeNotAnAttribute
-                                                                      multiplier:1.0
-                                                                        constant:correctedHeight]];
-        }
-    }
-    
-    else {
-        [cell.cellImage addConstraint:[NSLayoutConstraint constraintWithItem:cell.cellImage
-                                                                   attribute:NSLayoutAttributeHeight
-                                                                   relatedBy:NSLayoutRelationEqual
-                                                                      toItem:nil
-                                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                                  multiplier:1.0
-                                                                    constant:0]];
-    }
-}
-
--(void)adjustStringFormat:(TimelineCellController *) cell {
-        
-        NSString* name = cell.statusLabel.text;
-        NSString* at = @"at";
-        NSString* place = @"Chisinau";
-    
-        NSMutableAttributedString *mutableAttributedString = [[NSMutableAttributedString alloc]
-                                                       initWithString:[NSString stringWithFormat:@"%@ %@    %@",name,at,place]];
-        
-        NSTextAttachment* textAttachment = [[NSTextAttachment alloc] init];
-        [textAttachment setImage:[UIImage imageNamed:@"pin"]];
-        
-        CGFloat scaleFactor = textAttachment.image.size.height / 9;
-        textAttachment.image = [UIImage imageWithCGImage:textAttachment.image.CGImage
-                                                   scale:scaleFactor orientation:UIImageOrientationUp];
-
-        
-        [mutableAttributedString beginEditing];
-        
-        [mutableAttributedString addAttribute:NSFontAttributeName
-                                        value:[UIFont boldSystemFontOfSize:13]
-                                        range:NSMakeRange(0,name.length)];
-        
-        
-        NSDictionary *atAtributeDictionary = @{ NSFontAttributeName:[UIFont systemFontOfSize:13],
-                                                NSForegroundColorAttributeName:[UIColor colorWithRed:(169/255.0)
-                                                                                               green:(169/255.0)
-                                                                                                blue:(169/255.0)
-                                                                                               alpha:1]
-                                               };
-        [mutableAttributedString addAttributes:atAtributeDictionary
-                                  range:NSMakeRange(name.length+1,at.length)];
-        
-        
-        NSDictionary *placeAtributeDictionary = @{ NSFontAttributeName:[UIFont boldSystemFontOfSize:13],
-                                                   NSForegroundColorAttributeName:[UIColor colorWithRed:(155/255.0)
-                                                                                                  green:(186/255.0)
-                                                                                                   blue:(205/255.0)
-                                                                                                  alpha:1]
-                                                  };
-        
-        [mutableAttributedString addAttributes:placeAtributeDictionary
-                                         range:NSMakeRange(name.length + 7, place.length)];
-        
-        [mutableAttributedString endEditing];
-        
-        
-        NSAttributedString* attributedString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-        [mutableAttributedString replaceCharactersInRange:NSMakeRange(name.length + 5, 1)
-                                     withAttributedString:attributedString];
-    
-        cell.statusLabel.attributedText = mutableAttributedString;
-}
-
 
 @end

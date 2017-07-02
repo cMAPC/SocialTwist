@@ -3,9 +3,9 @@
 //  TableViewDynamicSize
 //
 
-#import "TimelineCellController.h"
+#import "UserEventCell.h"
 
-@implementation TimelineCellController {
+@implementation UserEventCell {
     NSUInteger correctedHeight;
 }
 

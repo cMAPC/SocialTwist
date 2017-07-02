@@ -97,16 +97,18 @@
 
 #pragma mark - Action
 -(void)segmentedControlValueChanged:(AKASegmentedControl *) sender {
-
+/*
     TimelineTableController * obj = (TimelineTableController *)self.childViewControllers[0];
-    if ([obj isPosting]) {
+    PostEventCell* cell = [obj.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (![cell isEmpty]) {
         [Utilities showAlertControllerWithTitle:@"Error"
                                         message:@"Cancel or Discard ?"
                                      buttonType:UIAlertButtonDiscard
                                   buttonHandler:^{
                                           dispatch_async(dispatch_get_main_queue(), ^{
                                       [self.view endEditing:YES];
-                                              [obj restoreEmptyPostCell];
+//                                              [obj restoreEmptyPostCell];
+                                              [cell setEmpty];
                                               [sender setSelectedIndex:1];
                                               [self showMapController];
                                                 });
@@ -117,7 +119,7 @@
         [sender setSelectedIndex:0];
         return;
     }
-   
+   */
     MapViewController * obj1 = (MapViewController *)self.childViewControllers[1];
 //    if ([obj1 isPosting]) {
 //        [Utilities showAlertControllerWithTitle:@"Error"

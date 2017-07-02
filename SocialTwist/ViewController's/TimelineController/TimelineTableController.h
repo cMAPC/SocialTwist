@@ -5,19 +5,23 @@
 
 #import <UIKit/UIKit.h>
 
-#import "TimelineCellController.h"
+#import "EventCell.h"
 #import "PostEventCell.h"
 #import "EventContent.h"
 #import "KeyboardViewController.h"
 #import "MapViewController.h"
 #import "Utilities.h"
+#import <DLImageLoader.h>
+#import "EventViewController.h"
 
-@interface TimelineTableController : UIViewController <UITextViewDelegate, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+#import <UIImageView+AFNetworking.h>
+#import <AFImageDownloader.h>
+#import "LoadingCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
+@interface TimelineTableController : UIViewController <UITableViewDelegate, UITableViewDataSource, KeyboardControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) KeyboardViewController* eventCategoryKeyboard;
-
--(BOOL)isPosting;
--(void)restoreEmptyPostCell;
 
 @end

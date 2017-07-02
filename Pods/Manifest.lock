@@ -17,6 +17,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AKASegmentedControl (1.0.5)
+  - BIZGrid4plus1CollectionViewLayout (1.0.0)
   - DLImageLoader (2.2.0)
   - DXCustomCallout-ObjC (0.2.0)
   - LGSideMenuController (2.0.5)
@@ -31,6 +32,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - AFNetworking-Synchronous/3.x
   - AKASegmentedControl
+  - BIZGrid4plus1CollectionViewLayout
   - DLImageLoader (~> 2.2.0)
   - DXCustomCallout-ObjC
   - LGSideMenuController
@@ -41,12 +43,13 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AFNetworking-Synchronous: 61b98fb931b114b0da2b243957ea533e2954c2a2
   AKASegmentedControl: b98249ce1d319cc1971f9f78172173fd90c5f4d5
+  BIZGrid4plus1CollectionViewLayout: 310a4979460ab5800714bb4ab1ef4e947b82323f
   DLImageLoader: a1b96c95744a8d0ebd9a39d7194774b0c4f59b03
   DXCustomCallout-ObjC: fb223603ee148365de51c2d69bb10443943ff89b
   LGSideMenuController: 3cc82025a53b672926d3ffb3f428f4f3e15e3349
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: 50c1d288d9a6c69a546a9efd3aa073d72660b851
+PODFILE CHECKSUM: efc481699a38eaa44aa6612f4b2835ed519978e1
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.0.beta.1

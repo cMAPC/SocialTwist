@@ -16,8 +16,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.eventCategories = [[NSMutableArray alloc] init];
+    self.eventCategories = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]]; 
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        for (UISwitch* switchControl in self.switchCollection) {
+//            if ([switchControl isOn])
+//                [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+//            else
+//                [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+//
+//        }
+//        [[NSUserDefaults standardUserDefaults] setObject:self.eventCategories forKey:@"eventCategories"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    });
+   
     
-    self.eventCategories = [[NSMutableArray alloc] initWithArray:[[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
     [self.tableView setContentInset:UIEdgeInsetsMake(20, 0, 0, 0)];
     
     UIBarButtonItem* validateRightBarButton = [[UIBarButtonItem alloc]
@@ -29,8 +43,8 @@
     [self.navigationItem setRightBarButtonItem:validateRightBarButton];
     
     for (UISwitch* switchControl in self.switchCollection) {
-        if ([self.eventCategories containsObject:[NSNumber numberWithInteger:switchControl.tag].stringValue])
-            [switchControl setOn:YES animated:YES];
+        if (![self.eventCategories containsObject:[NSNumber numberWithInteger:switchControl.tag].stringValue])
+            [switchControl setOn:NO animated:YES];
     }
 }
 
@@ -72,11 +86,11 @@
     NSLog(@"Event Filter Categories = %@", self.eventCategories);
     */
     
-    if ([switchControl isOn])
-        [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
-    
-    else
+    if (![switchControl isOn])
         [self.eventCategories removeObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+    else
+        [self.eventCategories addObject:[NSNumber numberWithInteger:switchControl.tag].stringValue];
+        
     NSLog(@"Event Filter Categories = %@", self.eventCategories);
     /* withoutTag
     UISwitch* switchControl = (UISwitch *)sender;

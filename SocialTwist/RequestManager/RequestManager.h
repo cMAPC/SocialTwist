@@ -42,7 +42,8 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(void)addFriendWithId:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 
 -(id)getFriendRequests;
--(id)getUsersWithID:(NSArray *)userIDArray;
+-(id)getSyncUsersWithID:(NSArray *)userIDArray;
+-(void)getUserWithID:(NSString *)userID success:(successBlock)success fail:(failBlock)fail;
 
 -(void)acceptUserFriendRequestWithID:(NSString *)userId success:(successBlock)success fail:(failBlock)fail;
 -(void)getFriendsOnSuccess:(successBlock)success fail:(failBlock)fail; //??????????????????????????
@@ -53,6 +54,8 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(void)getEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
                      withRadius:(NSUInteger)radius
            filteredByCategories:(NSArray *)categoriesArray
+                         offset:(NSInteger)offset
+                          count:(NSInteger)count
                         success:(successBlock)success
                            fail:(failBlock)fail;
 
@@ -69,4 +72,10 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(id)getSyncEventsFromCoordinates:(CLLocationCoordinate2D)coordinates
                        withRadius:(NSUInteger)radius
              filteredByCategories:(NSArray *)categoriesArray;
+
+-(void)postLikeOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+-(void)postDislikeOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+-(void)attendOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+
+-(void)getAttendersForEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
 @end

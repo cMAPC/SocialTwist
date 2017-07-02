@@ -59,8 +59,12 @@
     self.eventCategoryKeyboard = [[KeyboardViewController alloc] initOnViewController:self];
     pinView = [[[NSBundle mainBundle] loadNibNamed:@"PinView" owner:self options:nil] firstObject];
     
-    self.selectedCategories = [[NSMutableArray alloc] initWithArray:
-                               [[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
+//    self.selectedCategories = [[NSMutableArray alloc] initWithArray:
+//                               [[NSUserDefaults standardUserDefaults] arrayForKey:@"eventCategories"]];
+    
+    self.selectedCategories = [NSMutableArray arrayWithObjects:@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"10",
+                               @"11",@"12",@"13",@"14",@"15",@"16",@"17",@"18",
+                               @"19",@"20",@"21",@"22",@"23", nil];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -376,6 +380,7 @@
 
 -(void)parseEvents
 {
+    /*
     __block NSMutableArray* array = [[NSMutableArray alloc] init];
     CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(self.mapView.centerCoordinate.latitude,
                                                                     self.mapView.centerCoordinate.longitude);
@@ -387,6 +392,8 @@
          getEventsFromCoordinates:coordinates
          withRadius:1
          filteredByCategories:self.selectedCategories
+         offset:0
+         count:100
          success:^(id responseObject) {
              
              for (EventData* event in responseObject) {
@@ -398,7 +405,7 @@
                  [annotation setCoordinate:[self convertParsedCoordinates:event.coordinates]];
                  
                  dispatch_group_enter(serviceGroup);
-                 [[DLImageLoader sharedInstance] imageFromUrl:event.creator.picture
+                 [[DLImageLoader sharedInstance] imageFromUrl:event.creator.thumbnail
                                                     completed:^(NSError *error, UIImage *image) {
                                                         if (error == nil) {
                                                             pinView.profileImageView.image = image;
@@ -433,6 +440,7 @@
         
         [self.mapView addAnnotations:array];
     });
+     */
 }
 
 

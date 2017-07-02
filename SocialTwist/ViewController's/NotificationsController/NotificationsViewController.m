@@ -27,7 +27,7 @@
     
     requestIDArray = [[[RequestManager sharedManager] getFriendRequests] valueForKey:@"id"];
     userIDArray = [[[RequestManager sharedManager] getFriendRequests] valueForKey:@"sender_id"];
-    userContentArray = [[RequestManager sharedManager] getUsersWithID:userIDArray];
+    userContentArray = [[RequestManager sharedManager] getSyncUsersWithID:userIDArray];
     
     NSLog(@"Request array - %@", userIDArray);
     NSLog(@"User content - %@", userContentArray);

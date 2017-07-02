@@ -5,7 +5,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TimelineCellController : UITableViewCell
+@interface UserEventCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *cellImage;
 @property (weak, nonatomic) IBOutlet UILabel *label;

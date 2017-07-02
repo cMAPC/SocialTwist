@@ -146,6 +146,11 @@
     [self performAnimationOnView:cell duration:0.5f delay:0.f];
     [self setSelectedIndexImage:[UIImage imageNamed:imageArray[indexPath.row]]];
     [self setValue:[NSNumber numberWithInteger:indexPath.row] forKey:@"selectedIndex"];
+    
+    if ([self.delegate respondsToSelector:@selector(didTapKeyboard:item:itemImage:)]) {
+//        [self.delegate didTapKeyboard:indexPath.row];
+        [self.delegate didTapKeyboard:self item:indexPath.row itemImage:self.selectedIndexImage];
+    }
 }
 
 

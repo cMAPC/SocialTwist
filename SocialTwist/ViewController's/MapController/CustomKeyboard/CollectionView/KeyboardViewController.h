@@ -6,6 +6,9 @@
 #import <UIKit/UIKit.h>
 #import "KeyboardItemView.h"
 
+@protocol KeyboardControllerDelegate;
+
+
 @interface KeyboardViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -21,6 +24,8 @@
 
 - (instancetype)initOnViewController:(UIViewController *)viewController;
 - (void)addToView:(UIView *)view;
+
+@property (weak, nonatomic) IBOutlet id <KeyboardControllerDelegate> delegate;
 
 /*Trash until
 - (void)setViewController:(UIViewController *) viewController;
@@ -42,4 +47,9 @@
 //+(BOOL)isHidden;
 //+(void)enableSwipeGestureRecognizer:(BOOL) value;
 
+@end
+
+@protocol KeyboardControllerDelegate <NSObject>
+@optional
+-(void)didTapKeyboard:(KeyboardViewController *)keyboard item:(NSInteger)item itemImage:(UIImage *)image;
 @end

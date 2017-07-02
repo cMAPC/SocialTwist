@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString* type;
 @property (strong, nonatomic) NSString* video;
+@property (strong, nonatomic) NSString* thumbnail;
 
 +(NSDictionary *)JSONKeyPathsByPropertyKey;
 

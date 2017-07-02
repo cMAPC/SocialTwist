@@ -17,7 +17,8 @@
              @"userID" : @"id",
              @"lastName" : @"last_name",
              @"picture" : @"picture",
-             @"sex" : @"sex"
+             @"sex" : @"sex",
+             @"thumbnail" : @"thumbnail"
              };
 }
 

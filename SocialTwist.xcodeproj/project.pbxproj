@@ -26,8 +26,6 @@
 		1F2054F01E46575E005AAEA9 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2054EE1E46575E005AAEA9 /* RegisterViewController.m */; };
 		1F20553C1E465C45005AAEA9 /* ContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2055341E465C45005AAEA9 /* ContainerViewController.m */; };
 		1F20553F1E465C45005AAEA9 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F20553B1E465C45005AAEA9 /* MapViewController.m */; };
-		1F2055531E4662CD005AAEA9 /* TimelineCellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F20554F1E4662CD005AAEA9 /* TimelineCellController.m */; };
-		1F2055541E4662CD005AAEA9 /* TimelineViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F2055501E4662CD005AAEA9 /* TimelineViewCell.xib */; };
 		1F2055551E4662CD005AAEA9 /* TimelineTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2055521E4662CD005AAEA9 /* TimelineTableController.m */; };
 		1F2055C21E466A6E005AAEA9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2055BA1E466A6E005AAEA9 /* MainViewController.m */; };
 		1F2055C51E466A6E005AAEA9 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2055C11E466A6E005AAEA9 /* TableViewController.m */; };
@@ -87,8 +85,14 @@
 		1F4384251EEE8CCA00999667 /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4384241EEE8CCA00999667 /* UserData.m */; };
 		1F4728631EE5A660002ABF68 /* RequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4728621EE5A660002ABF68 /* RequestManager.m */; };
 		1F4728671EE5B2BF002ABF68 /* TokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4728661EE5B2BF002ABF68 /* TokenManager.m */; };
+		1F4AC1441F06B779002DD38C /* EventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1431F06B779002DD38C /* EventViewController.m */; };
+		1F4AC1491F070D1E002DD38C /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1471F070D1E002DD38C /* EventCell.m */; };
+		1F4AC14A1F070D1E002DD38C /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4AC1481F070D1E002DD38C /* EventCell.xib */; };
+		1F4AC14E1F070D4F002DD38C /* LoadingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC14D1F070D4F002DD38C /* LoadingCell.m */; };
+		1F4AC1571F07BC53002DD38C /* AttenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1551F07BC53002DD38C /* AttenderCell.m */; };
+		1F4AC1581F07BC53002DD38C /* AttenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4AC1561F07BC53002DD38C /* AttenderCell.xib */; };
+		1F4AC15B1F07BCB8002DD38C /* AttendersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC15A1F07BCB8002DD38C /* AttendersViewController.m */; };
 		1F7500391E5AEE8B0066E71E /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7500381E5AEE8B0066E71E /* SearchResultController.m */; };
-		1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F75003C1E5B13D80066E71E /* UserProfileViewController.m */; };
 		1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */; };
 		1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */; };
 		1F7B0A261E5C478A004D08C8 /* like-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A231E5C478A004D08C8 /* like-icon@2x.png */; };
@@ -108,6 +112,15 @@
 		1FF74CFE1EE99F21004339FC /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */; };
 		1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC89311EF02D5400B40BC1 /* EventData.m */; };
 		32E0595146A5E519CF5B7A56 /* libPods-SocialTwist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */; };
+		DD64343F1EF6D9DC007AE577 /* PhotoSliderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD64342C1EF6D9DC007AE577 /* PhotoSliderViewController.m */; };
+		DD6434401EF6D9DC007AE577 /* UserEventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD64342F1EF6D9DC007AE577 /* UserEventCell.m */; };
+		DD6434411EF6D9DC007AE577 /* UserEventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD6434301EF6D9DC007AE577 /* UserEventCell.xib */; };
+		DD6434421EF6D9DC007AE577 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6434331EF6D9DC007AE577 /* GalleryViewController.m */; };
+		DD6434431EF6D9DC007AE577 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6434351EF6D9DC007AE577 /* ImageCollectionViewCell.m */; };
+		DD6434441EF6D9DC007AE577 /* Photos.m in Sources */ = {isa = PBXBuildFile; fileRef = DD6434371EF6D9DC007AE577 /* Photos.m */; };
+		DD6434451EF6D9DC007AE577 /* UserProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DD64343A1EF6D9DC007AE577 /* UserProfileCell.m */; };
+		DD6434461EF6D9DC007AE577 /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DD64343B1EF6D9DC007AE577 /* UserProfileCell.xib */; };
+		DD6434471EF6D9DC007AE577 /* UserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD64343E1EF6D9DC007AE577 /* UserProfileViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,9 +157,6 @@
 		1F2055341E465C45005AAEA9 /* ContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContainerViewController.m; sourceTree = "<group>"; };
 		1F20553A1E465C45005AAEA9 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		1F20553B1E465C45005AAEA9 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
-		1F20554E1E4662CD005AAEA9 /* TimelineCellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineCellController.h; sourceTree = "<group>"; };
-		1F20554F1E4662CD005AAEA9 /* TimelineCellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineCellController.m; sourceTree = "<group>"; };
-		1F2055501E4662CD005AAEA9 /* TimelineViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimelineViewCell.xib; sourceTree = "<group>"; };
 		1F2055511E4662CD005AAEA9 /* TimelineTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimelineTableController.h; sourceTree = "<group>"; };
 		1F2055521E4662CD005AAEA9 /* TimelineTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineTableController.m; sourceTree = "<group>"; };
 		1F2055B91E466A6E005AAEA9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -219,10 +229,20 @@
 		1F4728621EE5A660002ABF68 /* RequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestManager.m; sourceTree = "<group>"; };
 		1F4728651EE5B2BF002ABF68 /* TokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenManager.h; sourceTree = "<group>"; };
 		1F4728661EE5B2BF002ABF68 /* TokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenManager.m; sourceTree = "<group>"; };
+		1F4AC1421F06B779002DD38C /* EventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventViewController.h; sourceTree = "<group>"; };
+		1F4AC1431F06B779002DD38C /* EventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventViewController.m; sourceTree = "<group>"; };
+		1F4AC1461F070D1E002DD38C /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
+		1F4AC1471F070D1E002DD38C /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
+		1F4AC1481F070D1E002DD38C /* EventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EventCell.xib; sourceTree = "<group>"; };
+		1F4AC14C1F070D4F002DD38C /* LoadingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingCell.h; sourceTree = "<group>"; };
+		1F4AC14D1F070D4F002DD38C /* LoadingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingCell.m; sourceTree = "<group>"; };
+		1F4AC1541F07BC53002DD38C /* AttenderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttenderCell.h; sourceTree = "<group>"; };
+		1F4AC1551F07BC53002DD38C /* AttenderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttenderCell.m; sourceTree = "<group>"; };
+		1F4AC1561F07BC53002DD38C /* AttenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttenderCell.xib; sourceTree = "<group>"; };
+		1F4AC1591F07BCB8002DD38C /* AttendersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendersViewController.h; sourceTree = "<group>"; };
+		1F4AC15A1F07BCB8002DD38C /* AttendersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendersViewController.m; sourceTree = "<group>"; };
 		1F7500371E5AEE8B0066E71E /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
 		1F7500381E5AEE8B0066E71E /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
-		1F75003B1E5B13D80066E71E /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
-		1F75003C1E5B13D80066E71E /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 		1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-icon@2x.png"; sourceTree = "<group>"; };
 		1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dislike-icon@2x.png"; sourceTree = "<group>"; };
 		1F7B0A231E5C478A004D08C8 /* like-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like-icon@2x.png"; sourceTree = "<group>"; };
@@ -253,6 +273,22 @@
 		28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocialTwist.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BD166383B46C297653FA0C4 /* Pods-SocialTwist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.debug.xcconfig"; sourceTree = "<group>"; };
 		78350D957FB456924E1EB5E6 /* Pods-SocialTwist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialTwist.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocialTwist/Pods-SocialTwist.release.xcconfig"; sourceTree = "<group>"; };
+		DD64342B1EF6D9DC007AE577 /* PhotoSliderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoSliderViewController.h; sourceTree = "<group>"; };
+		DD64342C1EF6D9DC007AE577 /* PhotoSliderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoSliderViewController.m; sourceTree = "<group>"; };
+		DD64342E1EF6D9DC007AE577 /* UserEventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserEventCell.h; sourceTree = "<group>"; };
+		DD64342F1EF6D9DC007AE577 /* UserEventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserEventCell.m; sourceTree = "<group>"; };
+		DD6434301EF6D9DC007AE577 /* UserEventCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserEventCell.xib; sourceTree = "<group>"; };
+		DD6434321EF6D9DC007AE577 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		DD6434331EF6D9DC007AE577 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
+		DD6434341EF6D9DC007AE577 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		DD6434351EF6D9DC007AE577 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		DD6434361EF6D9DC007AE577 /* Photos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photos.h; sourceTree = "<group>"; };
+		DD6434371EF6D9DC007AE577 /* Photos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photos.m; sourceTree = "<group>"; };
+		DD6434391EF6D9DC007AE577 /* UserProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileCell.h; sourceTree = "<group>"; };
+		DD64343A1EF6D9DC007AE577 /* UserProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileCell.m; sourceTree = "<group>"; };
+		DD64343B1EF6D9DC007AE577 /* UserProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
+		DD64343D1EF6D9DC007AE577 /* UserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserProfileViewController.h; sourceTree = "<group>"; };
+		DD64343E1EF6D9DC007AE577 /* UserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProfileViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +392,7 @@
 		1F2054D01E465541005AAEA9 /* SocialTwist */ = {
 			isa = PBXGroup;
 			children = (
+				DD6434291EF6D9DC007AE577 /* UserProfile */,
 				1F0EF6701EF17F5100872392 /* General */,
 				1F4384211EEE8CB100999667 /* ObjectsData */,
 				1F4728641EE5B2B5002ABF68 /* TokenManager */,
@@ -384,12 +421,13 @@
 		1F2054E81E46575E005AAEA9 /* ViewController's */ = {
 			isa = PBXGroup;
 			children = (
+				1F4AC14F1F07BBC2002DD38C /* AttendersViewController */,
+				1F4AC1411F06B761002DD38C /* EventViewController */,
 				1F3716931EEF066F004F4E51 /* FriendListController */,
 				1FA5C9281EE8BADF006E65E6 /* NotificationsController */,
 				1F2055B71E466A6E005AAEA9 /* SideMenuController */,
 				1F2055321E465C45005AAEA9 /* ContainerController */,
 				1F7500361E5AEE720066E71E /* SearchResultController */,
-				1F75003A1E5B13C20066E71E /* UserProfileController */,
 				1F20554C1E4662CD005AAEA9 /* TimelineController */,
 				1F2055351E465C45005AAEA9 /* MapController */,
 				1F2054E91E46575E005AAEA9 /* LoginController */,
@@ -442,23 +480,13 @@
 			isa = PBXGroup;
 			children = (
 				1F0AADA21E9F865100745A6A /* EventContent */,
-				1FE1B2E91E9E57E500999557 /* ProfileCell */,
+				1F4AC14B1F070D4F002DD38C /* LoadingCell */,
 				1FE1B2EA1E9E57E500999557 /* PostEventCell */,
-				1F20554D1E4662CD005AAEA9 /* CellController */,
+				1F4AC1451F070D1E002DD38C /* EventCell */,
 				1F2055511E4662CD005AAEA9 /* TimelineTableController.h */,
 				1F2055521E4662CD005AAEA9 /* TimelineTableController.m */,
 			);
 			path = TimelineController;
-			sourceTree = "<group>";
-		};
-		1F20554D1E4662CD005AAEA9 /* CellController */ = {
-			isa = PBXGroup;
-			children = (
-				1F20554E1E4662CD005AAEA9 /* TimelineCellController.h */,
-				1F20554F1E4662CD005AAEA9 /* TimelineCellController.m */,
-				1F2055501E4662CD005AAEA9 /* TimelineViewCell.xib */,
-			);
-			path = CellController;
 			sourceTree = "<group>";
 		};
 		1F2055B71E466A6E005AAEA9 /* SideMenuController */ = {
@@ -671,6 +699,54 @@
 			path = TokenManager;
 			sourceTree = "<group>";
 		};
+		1F4AC1411F06B761002DD38C /* EventViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1421F06B779002DD38C /* EventViewController.h */,
+				1F4AC1431F06B779002DD38C /* EventViewController.m */,
+			);
+			path = EventViewController;
+			sourceTree = "<group>";
+		};
+		1F4AC1451F070D1E002DD38C /* EventCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1461F070D1E002DD38C /* EventCell.h */,
+				1F4AC1471F070D1E002DD38C /* EventCell.m */,
+				1F4AC1481F070D1E002DD38C /* EventCell.xib */,
+			);
+			path = EventCell;
+			sourceTree = "<group>";
+		};
+		1F4AC14B1F070D4F002DD38C /* LoadingCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC14C1F070D4F002DD38C /* LoadingCell.h */,
+				1F4AC14D1F070D4F002DD38C /* LoadingCell.m */,
+			);
+			path = LoadingCell;
+			sourceTree = "<group>";
+		};
+		1F4AC14F1F07BBC2002DD38C /* AttendersViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1501F07BBC2002DD38C /* AttenderCell */,
+				1F4AC1591F07BCB8002DD38C /* AttendersViewController.h */,
+				1F4AC15A1F07BCB8002DD38C /* AttendersViewController.m */,
+			);
+			path = AttendersViewController;
+			sourceTree = "<group>";
+		};
+		1F4AC1501F07BBC2002DD38C /* AttenderCell */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1541F07BC53002DD38C /* AttenderCell.h */,
+				1F4AC1551F07BC53002DD38C /* AttenderCell.m */,
+				1F4AC1561F07BC53002DD38C /* AttenderCell.xib */,
+			);
+			path = AttenderCell;
+			sourceTree = "<group>";
+		};
 		1F7500361E5AEE720066E71E /* SearchResultController */ = {
 			isa = PBXGroup;
 			children = (
@@ -679,15 +755,6 @@
 				1F7500381E5AEE8B0066E71E /* SearchResultController.m */,
 			);
 			path = SearchResultController;
-			sourceTree = "<group>";
-		};
-		1F75003A1E5B13C20066E71E /* UserProfileController */ = {
-			isa = PBXGroup;
-			children = (
-				1F75003B1E5B13D80066E71E /* UserProfileViewController.h */,
-				1F75003C1E5B13D80066E71E /* UserProfileViewController.m */,
-			);
-			path = UserProfileController;
 			sourceTree = "<group>";
 		};
 		1FA5C9281EE8BADF006E65E6 /* NotificationsController */ = {
@@ -738,13 +805,6 @@
 			path = CalloutView;
 			sourceTree = "<group>";
 		};
-		1FE1B2E91E9E57E500999557 /* ProfileCell */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ProfileCell;
-			sourceTree = "<group>";
-		};
 		1FE1B2EA1E9E57E500999557 /* PostEventCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -789,6 +849,62 @@
 				28CA52F6CEE57ABC021AA150 /* libPods-SocialTwist.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD6434291EF6D9DC007AE577 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				DD64342B1EF6D9DC007AE577 /* PhotoSliderViewController.h */,
+				DD64342C1EF6D9DC007AE577 /* PhotoSliderViewController.m */,
+				DD64342D1EF6D9DC007AE577 /* UserEventCell */,
+				DD6434311EF6D9DC007AE577 /* UserGalerryViewController */,
+				DD6434381EF6D9DC007AE577 /* UserProfileCell */,
+				DD64343C1EF6D9DC007AE577 /* UserProfileController */,
+			);
+			name = UserProfile;
+			path = "ViewController's/UserProfile";
+			sourceTree = "<group>";
+		};
+		DD64342D1EF6D9DC007AE577 /* UserEventCell */ = {
+			isa = PBXGroup;
+			children = (
+				DD64342E1EF6D9DC007AE577 /* UserEventCell.h */,
+				DD64342F1EF6D9DC007AE577 /* UserEventCell.m */,
+				DD6434301EF6D9DC007AE577 /* UserEventCell.xib */,
+			);
+			path = UserEventCell;
+			sourceTree = "<group>";
+		};
+		DD6434311EF6D9DC007AE577 /* UserGalerryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				DD6434321EF6D9DC007AE577 /* GalleryViewController.h */,
+				DD6434331EF6D9DC007AE577 /* GalleryViewController.m */,
+				DD6434341EF6D9DC007AE577 /* ImageCollectionViewCell.h */,
+				DD6434351EF6D9DC007AE577 /* ImageCollectionViewCell.m */,
+				DD6434361EF6D9DC007AE577 /* Photos.h */,
+				DD6434371EF6D9DC007AE577 /* Photos.m */,
+			);
+			path = UserGalerryViewController;
+			sourceTree = "<group>";
+		};
+		DD6434381EF6D9DC007AE577 /* UserProfileCell */ = {
+			isa = PBXGroup;
+			children = (
+				DD6434391EF6D9DC007AE577 /* UserProfileCell.h */,
+				DD64343A1EF6D9DC007AE577 /* UserProfileCell.m */,
+				DD64343B1EF6D9DC007AE577 /* UserProfileCell.xib */,
+			);
+			path = UserProfileCell;
+			sourceTree = "<group>";
+		};
+		DD64343C1EF6D9DC007AE577 /* UserProfileController */ = {
+			isa = PBXGroup;
+			children = (
+				DD64343D1EF6D9DC007AE577 /* UserProfileViewController.h */,
+				DD64343E1EF6D9DC007AE577 /* UserProfileViewController.m */,
+			);
+			path = UserProfileController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -876,6 +992,7 @@
 				1F2E3CC51E5C31A7007B698A /* image5.png in Resources */,
 				1F2E3CE01E5C31A7007B698A /* timeline-icon-hightlighted@2x.png in Resources */,
 				1F2E3CC81E5C31A7007B698A /* imageRoot.png in Resources */,
+				1F4AC14A1F070D1E002DD38C /* EventCell.xib in Resources */,
 				1F2E3CDE1E5C31A7007B698A /* star-icon.png in Resources */,
 				1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */,
 				1F2E3CE11E5C31A7007B698A /* timeline-icon@2x.png in Resources */,
@@ -887,10 +1004,10 @@
 				1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */,
 				1F2E3CBD1E5C31A7007B698A /* camera-icon@2x.png in Resources */,
 				1F0EF66F1EF1413200872392 /* SearchResultCell.xib in Resources */,
+				1F4AC1581F07BC53002DD38C /* AttenderCell.xib in Resources */,
 				1F2E3CD71E5C31A7007B698A /* settings-icon.png in Resources */,
 				1F2E3CD21E5C31A7007B698A /* notifications.png in Resources */,
 				1F2E3CC91E5C31A7007B698A /* localization-icon@2x.png in Resources */,
-				1F2055541E4662CD005AAEA9 /* TimelineViewCell.xib in Resources */,
 				1F7B0A261E5C478A004D08C8 /* like-icon@2x.png in Resources */,
 				1FD5DACF1E925F270083DFB2 /* PinView.xib in Resources */,
 				1F2E3CBC1E5C31A7007B698A /* back_to_login_arrow.png in Resources */,
@@ -905,11 +1022,13 @@
 				1FD5DAD11E9266A20083DFB2 /* cat.jpg in Resources */,
 				1F3783971EF4886A00A6BC6E /* avatar.jpg in Resources */,
 				1F0BE94D1EE058BA0056C71B /* PostEventView.xib in Resources */,
+				DD6434461EF6D9DC007AE577 /* UserProfileCell.xib in Resources */,
 				1F2C54541E476941006B7F82 /* MenuCell.xib in Resources */,
 				1F2054DE1E465541005AAEA9 /* Assets.xcassets in Resources */,
 				1F2E3CD81E5C31A7007B698A /* settings-icon@2x.png in Resources */,
 				1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */,
 				1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */,
+				DD6434411EF6D9DC007AE577 /* UserEventCell.xib in Resources */,
 				1FF74CFE1EE99F21004339FC /* FriendRequestCell.xib in Resources */,
 				1F2E3CBB1E5C31A7007B698A /* 50x50.gif in Resources */,
 				1F2E3CC31E5C31A7007B698A /* image3.jpg in Resources */,
@@ -973,36 +1092,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6434471EF6D9DC007AE577 /* UserProfileViewController.m in Sources */,
+				DD6434421EF6D9DC007AE577 /* GalleryViewController.m in Sources */,
 				1F2DBE571E8175FC002DB97D /* KeyboardItemView.m in Sources */,
 				1F2DBE551E8175FC002DB97D /* KeyboardViewController.m in Sources */,
 				1F0EF66E1EF1413200872392 /* SearchResultCell.m in Sources */,
+				DD6434401EF6D9DC007AE577 /* UserEventCell.m in Sources */,
 				1FA5C92B1EE8BAF9006E65E6 /* NotificationsViewController.m in Sources */,
 				1FD5DACD1E925F1A0083DFB2 /* PinView.m in Sources */,
 				1F2055C21E466A6E005AAEA9 /* MainViewController.m in Sources */,
+				DD6434451EF6D9DC007AE577 /* UserProfileCell.m in Sources */,
 				1FDE93751EB74F42006EFF3A /* EventFilterTableView.m in Sources */,
 				1F0EF67B1EF17F5100872392 /* KeyboardAvoiding.m in Sources */,
-				1F2055531E4662CD005AAEA9 /* TimelineCellController.m in Sources */,
 				1F0BE94C1EE058BA0056C71B /* PostEventView.m in Sources */,
 				1F2055551E4662CD005AAEA9 /* TimelineTableController.m in Sources */,
 				1FDE93801EB76588006EFF3A /* EventFilterTableController.m in Sources */,
 				1F2054D61E465541005AAEA9 /* AppDelegate.m in Sources */,
 				1FDE93A91EB881EB006EFF3A /* CustomAnnotation.m in Sources */,
 				1F3716971EEF06A0004F4E51 /* FriendListViewController.m in Sources */,
+				1F4AC1491F070D1E002DD38C /* EventCell.m in Sources */,
 				1F3107731EF559F100CEBFAF /* CalloutView.m in Sources */,
-				1F75003D1E5B13D80066E71E /* UserProfileViewController.m in Sources */,
 				1F4728671EE5B2BF002ABF68 /* TokenManager.m in Sources */,
 				1FB23C9F1EEF225300148967 /* FriendsData.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
+				DD6434431EF6D9DC007AE577 /* ImageCollectionViewCell.m in Sources */,
 				1F0EF67A1EF17F5100872392 /* SMVisualEffectView.m in Sources */,
 				1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */,
 				1F4728631EE5A660002ABF68 /* RequestManager.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,
 				1F0EF67C1EF17F5100872392 /* Utilities.m in Sources */,
+				1F4AC15B1F07BCB8002DD38C /* AttendersViewController.m in Sources */,
 				1F0AADA01E9E722F00745A6A /* PostEventCell.m in Sources */,
 				1FDE937C1EB750E1006EFF3A /* EventFilterCell.m in Sources */,
+				DD64343F1EF6D9DC007AE577 /* PhotoSliderViewController.m in Sources */,
+				1F4AC1571F07BC53002DD38C /* AttenderCell.m in Sources */,
 				1F2055C51E466A6E005AAEA9 /* TableViewController.m in Sources */,
+				DD6434441EF6D9DC007AE577 /* Photos.m in Sources */,
 				1F2C54531E476941006B7F82 /* MenuCell.m in Sources */,
 				1F4384251EEE8CCA00999667 /* UserData.m in Sources */,
+				1F4AC14E1F070D4F002DD38C /* LoadingCell.m in Sources */,
+				1F4AC1441F06B779002DD38C /* EventViewController.m in Sources */,
 				1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */,
 				1F20553F1E465C45005AAEA9 /* MapViewController.m in Sources */,
 				1F37169B1EEF08A2004F4E51 /* FriendListCell.m in Sources */,

@@ -26,6 +26,7 @@
              @"title" : @"title",
              @"type" : @"type",
              @"video" : @"video",
+             @"thumbnail" : @"thumbnail"
              };
 }
 

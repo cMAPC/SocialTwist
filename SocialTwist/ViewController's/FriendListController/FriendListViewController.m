@@ -112,10 +112,12 @@
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UserProfileViewController* userProfileController = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
     
-    [userProfileController setName:[NSString stringWithFormat:@"%@ %@",
-                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
-                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]
-                                    ]];
+    [userProfileController setUserID:[[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]];
+
+//    [userProfileController setName:[NSString stringWithFormat:@"%@ %@",
+//                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"firstName"],
+//                                    [[friendContentArray objectAtIndex:indexPath.row] valueForKey:@"userID"]
+//                                    ]];
     
     [self.navigationController pushViewController:userProfileController animated:YES];
 }
