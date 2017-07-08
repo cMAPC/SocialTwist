@@ -74,24 +74,36 @@
     }
     
     if(indexPath.row == 1) {
-        TableViewCell* profileCustomCell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
+        TableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"profileCell"];
 //        profileCustomCell.imageView.translatesAutoresizingMaskIntoConstraints = YES;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            profileCustomCell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
+            cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@",
                                                 [[NSUserDefaults standardUserDefaults] objectForKey:@"name"],
                                                 [[NSUserDefaults standardUserDefaults] objectForKey:@"lastName"]
                                                 ];
             
-            [[DLImageLoader sharedInstance] imageFromUrl:[[NSUserDefaults standardUserDefaults] objectForKey:@"picture"]
-                                               completed:^(NSError *error, UIImage *image) {
-                                                   [profileCustomCell.pictureImageView setImage:image];
-                                               }];
+            NSString* userImageURL = [[NSUserDefaults standardUserDefaults] objectForKey:@"picture"];
+            
+            if ([[SDImageCache sharedImageCache] diskImageExistsWithKey:userImageURL]) {
+                cell.userImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userImageURL];
+            }
+            else
+            {
+                [cell.userImageView sd_setImageWithURL:[NSURL URLWithString:userImageURL]
+                                      placeholderImage:[UIImage imageNamed:@"avatar.jpg"]
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                                 if (!image)
+                                                     cell.userImageView.image = [UIImage imageNamed:@"avatar.jpg"];
+                                                 
+                                                 [cell layoutSubviews];
+                                             }];
+            }
             
         });
         
-        return profileCustomCell;
+        return cell;
     }
     
     else {
@@ -99,9 +111,8 @@
         menuCell.itemImageView.image = [UIImage imageNamed:self.itemsImageArray[indexPath.row - 3]];
         menuCell.itemTextLabel.text = self.itemsTextArray[indexPath.row - 3];
         
-        if (indexPath.row != 3 && indexPath.row != 5) {
+        if (indexPath.row != 3 && indexPath.row != 5)
             [menuCell.countView setHidden:YES];
-        }
         
         return menuCell;
     }
@@ -120,8 +131,22 @@
     
     UINavigationController* friendListNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"FriendListNavigationControllerID"];
     
+    UINavigationController* userProfileNavigationController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileNavigationControllerID"];
+    
+    UserProfileViewController* profileController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
+    UIBarButtonItem *leftMenuBarButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menu-icon"]
+                                                                          style:UIBarButtonItemStylePlain
+                                                                         target:profileController
+                                                                         action:@selector(showLeftViewAnimated:)];
+    [leftMenuBarButton setTintColor:[UIColor whiteColor]];
+    [profileController.navigationItem setLeftBarButtonItem:leftMenuBarButton];
+    [userProfileNavigationController setViewControllers:@[profileController]];
+    
     switch (indexPath.row) {
         case 1:
+            [mainViewController setRootViewController:userProfileNavigationController];
+            [mainViewController setLeftViewController:leftViewController];
+            [self presentViewController:mainViewController animated:YES completion:nil];
             break;
         case 3:
             [mainViewController setRootViewController:notificationsNavigationController];

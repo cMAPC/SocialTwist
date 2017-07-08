@@ -430,14 +430,6 @@ static BOOL hasMoredData = YES;
     return UITableViewAutomaticDimension;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    EventViewController* eventViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"EventViewControllerID"];
-    
-    EventData* event = [self.eventsArray objectAtIndex:indexPath.row - 1];
-    eventViewController.event = event;
-    
-    [self.navigationController pushViewController:eventViewController animated:YES];
-}
 
 
 

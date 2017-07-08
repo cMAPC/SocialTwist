@@ -85,7 +85,7 @@
             <connections>
                 <outlet property="imageBorderView" destination="yzh-3r-laf" id="8S8-D0-gC3"/>
                 <outlet property="nameLabel" destination="hjY-Nj-VrQ" id="n1p-nW-3ZC"/>
-                <outlet property="pictureImageView" destination="k3r-7z-weo" id="Hvv-yW-VSX"/>
+                <outlet property="userImageView" destination="k3r-7z-weo" id="xgB-A8-pq6"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="75"/>
         </tableViewCell>

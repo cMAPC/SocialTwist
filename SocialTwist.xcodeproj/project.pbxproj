@@ -92,6 +92,11 @@
 		1F4AC1571F07BC53002DD38C /* AttenderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1551F07BC53002DD38C /* AttenderCell.m */; };
 		1F4AC1581F07BC53002DD38C /* AttenderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4AC1561F07BC53002DD38C /* AttenderCell.xib */; };
 		1F4AC15B1F07BCB8002DD38C /* AttendersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC15A1F07BCB8002DD38C /* AttendersViewController.m */; };
+		1F4AC1651F09969E002DD38C /* CommentData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1641F09969E002DD38C /* CommentData.m */; };
+		1F4AC1691F09A085002DD38C /* WriteCommentBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1681F09A085002DD38C /* WriteCommentBox.m */; };
+		1F4AC16B1F09A09B002DD38C /* WriteCommentBox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4AC16A1F09A09B002DD38C /* WriteCommentBox.xib */; };
+		1F4AC16E1F0A5EF8002DD38C /* TableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1F4AC16D1F0A5EF8002DD38C /* TableHeaderView.xib */; };
+		1F4AC1711F0A5F1B002DD38C /* TableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4AC1701F0A5F1B002DD38C /* TableHeaderView.m */; };
 		1F7500391E5AEE8B0066E71E /* SearchResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7500381E5AEE8B0066E71E /* SearchResultController.m */; };
 		1F7B0A241E5C478A004D08C8 /* comment-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */; };
 		1F7B0A251E5C478A004D08C8 /* dislike-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F7B0A221E5C478A004D08C8 /* dislike-icon@2x.png */; };
@@ -108,6 +113,8 @@
 		1FDE937D1EB750E1006EFF3A /* EventFilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FDE937B1EB750E1006EFF3A /* EventFilterCell.xib */; };
 		1FDE93801EB76588006EFF3A /* EventFilterTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE937F1EB76588006EFF3A /* EventFilterTableController.m */; };
 		1FDE93A91EB881EB006EFF3A /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDE93A81EB881EB006EFF3A /* CustomAnnotation.m */; };
+		1FE2DB5E1F0E671D00935907 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE2DB5C1F0E671D00935907 /* CommentCell.m */; };
+		1FE2DB5F1F0E671D00935907 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FE2DB5D1F0E671D00935907 /* CommentCell.xib */; };
 		1FF74CFD1EE99F21004339FC /* FriendRequestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF74CFB1EE99F21004339FC /* FriendRequestCell.m */; };
 		1FF74CFE1EE99F21004339FC /* FriendRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */; };
 		1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FFC89311EF02D5400B40BC1 /* EventData.m */; };
@@ -241,6 +248,14 @@
 		1F4AC1561F07BC53002DD38C /* AttenderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AttenderCell.xib; sourceTree = "<group>"; };
 		1F4AC1591F07BCB8002DD38C /* AttendersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttendersViewController.h; sourceTree = "<group>"; };
 		1F4AC15A1F07BCB8002DD38C /* AttendersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttendersViewController.m; sourceTree = "<group>"; };
+		1F4AC1631F09969E002DD38C /* CommentData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentData.h; sourceTree = "<group>"; };
+		1F4AC1641F09969E002DD38C /* CommentData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentData.m; sourceTree = "<group>"; };
+		1F4AC1671F09A085002DD38C /* WriteCommentBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteCommentBox.h; sourceTree = "<group>"; };
+		1F4AC1681F09A085002DD38C /* WriteCommentBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteCommentBox.m; sourceTree = "<group>"; };
+		1F4AC16A1F09A09B002DD38C /* WriteCommentBox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WriteCommentBox.xib; sourceTree = "<group>"; };
+		1F4AC16D1F0A5EF8002DD38C /* TableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableHeaderView.xib; sourceTree = "<group>"; };
+		1F4AC16F1F0A5F1B002DD38C /* TableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableHeaderView.h; sourceTree = "<group>"; };
+		1F4AC1701F0A5F1B002DD38C /* TableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableHeaderView.m; sourceTree = "<group>"; };
 		1F7500371E5AEE8B0066E71E /* SearchResultController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultController.h; sourceTree = "<group>"; };
 		1F7500381E5AEE8B0066E71E /* SearchResultController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultController.m; sourceTree = "<group>"; };
 		1F7B0A211E5C478A004D08C8 /* comment-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment-icon@2x.png"; sourceTree = "<group>"; };
@@ -265,6 +280,9 @@
 		1FDE937F1EB76588006EFF3A /* EventFilterTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventFilterTableController.m; sourceTree = "<group>"; };
 		1FDE93A71EB881EB006EFF3A /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomAnnotation.h; sourceTree = "<group>"; };
 		1FDE93A81EB881EB006EFF3A /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomAnnotation.m; sourceTree = "<group>"; };
+		1FE2DB5B1F0E671D00935907 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		1FE2DB5C1F0E671D00935907 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		1FE2DB5D1F0E671D00935907 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		1FF74CFA1EE99F21004339FC /* FriendRequestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendRequestCell.h; sourceTree = "<group>"; };
 		1FF74CFB1EE99F21004339FC /* FriendRequestCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendRequestCell.m; sourceTree = "<group>"; };
 		1FF74CFC1EE99F21004339FC /* FriendRequestCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendRequestCell.xib; sourceTree = "<group>"; };
@@ -665,6 +683,7 @@
 		1F4384211EEE8CB100999667 /* ObjectsData */ = {
 			isa = PBXGroup;
 			children = (
+				1F4AC1621F09968F002DD38C /* CommentData */,
 				1FFC892F1EF02D4400B40BC1 /* EventData */,
 				1FB23C9C1EEF223100148967 /* FriendsData */,
 				1F4384221EEE8CB100999667 /* UserData */,
@@ -702,6 +721,9 @@
 		1F4AC1411F06B761002DD38C /* EventViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1FE2DB5A1F0E670600935907 /* CommentView */,
+				1F4AC16C1F0A5EEB002DD38C /* TableHeaderView */,
+				1F4AC1661F09A04B002DD38C /* WriteCommentBox */,
 				1F4AC1421F06B779002DD38C /* EventViewController.h */,
 				1F4AC1431F06B779002DD38C /* EventViewController.m */,
 			);
@@ -745,6 +767,35 @@
 				1F4AC1561F07BC53002DD38C /* AttenderCell.xib */,
 			);
 			path = AttenderCell;
+			sourceTree = "<group>";
+		};
+		1F4AC1621F09968F002DD38C /* CommentData */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1631F09969E002DD38C /* CommentData.h */,
+				1F4AC1641F09969E002DD38C /* CommentData.m */,
+			);
+			path = CommentData;
+			sourceTree = "<group>";
+		};
+		1F4AC1661F09A04B002DD38C /* WriteCommentBox */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC1671F09A085002DD38C /* WriteCommentBox.h */,
+				1F4AC1681F09A085002DD38C /* WriteCommentBox.m */,
+				1F4AC16A1F09A09B002DD38C /* WriteCommentBox.xib */,
+			);
+			path = WriteCommentBox;
+			sourceTree = "<group>";
+		};
+		1F4AC16C1F0A5EEB002DD38C /* TableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				1F4AC16F1F0A5F1B002DD38C /* TableHeaderView.h */,
+				1F4AC1701F0A5F1B002DD38C /* TableHeaderView.m */,
+				1F4AC16D1F0A5EF8002DD38C /* TableHeaderView.xib */,
+			);
+			path = TableHeaderView;
 			sourceTree = "<group>";
 		};
 		1F7500361E5AEE720066E71E /* SearchResultController */ = {
@@ -813,6 +864,16 @@
 				1F0AAD9F1E9E722F00745A6A /* PostEventCell.xib */,
 			);
 			path = PostEventCell;
+			sourceTree = "<group>";
+		};
+		1FE2DB5A1F0E670600935907 /* CommentView */ = {
+			isa = PBXGroup;
+			children = (
+				1FE2DB5B1F0E671D00935907 /* CommentCell.h */,
+				1FE2DB5C1F0E671D00935907 /* CommentCell.m */,
+				1FE2DB5D1F0E671D00935907 /* CommentCell.xib */,
+			);
+			path = CommentView;
 			sourceTree = "<group>";
 		};
 		1FF74CF91EE99EFE004339FC /* FriendRequestCell */ = {
@@ -984,6 +1045,7 @@
 				1F2E3CCB1E5C31A7007B698A /* logo_text.png in Resources */,
 				1F2E3CD61E5C31A7007B698A /* search-icon@2x.png in Resources */,
 				1FDE937D1EB750E1006EFF3A /* EventFilterCell.xib in Resources */,
+				1F4AC16E1F0A5EF8002DD38C /* TableHeaderView.xib in Resources */,
 				1F2E3CD51E5C31A7007B698A /* placeholder.svg in Resources */,
 				1F2DBE561E8175FC002DB97D /* KeyboardViewController.xib in Resources */,
 				1F2E3CCF1E5C31A7007B698A /* menu-icon@2x.png in Resources */,
@@ -1027,6 +1089,7 @@
 				1F2054DE1E465541005AAEA9 /* Assets.xcassets in Resources */,
 				1F2E3CD81E5C31A7007B698A /* settings-icon@2x.png in Resources */,
 				1F0AADA11E9E722F00745A6A /* PostEventCell.xib in Resources */,
+				1FE2DB5F1F0E671D00935907 /* CommentCell.xib in Resources */,
 				1F2054DC1E465541005AAEA9 /* Main.storyboard in Resources */,
 				DD6434411EF6D9DC007AE577 /* UserEventCell.xib in Resources */,
 				1FF74CFE1EE99F21004339FC /* FriendRequestCell.xib in Resources */,
@@ -1034,6 +1097,7 @@
 				1F2E3CC31E5C31A7007B698A /* image3.jpg in Resources */,
 				1F2E3CD41E5C31A7007B698A /* placeholder.png in Resources */,
 				1F2E3CD11E5C31A7007B698A /* message.png in Resources */,
+				1F4AC16B1F09A09B002DD38C /* WriteCommentBox.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1115,8 +1179,11 @@
 				1F4728671EE5B2BF002ABF68 /* TokenManager.m in Sources */,
 				1FB23C9F1EEF225300148967 /* FriendsData.m in Sources */,
 				1F2054D31E465541005AAEA9 /* main.m in Sources */,
+				1F4AC1651F09969E002DD38C /* CommentData.m in Sources */,
 				DD6434431EF6D9DC007AE577 /* ImageCollectionViewCell.m in Sources */,
 				1F0EF67A1EF17F5100872392 /* SMVisualEffectView.m in Sources */,
+				1F4AC1711F0A5F1B002DD38C /* TableHeaderView.m in Sources */,
+				1FE2DB5E1F0E671D00935907 /* CommentCell.m in Sources */,
 				1FFC89321EF02D5400B40BC1 /* EventData.m in Sources */,
 				1F4728631EE5A660002ABF68 /* RequestManager.m in Sources */,
 				1F2C544E1E4768EF006B7F82 /* TableViewCell.m in Sources */,
@@ -1130,6 +1197,7 @@
 				DD6434441EF6D9DC007AE577 /* Photos.m in Sources */,
 				1F2C54531E476941006B7F82 /* MenuCell.m in Sources */,
 				1F4384251EEE8CCA00999667 /* UserData.m in Sources */,
+				1F4AC1691F09A085002DD38C /* WriteCommentBox.m in Sources */,
 				1F4AC14E1F070D4F002DD38C /* LoadingCell.m in Sources */,
 				1F4AC1441F06B779002DD38C /* EventViewController.m in Sources */,
 				1F0AADA51E9F868D00745A6A /* EventContent.m in Sources */,

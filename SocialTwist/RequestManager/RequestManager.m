@@ -557,6 +557,58 @@
                      }];
 }
 
+-(void)postComment:(NSString *)text onEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+
+    NSDictionary* parameters = @{
+                                 @"text" : text
+                                 };
+    
+    [self.requestManager POST:[NSString stringWithFormat:@"events/%@/comment/", eventID]
+                   parameters:parameters
+                     progress:nil
+                      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                          NSError *error = nil;
+                          CommentData *commentData = [MTLJSONAdapter modelOfClass:[CommentData class]
+                                                               fromJSONDictionary:responseObject
+                                                                            error:&error];
+                          
+                          if (error)
+                              NSLog(@"(POST) events/id/comment/ Mantle error %@", error);
+                          
+                          success(commentData);
+                          
+                      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                          [self printError:error task:task];
+                      }];
+}
+
+-(void)getCommentsForEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail {
+    [self.requestManager setRequestSerializer:[AFJSONRequestSerializer serializer]];
+    [self.requestManager setResponseSerializer:[AFJSONResponseSerializer serializer]];
+    [self.requestManager.requestSerializer setValue:[TokenManager sharedToken].token forHTTPHeaderField:@"Authorization"];
+    
+    [self.requestManager GET:[NSString stringWithFormat:@"/events/%@/comments/", eventID]
+                  parameters:nil
+                    progress:nil
+                     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                         
+                         NSError* error;
+                         
+                         NSArray* commentsArray = [MTLJSONAdapter modelsOfClass:[CommentData class]
+                                                                  fromJSONArray:responseObject
+                                                                          error:&error];
+                         if (error) {
+                             NSLog(@"GET comments Mantle error %@", error);
+                         }
+                         success(commentsArray);
+                     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                         [self printError:error task:task];
+                     }];
+}
+
 @end
 
 

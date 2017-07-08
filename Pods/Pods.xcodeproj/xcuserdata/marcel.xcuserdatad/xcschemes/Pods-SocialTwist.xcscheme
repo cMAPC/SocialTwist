@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'D4D805163A897752EEFA0A49805872CD'
+               BlueprintIdentifier = '5804313FCD6CB24D83A806A518D13980'
                BlueprintName = 'Pods-SocialTwist'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPods-SocialTwist.a'>

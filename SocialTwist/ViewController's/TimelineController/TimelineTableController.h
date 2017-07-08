@@ -19,7 +19,7 @@
 #import "LoadingCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface TimelineTableController : UIViewController <UITableViewDelegate, UITableViewDataSource, KeyboardControllerDelegate>
+@interface TimelineTableController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) KeyboardViewController* eventCategoryKeyboard;

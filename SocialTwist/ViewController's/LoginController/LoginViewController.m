@@ -63,6 +63,7 @@
                                                  [[NSUserDefaults standardUserDefaults] setObject:[responseObject firstName]  forKey:@"name"];
                                                  [[NSUserDefaults standardUserDefaults] setObject:[responseObject lastName]  forKey:@"lastName"];
                                                  [[NSUserDefaults standardUserDefaults] setObject:[responseObject picture]  forKey:@"picture"];
+                                                 [[NSUserDefaults standardUserDefaults] setObject:[responseObject userID]  forKey:@"userID"];
                                              } fail:nil];
                                              
                                          } onFail:^(NSError *error, NSInteger statusCode) {

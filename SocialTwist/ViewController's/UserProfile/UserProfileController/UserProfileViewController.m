@@ -48,17 +48,17 @@
 
 -(void)initTableWithCustomCell {
     [self.tableView registerNib:[UINib nibWithNibName:@"UserProfileCell" bundle:nil] forCellReuseIdentifier:@"UserProfileCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"TimelineViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCell"];
+//    [self.tableView registerNib:[UINib nibWithNibName:@"TimelineViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCell"];
 }
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 1;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.row == 0){
+//    if (indexPath.row == 0){
         UserProfileCell* cell = [tableView dequeueReusableCellWithIdentifier:@"UserProfileCell"];
         [cell.nameLabel setText:[NSString stringWithFormat:@"%@ %@",
                                  userData.firstName,
@@ -110,22 +110,22 @@
         [cell.numberOfPhoto addGestureRecognizer:moveToGalerryTap];
         
         return cell;
-    }
-    else
-    {
-        EventCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
-     
-        
-        cell.eventImageView.image = [UIImage imageNamed:@"imageRight.png"];
-        cell.userImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
-        cell.eventContentLabel.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
-        
-        
-        [self adjustImageHeightForCell:cell];
-        [self adjustStringFormat:cell];
-        return cell;
-        
-    }
+//    }
+//    else
+//    {
+//        EventCell* cell = [tableView dequeueReusableCellWithIdentifier:@"CustomCell" ];
+//     
+//        
+//        cell.eventImageView.image = [UIImage imageNamed:@"imageRight.png"];
+//        cell.userImageView.image = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] profileImage];
+//        cell.eventContentLabel.text = [[EventContent sharedEventContent].eventsArray[indexPath.row -1] subtitle];
+//        
+//        
+//        [self adjustImageHeightForCell:cell];
+//        [self adjustStringFormat:cell];
+//        return cell;
+//        
+//    }
 }
 
 -(void)addFriendAction:(UIButton *)sender

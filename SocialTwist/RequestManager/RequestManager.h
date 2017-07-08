@@ -14,6 +14,7 @@
 #import "UserData.h"
 #import "FriendsData.h"
 #import "EventData.h"
+#import "CommentData.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -78,4 +79,8 @@ typedef void(^failBlock)(NSError* error, NSInteger statusCode);
 -(void)attendOnEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
 
 -(void)getAttendersForEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+
+-(void)postComment:(NSString *)text onEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+-(void)getCommentsForEventWithID:(NSString *)eventID success:(successBlock)success fail:(failBlock)fail;
+
 @end

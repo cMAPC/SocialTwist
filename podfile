@@ -7,5 +7,6 @@ target 'SocialTwist' do
    pod 'Mantle'
    pod 'SDWebImage', '~>3.8'
    pod 'DLImageLoader', '~> 2.2.0'
+   pod 'NSDate+TimeAgo'
    pod 'BIZGrid4plus1CollectionViewLayout'
 end

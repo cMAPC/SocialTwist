@@ -8,7 +8,7 @@
 
 @interface TableViewCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UIImageView *pictureImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
 @property (weak, nonatomic) IBOutlet UIView *imageBorderView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 

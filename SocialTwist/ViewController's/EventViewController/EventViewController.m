@@ -8,97 +8,179 @@
 
 #import "EventViewController.h"
 
+//#import "CalloutView.h"
+
 @interface EventViewController () {
-    CGFloat newHeight;
+    WriteCommentBox* writeCommentBoxView;
 }
 
+@property (strong, nonatomic) NSMutableArray* commentsArray;
+
 @end
+
 
 @implementation EventViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.nameLabel.text = [NSString stringWithFormat:@"%@ %@", self.event.creator.firstName, self.event.creator.lastName];
-    self.eventContentLabel.text = [NSString stringWithFormat:@"\r %@ \r", self.event.subtitle];
-    self.attendersLabel.text = [NSString stringWithFormat:@"%@ attenders \r", self.event.attenders.stringValue];
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 45, 0)];
+    [self.tableView setScrollIndicatorInsets:UIEdgeInsetsMake(0, 0, 45, 0)];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
+    [self.tableView setEstimatedRowHeight:400];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CommentCell" bundle:nil] forCellReuseIdentifier:@"CommentCell"];
+
+    // WriteCommentBox
+    writeCommentBoxView = [[WriteCommentBox alloc] init];
+    [self.view addSubview:writeCommentBoxView];
+    [writeCommentBoxView.postCommentButton addTarget:self
+                                              action:@selector(postCommentAction:)
+                                    forControlEvents:UIControlEventTouchUpInside];
     
+    // TableHeader
+    TableHeaderView* tableHeaderView = [[TableHeaderView alloc] init];
+    [self.tableView setTableHeaderView:tableHeaderView];
+    
+    tableHeaderView.nameLabel.text = [NSString stringWithFormat:@"%@ %@", self.event.creator.firstName, self.event.creator.lastName];
+    tableHeaderView.eventContentLabel.text = self.event.subtitle;
+    tableHeaderView.attendersLabel.text = [NSString stringWithFormat:@"%@ attenders", self.event.attenders.stringValue];
+
     if (self.event.creator.picture) // ???????
-        self.userImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:self.event.creator.thumbnail];
+        tableHeaderView.userImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:self.event.creator.thumbnail];
     else
-        self.userImageView.image = [UIImage imageNamed:@"avatar.jpg"];
+        tableHeaderView.userImageView.image = [UIImage imageNamed:@"avatar.jpg"];
     
     if (self.event.picture) {
-        self.eventImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:self.event.picture];
-        [self adjustEventImageViewHeight];
+        tableHeaderView.eventImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:self.event.picture];
     }
+    
+    [tableHeaderView.attendButton addTarget:self
+                                     action:@selector(attendAction:)
+                           forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer* userInfoTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewUserProfile:)];
+    [tableHeaderView.userInfoView addGestureRecognizer:userInfoTapGesture];
     
     UITapGestureRecognizer* tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewAttendersAction:)];
-    [self.attendersLabel addGestureRecognizer:tapGesture];
-}
-
--(void)updateViewConstraints {
-    [super updateViewConstraints];
-    [self.eventImageView addConstraint:[NSLayoutConstraint constraintWithItem:self.eventImageView
-                                                                    attribute:NSLayoutAttributeHeight
-                                                                    relatedBy:NSLayoutRelationEqual
-                                                                       toItem:nil
-                                                                    attribute:NSLayoutAttributeNotAnAttribute
-                                                                   multiplier:1.0
-                                                                     constant:newHeight]];
+    [tableHeaderView.attendersLabel addGestureRecognizer:tapGesture];
     
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    BOOL endOfTable = (scrollView.contentOffset.y >= ((40 * 40) - scrollView.frame.size.height)); // Here 40 is row height
-    
-    if (endOfTable && !scrollView.dragging && !scrollView.decelerating)
-    {
-        [self.tableView setScrollEnabled:YES];
-    }
-    
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    [[RequestManager sharedManager] getCommentsForEventWithID:self.event.eventID.stringValue
+                                                      success:^(id responseObject) {
+                                                          self.commentsArray = [NSMutableArray arrayWithArray:responseObject];
+                                                          [self.tableView reloadData];
+                                                      } fail:^(NSError *error, NSInteger statusCode) {
+                                                          
+                                                      }];
+
 }
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 40;
+    return [self.commentsArray count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"DefaultCell"];
+    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentCell"];
+
+    CommentData *comment = self.commentsArray[indexPath.row];
+    NSString *userImageURL = comment.author.thumbnail;
     
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DefaultCell"];
+    cell.commentLabel.text = comment.text;
+    cell.nameLabel.text = [NSString stringWithFormat:@"%@ %@", comment.author.firstName, comment.author.lastName];
+    cell.timeLabel.text = [[self convertDate:comment.timestamp] dateTimeAgo];
+    
+    if ([[SDImageCache sharedImageCache] diskImageExistsWithKey:userImageURL]) {
+        cell.userImageView.image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:userImageURL];
     }
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    else
+    {
+        [cell.userImageView sd_setImageWithURL:[NSURL URLWithString:userImageURL]
+                              placeholderImage:[UIImage imageNamed:@"avatar.jpg"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                         if (!image)
+                                             cell.userImageView.image = [UIImage imageNamed:@"avatar.jpg"];
+                                         
+                                         [cell layoutSubviews];
+                                     }];
+    }
     
     return cell;
 }
 
-#pragma mark - Adjustments
--(void)adjustEventImageViewHeight {
-    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-    newHeight = screenWidth / self.eventImageView.image.size.width * self.eventImageView.image.size.height;
-    [self.eventImageView removeConstraint:self.eventImageView.constraints.lastObject];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UserProfileViewController* profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
+    
+    CommentData *comment = self.commentsArray[indexPath.row];
+    profileViewController.userID = comment.author.userID.stringValue;
+    [self.navigationController pushViewController:profileViewController animated:YES];
 }
 
-#pragma mark - Actions
-- (IBAction)attendAction:(UIButton *)sender {
+#pragma mark - WriteCommentBox View Action's
+-(void)postCommentAction:(UIButton *)sender {
+    [[RequestManager sharedManager] postComment:writeCommentBoxView.writeCommentTextView.text
+                                  onEventWithID:self.event.eventID.stringValue
+                                        success:^(id responseObject) {
+                                            [self.view endEditing:YES];
+                                            [writeCommentBoxView setPlaceholderOnTextView:writeCommentBoxView.writeCommentTextView];
+                                            
+                                            NSMutableArray *temp = [NSMutableArray array];
+                                            [temp insertObject:responseObject atIndex:0];
+                                            [temp addObjectsFromArray:self.commentsArray];
+                                            self.commentsArray = [NSMutableArray arrayWithArray:temp];
+                                            
+                                            [self.tableView beginUpdates];
+                                            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+                                            [self.tableView insertRowsAtIndexPaths:@[indexPath]
+                                                                  withRowAnimation:UITableViewRowAnimationTop];
+                                            [self.tableView endUpdates];
+                                        } fail:^(NSError *error, NSInteger statusCode) {
+                                            
+                                        }];
+}
+
+#pragma mark - Table HeaderView Action's
+-(void)viewUserProfile:(UIGestureRecognizer *)sender {
+    UserProfileViewController* profileViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
+    
+    profileViewController.userID = self.event.creator.userID.stringValue;
+    [self.navigationController pushViewController:profileViewController animated:YES];
+}
+-(void)attendAction:(UIButton *)sender {
     [[RequestManager sharedManager] attendOnEventWithID:self.event.eventID.stringValue
                                                 success:^(id responseObject) {
                                                     NSLog(@"Attend response - %@", responseObject);
                                                 } fail:^(NSError *error, NSInteger statusCode) {
-                                                    
+
                                                 }];
 }
 
--(void)viewAttendersAction:(UIGestureRecognizer *)gesture {
+-(void)viewAttendersAction:(UIGestureRecognizer *)sender {
     NSLog(@"Tapped");
     AttendersViewController* attendersViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AttendersViewControllerID"];
     
     attendersViewController.eventID = self.event.eventID.stringValue;
     [self.navigationController pushViewController:attendersViewController animated:YES];
 }
+
+#pragma mark - Helpers
+-(NSDate *)convertDate:(NSString *)date {
+    NSDateFormatter* dateFormmater = [[NSDateFormatter alloc] init];
+    NSString *year = [date stringByReplacingOccurrencesOfString:@"T" withString:@" "];
+    NSCharacterSet *delimiters = [NSCharacterSet characterSetWithCharactersInString:@"."];
+    NSArray *splitString = [year componentsSeparatedByCharactersInSet:delimiters];
+    year = [splitString objectAtIndex:0];
+    
+    [dateFormmater setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    dateFormmater.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    NSDate *temp = [[NSDate alloc] init];
+    temp = [dateFormmater dateFromString:year];
+    
+    return temp;
+}
+
 @end

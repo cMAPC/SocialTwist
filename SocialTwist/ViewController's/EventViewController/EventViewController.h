@@ -11,17 +11,15 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "RequestManager.h"
 #import "EventData.h"
+#import "CommentData.h"
 #import "AttendersViewController.h"
+#import "UserProfileViewController.h"
+#import "WriteCommentBox.h"
+#import "CommentCell.h"
+#import "TableHeaderView.h"
+#import <NSDate+TimeAgo.h>
 
-@interface EventViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *eventContentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *attendersLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *eventImageView;
-
-@property (weak, nonatomic) IBOutlet UIButton *attendButton;
+@interface EventViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) EventData* event;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

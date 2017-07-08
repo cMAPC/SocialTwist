@@ -142,9 +142,9 @@
     
     NSInteger age = [ageComponents year];
     
-    NSLog(@"birthday - %@", [dateFormatter stringFromDate:currentDate]);
-    NSLog(@"current date - %@", [dateFormatter stringFromDate:birthday]);
-    NSLog(@"User age is - %ld", (long)age);
+//    NSLog(@"birthday - %@", [dateFormatter stringFromDate:currentDate]);
+//    NSLog(@"current date - %@", [dateFormatter stringFromDate:birthday]);
+//    NSLog(@"User age is - %ld", (long)age);
     
     return age;
 }

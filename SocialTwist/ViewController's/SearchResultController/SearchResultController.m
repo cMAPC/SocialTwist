@@ -71,7 +71,8 @@
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UserProfileViewController* userProfileController = [storyboard instantiateViewControllerWithIdentifier:@"UserProfileControllerID"];
     
-    [userProfileController setUserID:[[self.searchResult objectAtIndex:indexPath.row] valueForKey:@"userID"]];
+    UserData *user = self.searchResult[indexPath.row];
+    [userProfileController setUserID:user.userID.stringValue];
     
     [self.presentingViewController.navigationController pushViewController:userProfileController animated:YES];
 }
