@@ -68,10 +68,11 @@
         [cell.ageAndLocationLabel setText:[NSString stringWithFormat:@"%ld years old",
                                            (long)[self getAgeFromDate:userData.birthday]
                                            ]];
-        [[DLImageLoader sharedInstance] imageFromUrl:userData.picture
-                                           completed:^(NSError *error, UIImage *image) {
-                                               cell.profilePhotoimageView.image = image;
-                                           }];
+//        [[DLImageLoader sharedInstance] imageFromUrl:userData.picture
+//                                           completed:^(NSError *error, UIImage *image) {
+//                                               cell.profilePhotoimageView.image = image;
+//                                           }];
+    cell.profilePhotoimageView.image = [UIImage imageNamed:@"image-after.jpg"];
     
         [cell.numberOFFriends addTarget:self
                                  action:@selector(showListOfFriendsAction)

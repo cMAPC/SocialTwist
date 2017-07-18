@@ -380,7 +380,7 @@
 
 -(void)parseEvents
 {
-    /*
+    
     __block NSMutableArray* array = [[NSMutableArray alloc] init];
     CLLocationCoordinate2D coordinates = CLLocationCoordinate2DMake(self.mapView.centerCoordinate.latitude,
                                                                     self.mapView.centerCoordinate.longitude);
@@ -440,7 +440,7 @@
         
         [self.mapView addAnnotations:array];
     });
-     */
+     
 }
 
 
